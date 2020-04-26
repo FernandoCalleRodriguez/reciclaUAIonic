@@ -5,31 +5,40 @@
 </ion-header>
 
 <ion-content>
-    <form>
+    <form (ngSubmit)="onRegister()" [formGroup]="formularioCrear">
         <ion-item lines="full">
             <ion-label position="floating">Nombre</ion-label>
-            <ion-input type="text" required></ion-input>
+            <ion-input
+                    type="text"
+                    formControlName="name"
+            ></ion-input>
         </ion-item>
 
         <ion-item lines="full">
             <ion-label position="floating">Apellidos</ion-label>
-            <ion-input type="text" required></ion-input>
+            <ion-input type="text" formControlName="surname"
+            ></ion-input>
         </ion-item>
 
         <ion-item lines="full">
             <ion-label position="floating">Correo electrónico</ion-label>
-            <ion-input type="text" required></ion-input>
+            <ion-input type="text" formControlName="email"></ion-input>
         </ion-item>
 
         <ion-item lines="full">
             <ion-label position="floating">Contraseña</ion-label>
-            <ion-input type="password" required></ion-input>
+            <ion-input type="password" formControlName="pwd"
+            ></ion-input>
+        </ion-item>
+        <ion-item lines="full">
+            <ion-label position="floating">Repetir Contraseña</ion-label>
+            <ion-input type="password" formControlName="pwd2"
+            ></ion-input>
         </ion-item>
 
         <ion-row>
             <ion-col>
-                <ion-button type="submit" color="danger" expand="block">Registrate</ion-button>
-
+                <ion-button type="submit" color="primary" expand="block">Registrate</ion-button>
             </ion-col>
         </ion-row>
         <ion-row>
