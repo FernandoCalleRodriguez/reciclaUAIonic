@@ -32,12 +32,15 @@ export class LoginPage implements OnInit {
       Pass: this.formularioLogin.value.pwd,
 
     };
+    console.log(this.usuario.Email);
+    console.log(this.usuario.Pass);
 
     this.autenticacionService.Login(this.usuario).subscribe(
         data => {
           this.router.navigate(['/home']);
         }, error => {
           //this.toaster.error(' Las ceredenciales introducidas no son correctas');
+          console.log("Error");
         }
     );
   }
