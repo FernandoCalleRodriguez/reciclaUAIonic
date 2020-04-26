@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>login</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form  (ngSubmit)="onLogin()" [formGroup]="formularioLogin">
+        <ion-item lines="full">
+            <ion-label position="floating">Correo Electrónico</ion-label>
+            <ion-input type="email"
+                       formControlName="email"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" required></ion-input>
+        </ion-item>
+
+        <ion-row>
+            <ion-col>
+                <ion-button type="submit" color="primary" expand="block">Inicia sesión</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-text> ¿Todavía no tienes cuenta? <a [routerLink]="['/registro']" class="small-text"> Registrate
+                    aquí!</a></ion-text>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-text> ¿Has olvidado tu contraseña? <a [routerLink]="['/recuperarcontrasena']" class="small-text">
+                    Recuperala aquí!</a></ion-text>
+            </ion-col>
+        </ion-row>
+    </form>
+</ion-content>
