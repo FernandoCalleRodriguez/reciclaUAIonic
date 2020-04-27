@@ -15,7 +15,8 @@ export class UsuarioService {
     }
 
     CrearUsuario(usuario: Usuario, tipo: string): Observable<Usuario> {
-        return this.http.post<Usuario>(this.SERVER + 'UsuarioWebNoRegistrado/Crear', usuario, this.getHeaderToken());
+        console.log(usuario);
+        return this.http.post<Usuario>(this.SERVER + 'UsuarioWebNoRegistrado/Crear', usuario);
 
     }
 
