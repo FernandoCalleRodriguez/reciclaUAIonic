@@ -68,7 +68,7 @@ export class UsuarioService {
 
     recuperarPass(usuario: Usuario): Observable<void> {
         // tslint:disable-next-line:max-line-length
-        return this.http.put<void>(this.SERVER + 'UsuarioWebNoRegistrado/CambiarPassword?p_oid=sad&p_pass=' + usuario.Id, usuario);
+        return this.http.put<void>(this.SERVER + 'UsuarioWebNoRegistrado/CambiarPassword?idUsuarioWebNoRegistrado=' + usuario.Id, usuario);
 
     }
 
