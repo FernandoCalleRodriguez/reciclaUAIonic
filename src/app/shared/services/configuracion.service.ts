@@ -15,10 +15,10 @@ export class ConfiguracionService {
         return new Promise<{ [p: string]: boolean }>(resolve => {
             this.usuarioService.obtenerUsuarioPorEmail(email).subscribe(result => {
                 if ((result && !usuario) || (result && usuario && result.Id != usuario.Id)) {
-                    console.log(' Emmail no valido');
+                    console.log(' Email no valido');
                     return resolve({emailEsNoValido: true});
                 } else {
-                    console.log(' Emmail valido');
+                    console.log(' Email valido');
                     return resolve(null);
 
                 }

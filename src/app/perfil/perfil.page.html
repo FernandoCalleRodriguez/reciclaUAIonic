@@ -1,9 +1,33 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>perfil</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Mi perfil</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-list>
+
+        <ion-list-header lines="none">
+
+            <ion-label>
+                {{usuario?.Nombre}}
+                <h3><strong>Apellidos:</strong>{{usuario?.Apellidos}}</h3>
+                <h3><strong>Email:</strong>{{usuario?.Email}}</h3>
+            </ion-label>
+        </ion-list-header>
+      <ion-item-divider></ion-item-divider>
+        <ion-item-group>
+            <ion-item detail>
+                <ion-label>Cambiar contraseña</ion-label>
+            </ion-item>
+            <ion-item detail>
+                <ion-label>Modificar datos</ion-label>
+            </ion-item>
+            <ion-item detail>
+                <ion-label>Eliminar cuenta</ion-label>
+            </ion-item>
+
+        </ion-item-group>
+    </ion-list>
 
 </ion-content>
