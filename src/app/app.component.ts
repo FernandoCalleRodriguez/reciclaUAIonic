@@ -41,6 +41,11 @@ export class AppComponent implements OnInit {
         private usuarioService: UsuarioService,
     ) {
         this.initializeApp();
+        if (this.autenticacionService.isLogged()) {
+            this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(result => {
+                this.usuario = result;
+            });
+        }
     }
 
     initializeApp() {
@@ -56,10 +61,6 @@ export class AppComponent implements OnInit {
             this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
         }
 
-        if (this.autenticacionService.isLogged()) {
-            this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(result => {
-                this.usuario = result;
-            });
-        }
+
     }
 }
