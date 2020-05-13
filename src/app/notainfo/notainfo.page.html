@@ -6,13 +6,13 @@
 
 <ion-content>
 
-  <ion-card *ngFor="let nota of Notas" color="warning">
+  <ion-card *ngFor="let nota of Notas" color="warning" (click)="verNotaDetalle(nota?.Id)">
     <ion-card-header>
-      <ion-card-title>{{nota.Titulo}}</ion-card-title>
+      <ion-card-title>{{nota?.Titulo}} {{nota?.Id}}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
-      {{nota.Cuerpo.substring(0,50) + '.....'}}
+      {{nota?.Cuerpo.substring(0,50) + '.....'}}
     </ion-card-content>
   </ion-card>
 

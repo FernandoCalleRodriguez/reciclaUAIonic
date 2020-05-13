@@ -27,4 +27,8 @@ export class NotainfoPage implements OnInit {
   ngOnInit() {
   }
 
+  verNotaDetalle(id): void {
+    this.router.navigate(['/notainfodetalle', id]);
+  }
+
 }
