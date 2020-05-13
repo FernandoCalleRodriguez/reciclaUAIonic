@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AutenticacionService} from '../shared/services/autenticacion.service';
-import {UsuarioService} from '../shared/services/usuario.service';
-import {Usuario} from '../shared/models/usuario';
+import {AutenticacionService} from '../../shared/services/autenticacion.service';
+import {UsuarioService} from '../../shared/services/usuario.service';
+import {Usuario} from '../../shared/models/usuario';
 
 @Component({
   selector: 'app-perfil',
