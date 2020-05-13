@@ -1,9 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>notainfo</ion-title>
+    <ion-title>Nota Informativa</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-card *ngFor="let nota of Notas" color="warning">
+    <ion-card-header>
+      <ion-card-title>{{nota.Titulo}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{nota.Cuerpo.substring(0,50) + '.....'}}
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>
