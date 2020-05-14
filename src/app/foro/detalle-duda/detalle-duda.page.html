@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Detalle</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                {{ duda?.Titulo }}
+            </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <p class="ion-text-wrap">
+                {{ duda?.Cuerpo }}
+            </p>
+        </ion-card-content>
+
+        <ion-label>
+            <p class="ion-text-right" style="margin-right: 10px; margin-bottom: 10px" slot="end">
+                {{ duda?.UsuarioDuda.Nombre }}, {{ duda?.Fecha | date: "dd/MM/yyyy 'a las' hh:mm"}}
+            </p>
+        </ion-label>
+    </ion-card>
+    <ion-card *ngIf="respuestas && respuestas.length">
+        <ion-card-header>
+            <ion-card-title>
+                Respuestas
+            </ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content style="padding-left: 0px">
+            <ion-list style="padding-top: 0px">
+                <ion-item *ngFor="let respuesta of respuestas">
+                    <ion-grid style="padding-left: 0px; padding-right: 0px">
+                        <ion-row>
+                            <ion-col>
+                                <p class="ion-text-wrap">{{ respuesta.Cuerpo }}</p>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col style="padding-right: 0px">
+                                <ion-label>
+                                    <p class="ion-text-right" slot="end">
+                                        {{ respuesta?.UsuarioRespuesta.Nombre }}
+                                    </p>
+                                    <p class="ion-text-right" slot="end">
+                                        {{ respuesta?.Fecha | date: "dd/MM/yyyy 'a las' hh:mm"}}
+                                    </p>
+                                </ion-label>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+
+    </ion-card>
+</ion-content>

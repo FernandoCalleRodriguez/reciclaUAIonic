@@ -38,7 +38,12 @@ const routes: Routes = [
   {
     path: 'foro',
     loadChildren: () => import('./foro/lista-dudas/lista-dudas.module').then( m => m.ListaDudasPageModule)
+  },
+  {
+    path: 'foro/duda/:id',
+    loadChildren: () => import('./foro/detalle-duda/detalle-duda.module').then( m => m.DetalleDudaPageModule)
   }
+
 
 ];
 
