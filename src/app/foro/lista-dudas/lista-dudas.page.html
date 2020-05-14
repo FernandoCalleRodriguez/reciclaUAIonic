@@ -5,13 +5,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-item-divider>
-      <ion-card-header>
-        <ion-card-title>Foro</ion-card-title>
-      </ion-card-header>
-    </ion-item-divider>
-    <ion-card-content>
-    </ion-card-content>
-  </ion-card>
+  <mat-accordion *ngIf="temas">
+    <mat-expansion-panel *ngFor="let tema of temas">
+      <mat-expansion-panel-header>
+        {{ tema.Tema }}
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+  </mat-accordion>
 </ion-content>
