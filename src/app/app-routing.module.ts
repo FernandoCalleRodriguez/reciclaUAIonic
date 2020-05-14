@@ -34,10 +34,15 @@ const routes: Routes = [
   {
     path: 'notainfo',
     loadChildren: () => import('./notainfo/notainfo.module').then( m => m.NotainfoPageModule)
-  },  {
-    path: 'modificarusuario',
+  },
+  {
+    path: 'modificar',
     loadChildren: () => import('./usuario/modificarusuario/modificarusuario.module').then( m => m.ModificarusuarioPageModule)
+  },  {
+    path: 'cambiarcontrasena',
+    loadChildren: () => import('./usuario/cambiarcontrasena/cambiarcontrasena.module').then( m => m.CambiarcontrasenaPageModule)
   }
+
 
 ];
 

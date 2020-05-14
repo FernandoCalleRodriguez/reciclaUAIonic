@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UsuarioService} from '../../shared/services/usuario.service';
 import {ConfiguracionService} from '../../shared/services/configuracion.service';
 import {Router} from '@angular/router';
+import {ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-registro',
@@ -17,7 +18,8 @@ export class RegistroPage implements OnInit {
 
     constructor(private usuarioService: UsuarioService,
                 private configuracionService: ConfiguracionService,
-                private router: Router) {
+                private router: Router,
+                private toastController: ToastController) {
     }
 
     ngOnInit() {
@@ -51,22 +53,28 @@ export class RegistroPage implements OnInit {
         this.usuarioService.CrearUsuario(this.usuario, 'web').subscribe(
             data => {
                 if (data === null) {
-                    //this.toaster.error(' El Usuario no se ha podido crear vuelva a probar más tarde');
-                    console.log(' El Usuario no se ha podido crear vuelva a probar más tarde');
+                    this.presentToast(' El Usuario no se ha podido crear vuelva a probar más tarde', 'danger');
 
                 } else {
-                    //this.toaster.success(' El Usuario se ha creado con éxito');
+                    this.presentToast(' El Usuario se ha creado con éxito', 'success');
                     this.router.navigate(['/login']);
-                    console.log(' El Usuario se ha creado con éxito');
 
                 }
 
             }, error => {
-                //this.toaster.error(' El Usuario no se ha podido crear vuelva a probar más tarde');
-                console.log(' El Usuario no se ha podido crear vuelva a probar más tarde' + error);
+                this.presentToast(' El Usuario no se ha podido crear vuelva a probar más tarde', 'danger');
 
 
             }
         );
+    }
+    async presentToast(messagetext, color) {
+        const toast = await this.toastController.create({
+            message: messagetext,
+            duration: 2000,
+            color: color
+
+        });
+        toast.present();
     }
 }
