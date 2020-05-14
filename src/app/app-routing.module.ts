@@ -34,7 +34,12 @@ const routes: Routes = [
   {
     path: 'notainfo',
     loadChildren: () => import('./notainfo/notainfo.module').then( m => m.NotainfoPageModule)
+  },
+  {
+    path: 'foro',
+    loadChildren: () => import('./foro/lista-dudas/lista-dudas.module').then( m => m.ListaDudasPageModule)
   }
+
 ];
 
 @NgModule({
