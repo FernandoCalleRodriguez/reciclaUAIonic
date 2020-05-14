@@ -1,15 +1,52 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Índice de dudas</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Índice de dudas</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <mat-accordion *ngIf="temas">
-    <mat-expansion-panel *ngFor="let tema of temas">
-      <mat-expansion-panel-header>
-        {{ tema.Tema }}
-      </mat-expansion-panel-header>
-    </mat-expansion-panel>
-  </mat-accordion>
+    <mat-accordion *ngIf="temas">
+        <mat-expansion-panel *ngFor="let tema of temas">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{ tema.Tema }}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-accordion *ngIf="dudas[tema.Id] && dudas[tema.Id].length > 0">
+                <mat-expansion-panel *ngFor="let duda of dudas[tema.Id]">
+                    <mat-expansion-panel-header>
+                        <ion-col size-xs="12" size-md="6">
+                            <p class="ion-text-wrap">
+                                {{ duda.Titulo }}
+                            </p>
+                        </ion-col>
+                        <ion-col class="ion-hide-md-down" size-md="3">
+                            <p class="ion-text-center">
+                                {{ duda.UsuarioDuda.Nombre }} <br>
+                                {{ duda.Fecha | date: 'dd/MM/yyyy - hh:mm'}}
+                            </p>
+                        </ion-col>
+                        <ion-col class="ion-hide-md-down" size-md="3">
+                            <p class="ion-text-center">
+                                {{ duda.ObtenerNumeroDeRespuestas }} respuestas
+                            </p>
+                        </ion-col>
+                    </mat-expansion-panel-header>
+
+                    <p class="ion-text-wrap">
+                        {{ duda.Cuerpo }}
+                    </p>
+
+                    <mat-action-row>
+                        <ion-button color="primary">Ver respuestas</ion-button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <ng-container *ngIf="!dudas[tema.Id] || !dudas[tema.Id].length">
+                Actualmente vacío. <a routerLink="/home">Añadir {{ tema.Tema.toLowerCase() }}. </a>
+            </ng-container>
+        </mat-expansion-panel>
+    </mat-accordion>
 </ion-content>
