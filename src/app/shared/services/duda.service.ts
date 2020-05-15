@@ -28,7 +28,7 @@ export class DudaService {
   }
 
   public crear(duda: Duda): Observable<Duda> {
-    return this.http.post<Duda>(this.SERVER + 'Duda/Crear', duda, {headers: this.headers});
+    return this.http.post<Duda>(this.SERVER + 'Duda/CrearCP', duda, {headers: this.headers});
   }
 
   public modificar(duda: Duda): Observable<Duda> {
