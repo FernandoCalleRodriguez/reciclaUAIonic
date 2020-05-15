@@ -7,9 +7,15 @@
 <ion-content>
     <ion-card>
         <ion-card-header>
-            <ion-card-title>
-                {{ duda?.Titulo }}
-            </ion-card-title>
+            <ion-item class="ion-no-padding">
+                <ion-label class="ion-text-wrap duda-title">{{ duda?.Titulo }}</ion-label>
+                <ion-button *ngIf="usuario && usuario.Id === duda.UsuarioDuda.Id">
+                    <ion-icon name="pencil"></ion-icon>
+                </ion-button>
+                <ion-button *ngIf="usuario && usuario.Id === duda.UsuarioDuda.Id" color="danger">
+                    <ion-icon name="trash"></ion-icon>
+                </ion-button>
+            </ion-item>
         </ion-card-header>
         <ion-card-content>
             <p class="ion-text-wrap">
@@ -18,8 +24,13 @@
         </ion-card-content>
 
         <ion-label>
-            <p class="ion-text-right" style="margin-right: 10px; margin-bottom: 10px" slot="end">
-                {{ duda?.UsuarioDuda.Nombre }}, {{ duda?.Fecha | date: "dd/MM/yyyy 'a las' hh:mm"}}
+            <p class="ion-text-right mr-1 mb-1 ion-hide-sm-up" slot="end">
+                <small>
+                    {{ duda?.UsuarioDuda.Nombre }} <br> {{ duda?.Fecha | date: "hh:mm, dd/MM/yyyy"}}
+                </small>
+            </p>
+            <p class="ion-text-right mr-1 mb-1 ion-hide-sm-down" slot="end">
+                {{ duda?.UsuarioDuda.Nombre }} <br> {{ duda?.Fecha | date: "hh:mm, dd/MM/yyyy"}}
             </p>
         </ion-label>
     </ion-card>
@@ -30,23 +41,38 @@
             </ion-card-title>
         </ion-card-header>
 
-        <ion-card-content style="padding-left: 0px">
-            <ion-list style="padding-top: 0px">
+        <ion-card-content class="pl-0">
+            <ion-list class="pt-0">
                 <ion-item *ngFor="let respuesta of respuestas">
-                    <ion-grid style="padding-left: 0px; padding-right: 0px">
+                    <ion-grid class="pl-0 pt-0 pb-0 pr-0">
                         <ion-row>
-                            <ion-col>
+                            <ion-col class="pb-0">
+                                <ion-item lines="none" class="ion-no-padding">
+                                    <ion-label class="ion-text-wrap usuario-respuesta">{{ respuesta?.UsuarioRespuesta.Nombre }}</ion-label>
+                                    <ion-button *ngIf="usuario && usuario.Id === respuesta?.UsuarioRespuesta.Id">
+                                        <ion-icon name="pencil"></ion-icon>
+                                    </ion-button>
+                                    <ion-button *ngIf="usuario && usuario.Id === respuesta?.UsuarioRespuesta.Id" color="danger">
+                                        <ion-icon name="trash"></ion-icon>
+                                    </ion-button>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="pr-0 pt-0">
                                 <p class="ion-text-wrap">{{ respuesta.Cuerpo }}</p>
                             </ion-col>
                         </ion-row>
                         <ion-row>
-                            <ion-col style="padding-right: 0px">
+                            <ion-col class="pr-0">
                                 <ion-label>
-                                    <p class="ion-text-right" slot="end">
-                                        {{ respuesta?.UsuarioRespuesta.Nombre }}
+                                    <p class="ion-text-right ion-hide-sm-up" slot="end">
+                                        <small>
+                                            {{ respuesta?.Fecha | date: "hh:mm, dd/MM/yyyy"}}
+                                        </small>
                                     </p>
-                                    <p class="ion-text-right" slot="end">
-                                        {{ respuesta?.Fecha | date: "dd/MM/yyyy 'a las' hh:mm"}}
+                                    <p class="ion-text-right ion-hide-sm-down" slot="end">
+                                        {{ respuesta?.Fecha | date: "hh:mm, dd/MM/yyyy"}}
                                     </p>
                                 </ion-label>
                             </ion-col>
