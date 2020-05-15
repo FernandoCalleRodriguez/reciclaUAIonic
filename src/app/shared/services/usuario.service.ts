@@ -91,7 +91,7 @@ export class UsuarioService {
 
     public getLoggedUser(): Observable<Usuario> {
         if (this.autenticacionService.isLogged()) {
-            return this.obtenerUsuarioPorId(this.autenticacionService.getID(), 'administrador');
+            return this.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web');
         }
         return null;
     }
