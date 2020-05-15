@@ -9,11 +9,11 @@ const routes: Routes = [
   },
   {
     path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    loadChildren: () => import('./folder/folder.module').then(m => m.FolderPageModule)
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'registro',
@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
     path: 'perfil',
@@ -33,17 +33,29 @@ const routes: Routes = [
   },
   {
     path: 'notainfo',
-    loadChildren: () => import('./notainfo/notainfo.module').then( m => m.NotainfoPageModule)
+    loadChildren: () => import('./notainfo/notainfo.module').then(m => m.NotainfoPageModule)
   },
   {
     path: 'modificar',
-    loadChildren: () => import('./usuario/modificarusuario/modificarusuario.module').then( m => m.ModificarusuarioPageModule)
-  },  {
+    loadChildren: () => import('./usuario/modificarusuario/modificarusuario.module').then(m => m.ModificarusuarioPageModule)
+  },
+  {
     path: 'cambiarcontrasena',
-    loadChildren: () => import('./usuario/cambiarcontrasena/cambiarcontrasena.module').then( m => m.CambiarcontrasenaPageModule)
+    loadChildren: () => import('./usuario/cambiarcontrasena/cambiarcontrasena.module').then(m => m.CambiarcontrasenaPageModule)
+  },
+
+  {
+    path: 'notainfo',
+    loadChildren: () => import('./notainfo/notainfo.module').then(m => m.NotainfoPageModule)
+  },
+  {
+    path: 'foro',
+    loadChildren: () => import('./foro/lista-dudas/lista-dudas.module').then(m => m.ListaDudasPageModule)
+  },
+  {
+    path: 'foro/duda/:id',
+    loadChildren: () => import('./foro/detalle-duda/detalle-duda.module').then(m => m.DetalleDudaPageModule)
   }
-
-
 ];
 
 @NgModule({
@@ -52,4 +64,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -23,8 +23,12 @@ export class DudaService {
     return this.http.get<Duda>(this.SERVER + 'Duda/' + id, {headers: this.headers});
   }
 
+  public getDudasByTema(tema: number): Observable<Duda[]> {
+    return this.http.get<Duda[]>(this.SERVER + 'Duda/BuscarDudaPorTema?p_tema=' + tema, {headers: this.headers});
+  }
+
   public crear(duda: Duda): Observable<Duda> {
-    return this.http.post<Duda>(this.SERVER + 'Duda/Crear', duda, {headers: this.headers});
+    return this.http.post<Duda>(this.SERVER + 'Duda/CrearCP', duda, {headers: this.headers});
   }
 
   public modificar(duda: Duda): Observable<Duda> {

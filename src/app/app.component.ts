@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     public appPages = [
         {
             title: 'Foro',
-            url: '/home',
+            url: '/foro',
             icon: 'list'
         },
         {
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
         private platform: Platform,
         private splashScreen: SplashScreen,
         private statusBar: StatusBar,
-        private autenticacionService: AutenticacionService,
+        public autenticacionService: AutenticacionService,
         private usuarioService: UsuarioService,
     ) {
         this.initializeApp();

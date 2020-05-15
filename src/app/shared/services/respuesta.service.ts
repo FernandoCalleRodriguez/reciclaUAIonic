@@ -28,7 +28,7 @@ export class RespuestaService {
   }
 
   public crear(respuesta: Respuesta): Observable<Respuesta> {
-    return this.http.post<Respuesta>(this.SERVER + 'Respuesta/Crear', respuesta, {headers: this.headers});
+    return this.http.post<Respuesta>(this.SERVER + 'Respuesta/CrearCP', respuesta, {headers: this.headers});
   }
 
   public modificar(respuesta: Respuesta): Observable<Respuesta> {
