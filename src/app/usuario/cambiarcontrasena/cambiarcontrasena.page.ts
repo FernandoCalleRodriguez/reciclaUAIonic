@@ -20,8 +20,8 @@ export class CambiarcontrasenaPage implements OnInit {
     constructor(private usuarioService: UsuarioService,
                 private configuracionService: ConfiguracionService,
                 private router: Router,
-                private toastController: ToastController,
-                private autenticacionService: AutenticacionService) {
+                private autenticacionService: AutenticacionService,
+) {
         this.usuarioService.getLoggedUser().subscribe(u => {
             this.usuario = u;
 
@@ -61,12 +61,6 @@ export class CambiarcontrasenaPage implements OnInit {
     }
 
     async presentToast(messagetext, color) {
-        const toast = await this.toastController.create({
-            message: messagetext,
-            duration: 2000,
-            color: color
-
-        });
-        toast.present();
+        this.configuracionService.presentToast(messagetext, color);
     }
 }

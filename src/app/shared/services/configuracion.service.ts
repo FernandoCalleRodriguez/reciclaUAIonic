@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Usuario} from '../models/usuario';
 import {UsuarioService} from './usuario.service';
+import {ToastController} from '@ionic/angular';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ConfiguracionService {
 
-    constructor(private usuarioService: UsuarioService) {
+    constructor(private usuarioService: UsuarioService,
+                private toastController: ToastController) {
     }
 
     esEmailRepetido(email: string, usuario: Usuario): Promise<{ [s: string]: boolean }> {
@@ -28,5 +30,15 @@ export class ConfiguracionService {
             });
 
         });
+    }
+
+    async presentToast(messagetext, color) {
+        const toast = await this.toastController.create({
+            message: messagetext,
+            duration: 2000,
+            color: color
+
+        });
+        toast.present();
     }
 }

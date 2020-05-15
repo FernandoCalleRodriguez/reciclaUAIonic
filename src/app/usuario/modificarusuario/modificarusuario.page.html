@@ -1,35 +1,42 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>modificarusuario</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text=""  defaultHref="perfil"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="onModify()" [formGroup]="formularioModificar">
-    <ion-item lines="full">
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input
-              type="text"
-              formControlName="name"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item lines="full">
-      <ion-label position="floating">Apellidos</ion-label>
-      <ion-input type="text" formControlName="surname"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item lines="full">
-      <ion-label position="floating">Correo electrónico</ion-label>
-      <ion-input type="text" formControlName="email"></ion-input>
-    </ion-item>
-
-
     <ion-row>
-      <ion-col>
-        <ion-button type="submit" color="primary" expand="block">Modificar</ion-button>
-      </ion-col>
+        <ion-col size="12" size-sm="10" offset-sm="1" size-md="8" offset-md="2" size-lg="6" offset-lg="3">
+            <form (ngSubmit)="onModify()" [formGroup]="formularioModificar">
+                <ion-item lines="full">
+                    <ion-label position="floating">Nombre</ion-label>
+                    <ion-input
+                            type="text"
+                            formControlName="name"
+                    ></ion-input>
+                </ion-item>
+
+                <ion-item lines="full">
+                    <ion-label position="floating">Apellidos</ion-label>
+                    <ion-input type="text" formControlName="surname"
+                    ></ion-input>
+                </ion-item>
+
+                <ion-item lines="full">
+                    <ion-label position="floating">Correo electrónico</ion-label>
+                    <ion-input type="text" formControlName="email"></ion-input>
+                </ion-item>
+                <ion-row>
+                    <ion-col class="ion-hide-sm-up">
+                        <ion-button type="submit" color="primary" expand="block">Modificar</ion-button>
+                    </ion-col>
+                    <ion-col class="ion-hide-sm-down">
+                        <ion-button type="submit" color="primary" expand="block">Modificar</ion-button>
+                    </ion-col>
+                </ion-row>
+            </form>
+        </ion-col>
     </ion-row>
-  </form>
 </ion-content>

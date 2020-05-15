@@ -18,8 +18,7 @@ export class RegistroPage implements OnInit {
 
     constructor(private usuarioService: UsuarioService,
                 private configuracionService: ConfiguracionService,
-                private router: Router,
-                private toastController: ToastController) {
+                private router: Router) {
     }
 
     ngOnInit() {
@@ -69,12 +68,6 @@ export class RegistroPage implements OnInit {
         );
     }
     async presentToast(messagetext, color) {
-        const toast = await this.toastController.create({
-            message: messagetext,
-            duration: 2000,
-            color: color
-
-        });
-        toast.present();
+        this.configuracionService.presentToast(messagetext, color);
     }
 }
