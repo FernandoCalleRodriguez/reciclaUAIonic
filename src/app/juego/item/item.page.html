@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>item</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="12" size-sm="10" offset-sm="1" size-md="8" offset-md="2" size-lg="6" offset-lg="3">
+      <form (ngSubmit)="createItem()" [formGroup]="itemForm">
+        <ion-item lines="full">
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input type="text" formControlName="Nombre"></ion-input>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="floating">Descripcion</ion-label>
+          <ion-input type="text" formControlName="Descripcion"></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="floating">Material</ion-label>
+          <ion-select placeholder="Select One" formControlName="Material_oid">
+
+            <ion-select-option *ngFor="let material of materiales" value="{{material.Id}}">{{material.Nombre}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="floating">Imagen</ion-label>
+          <ion-select value="notifications" interface="action-sheet" (ionChange)="pickImage($event)">
+            <ion-label position="floating">Imagen</ion-label>
+            <ion-select-option value="0">Camera</ion-select-option>
+            <ion-select-option value="1">Galeria</ion-select-option>
+            <ion-select-option value="2">Sin imagen</ion-select-option>
+          </ion-select>
+
+        </ion-item>
+        <ion-item lines="full" *ngIf="selectedImg!=null">
+          <img [src]="selectedImg" />
+        </ion-item>
+        <ion-row>
+          <ion-col class="ion-hide-sm-up">
+            <ion-button type="submit" color="primary" expand="block">Crear item</ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-col>
+  </ion-row>
+
+
+</ion-content>

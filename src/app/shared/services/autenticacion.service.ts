@@ -52,7 +52,8 @@ export class AutenticacionService {
   }
 
   getID(): string {
-    return localStorage.getItem('ID_USER');
+    // return localStorage.getItem('ID_USER');
+    return "-1";
   }
 
   isLogged(): boolean {

@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'item',
     pathMatch: 'full'
   },
   {
@@ -42,7 +42,25 @@ const routes: Routes = [
   {
     path: 'foro/duda/:id',
     loadChildren: () => import('./foro/detalle-duda/detalle-duda.module').then( m => m.DetalleDudaPageModule)
+  },
+  {
+    path: 'material',
+    loadChildren: () => import('./juego/material/material.module').then( m => m.MaterialPageModule)
+  },
+  {
+    path: 'item',
+    loadChildren: () => import('./juego/item/item.module').then( m => m.ItemPageModule)
+  },  {
+    path: 'item-list',
+    loadChildren: () => import('./juego/item-list/item-list.module').then( m => m.ItemListPageModule)
+  },
+  {
+    path: 'material-list',
+    loadChildren: () => import('./juego/material-list/material-list.module').then( m => m.MaterialListPageModule)
   }
+
+
+
 
 
 ];

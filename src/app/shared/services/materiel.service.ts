@@ -15,10 +15,10 @@ export class MaterialService {
 
 
   public getMaterial(): Observable<Material[]> {
-    return this.http.get<Material[]>(this.SERVER + "BuscarTodos", { headers: this.headers })
+    return this.http.get<Material[]>(this.SERVER + "BuscarTodos"/*, { headers: this.headers }*/)
   }
   public setMaterial(Material: Material): Observable<Material> {
-    return this.http.post<Material>(this.SERVER + "Crear", Material, { headers: this.headers });
+    return this.http.post<Material>(this.SERVER + "Crear", Material/*, { headers: this.headers }*/);
   }
   public removeMaterial(id: number) {
     return this.http.delete<Material>(this.SERVER + "Borrar?p_Material_oid=" + id, { headers: this.headers });
