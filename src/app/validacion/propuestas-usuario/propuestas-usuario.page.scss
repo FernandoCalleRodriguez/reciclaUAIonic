@@ -1,0 +1,17 @@
+.danger-border {
+  --border-color: #eb445a;
+}
+
+.success-border {
+  --border-color: #2dd36f;
+}
+
+.warning-border {
+  --border-color: #ffc409;
+}
+
+ion-item {
+  --padding-end: 0px;
+  --inner-padding-end: 0px;
+  // here other custom CSS from documentation
+}

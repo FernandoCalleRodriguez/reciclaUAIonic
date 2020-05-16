@@ -1,0 +1,76 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Mis propuestas</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <mat-accordion>
+        <!-- ITEMS -->
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <h4>{{ propuestas[0].categoria }}</h4>
+            </mat-expansion-panel-header>
+
+            <ion-item class="ion-no-padding" lines="none" *ngFor="let estado of estados">
+                <ion-label>{{ estado.Estado }}</ion-label>
+                <ion-checkbox slot="end" [color]="estado.Color"
+                              [(ngModel)]="propuestas[0].controles[estado.Id - 1]">
+                </ion-checkbox>
+            </ion-item>
+
+            <ng-container *ngFor="let item of propuestas[0].elementos">
+                <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
+                          *ngIf="propuestas[0].controles[item.EsValido - 1]">
+                    <ion-label>{{ item.Nombre }}</ion-label>
+                    <!-- ion-label>{{ item.EsValido | estado }}</ion-label-->
+                </ion-item>
+            </ng-container>
+        </mat-expansion-panel>
+
+        <!-- MATERIALES -->
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <h4>{{ propuestas[1].categoria }}</h4>
+            </mat-expansion-panel-header>
+
+            <ion-item class="ion-no-padding" lines="none" *ngFor="let estado of estados">
+                <ion-label>{{ estado.Estado }}</ion-label>
+                <ion-checkbox slot="end" [color]="estado.Color"
+                              [(ngModel)]="propuestas[1].controles[estado.Id - 1]">
+                </ion-checkbox>
+            </ion-item>
+
+            <ng-container *ngFor="let item of propuestas[1].elementos">
+                <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
+                          *ngIf="propuestas[1].controles[item.EsValido - 1]">
+                    <ion-label>{{ item.Nombre }}</ion-label>
+                    <!-- ion-label>{{ item.EsValido | estado }}</ion-label-->
+                </ion-item>
+            </ng-container>
+        </mat-expansion-panel>
+
+        <!-- PUNTOS -->
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <h4>{{ propuestas[2].categoria }}</h4>
+            </mat-expansion-panel-header>
+
+            <ion-item class="ion-no-padding" lines="none" *ngFor="let estado of estados">
+                <ion-label>{{ estado.Estado }}</ion-label>
+                <ion-checkbox slot="end" [color]="estado.Color"
+                              [(ngModel)]="propuestas[2].controles[estado.Id - 1]">
+                </ion-checkbox>
+            </ion-item>
+
+            <ng-container *ngFor="let item of propuestas[2].elementos">
+                <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
+                          *ngIf="propuestas[2].controles[item.EsValido - 1]">
+                    <ion-label>{{ item.Latitud }}</ion-label>
+                    <ion-label>{{ item.Longitud }}</ion-label>
+                    <!-- ion-label>{{ item.EsValido | estado }}</ion-label-->
+                </ion-item>
+            </ng-container>
+        </mat-expansion-panel>
+    </mat-accordion>
+</ion-content>

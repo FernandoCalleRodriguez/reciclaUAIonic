@@ -18,15 +18,18 @@ export class ValidacionService {
   private estados: Estado[] = [
     {
       Id: 1,
-      Estado: 'Validado'
+      Estado: 'Validado',
+      Color: 'success'
     },
     {
       Id: 2,
-      Estado: 'Pendiente'
+      Estado: 'Pendiente',
+      Color: 'warning'
     },
     {
       Id: 3,
-      Estado: 'Descartado'
+      Estado: 'Descartado',
+      Color: 'danger'
     }
   ];
 

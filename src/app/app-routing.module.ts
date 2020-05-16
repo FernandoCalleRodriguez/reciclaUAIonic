@@ -54,7 +54,12 @@ const routes: Routes = [
   {
     path: 'foro/duda/:duda/respuesta/:respuesta/editar',
     loadChildren: () => import('./foro/editar-respuesta/editar-respuesta.module').then( m => m.EditarRespuestaPageModule)
+  },
+  {
+    path: 'propuestas',
+    loadChildren: () => import('./validacion/propuestas-usuario/propuestas-usuario.module').then( m => m.PropuestasUsuarioPageModule)
   }
+
 
 ];
 
