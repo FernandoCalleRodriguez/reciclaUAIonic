@@ -42,9 +42,15 @@ const routes: Routes = [
   {
     path: 'foro/duda/:id',
     loadChildren: () => import('./foro/detalle-duda/detalle-duda.module').then( m => m.DetalleDudaPageModule)
+  },
+  {
+    path: 'foro/duda/:id/editar',
+    loadChildren: () => import('./foro/formulario-duda/formulario-duda.module').then(m => m.FormularioDudaPageModule)
+  },
+  {
+    path: 'foro/duda/crear/:tema',
+    loadChildren: () => import('./foro/formulario-duda/formulario-duda.module').then(m => m.FormularioDudaPageModule)
   }
-
-
 ];
 
 @NgModule({

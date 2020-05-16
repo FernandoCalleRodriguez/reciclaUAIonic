@@ -24,20 +24,24 @@ export class DetalleDudaPage implements OnInit {
 
     constructor(protected route: ActivatedRoute, protected dudaService: DudaService,
                 protected respuestaService: RespuestaService, protected  usuarioService: UsuarioService) {
+        this.maxlen = 1500;
+    }
+
+    ionViewWillEnter() {
         const id: number = parseInt(this.route.snapshot.paramMap.get('id'), 10);
         this.dudaService.getDudaById(id).subscribe(d => {
             this.duda = d;
-            this.respuestaService.getRespuestasByDuda(this.duda.Id).subscribe(r => {
-                this.respuestas = r;
-            });
+            if (!this.respuestas) {
+                this.respuestaService.getRespuestasByDuda(this.duda.Id).subscribe(r => {
+                    this.respuestas = r;
+                });
+            }
         });
-        this.maxlen = 1500;
     }
 
     ngOnInit() {
         this.usuarioService.getLoggedUser().subscribe(u => {
             this.usuario = u;
-            console.log(u);
         });
         this.formResponder = new FormGroup({
             cuerpo: new FormControl(null, [Validators.required, Validators.maxLength(this.maxlen)])
@@ -60,5 +64,9 @@ export class DetalleDudaPage implements OnInit {
                 this.cuerpo.reset();
             });
         }
+    }
+
+    borrar(duda: Duda) {
+
     }
 }

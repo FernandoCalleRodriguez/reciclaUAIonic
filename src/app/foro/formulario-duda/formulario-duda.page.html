@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title *ngIf="edit != null">{{ edit ? 'Editar ' + tema?.Tema.toLowerCase() : tema?.Tema }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="12" size-md="8" offset-md="2">
+                    <ion-card>
+                        <ion-card-header>
+                            <ion-card-title>
+                                {{ edit ? 'Editar' : 'Nuevo ' + tema?.Tema.toLowerCase() }}
+                            </ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <ion-item class="ion-no-padding">
+                                <ion-label><strong>Título:</strong></ion-label>
+                                <ion-input type="text" formControlName="titulo"></ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="titulo.errors && titulo.value" class="ion-no-padding" lines="none">
+                                <ion-label color="danger">
+                                    Caracteres excedidos <strong>{{ tmax - titulo.value.length }}</strong>
+                                </ion-label>
+                            </ion-item>
+                            <ion-item class="ion-no-padding">
+                                <ion-label><strong>Cuerpo:</strong></ion-label>
+                                <ion-textarea rows="10" formControlName="cuerpo"></ion-textarea>
+                            </ion-item>
+                            <ion-item *ngIf="cuerpo.errors && cuerpo.value" class="ion-no-padding" lines="none">
+                                <ion-label color="danger">
+                                    Caracteres excedidos <strong>{{ bmax - cuerpo.value.length }}</strong>
+                                </ion-label>
+                            </ion-item>
+                            <ion-item lines="none">
+                                <ion-button type="submit" slot="end" [disabled]="formulario.invalid" *ngIf="edit">
+                                    Editar
+                                </ion-button>
+                                <ion-button type="submit" slot="end" [disabled]="formulario.invalid" *ngIf="!edit">
+                                    Enviar {{ tema?.Tema.toLowerCase() }}
+                                </ion-button>
+                            </ion-item>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>
