@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'punto',
     pathMatch: 'full'
   },
   {
@@ -55,7 +55,12 @@ const routes: Routes = [
   {
     path: 'foro/duda/:id',
     loadChildren: () => import('./foro/detalle-duda/detalle-duda.module').then(m => m.DetalleDudaPageModule)
+  },
+  {
+    path: 'punto',
+    loadChildren: () => import('./punto/punto.module').then( m => m.PuntoPageModule)
   }
+
 ];
 
 @NgModule({

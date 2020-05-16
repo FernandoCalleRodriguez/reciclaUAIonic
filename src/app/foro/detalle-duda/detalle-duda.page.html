@@ -48,13 +48,13 @@
                         <ion-row>
                             <ion-col class="pb-0">
                                 <ion-item lines="none" class="ion-no-padding">
-                                    <ion-label
-                                            class="ion-text-wrap usuario-respuesta">{{ respuesta?.UsuarioRespuesta.Nombre }}</ion-label>
+                                    <ion-label class="ion-text-wrap usuario-respuesta">
+                                        {{ respuesta?.UsuarioRespuesta.Nombre }}</ion-label>
                                     <ion-button *ngIf="usuario && usuario.Id === respuesta?.UsuarioRespuesta.Id">
                                         <ion-icon name="pencil"></ion-icon>
                                     </ion-button>
                                     <ion-button *ngIf="usuario && usuario.Id === respuesta?.UsuarioRespuesta.Id"
-                                                color="danger">
+                                        color="danger">
                                         <ion-icon name="trash"></ion-icon>
                                     </ion-button>
                                 </ion-item>
@@ -94,7 +94,7 @@
             <form [formGroup]="formResponder" (ngSubmit)="responder()">
                 <ion-item class="ion-no-padding">
                     <ion-textarea class="ion-no-padding" rows="5" formControlName="cuerpo" id="cuerpo" name="cuerpo"
-                                  placeholder="Introduce tu respuesta para '{{ duda?.Titulo }}'...">
+                        placeholder="Introduce tu respuesta para '{{ duda?.Titulo }}'...">
                     </ion-textarea>
                 </ion-item>
                 <ion-item lines="none" class="ion-no-padding">
