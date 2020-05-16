@@ -6,6 +6,7 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {AutenticacionService} from './shared/services/autenticacion.service';
 import {UsuarioService} from './shared/services/usuario.service';
 import {Usuario} from './shared/models/usuario';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -41,11 +42,14 @@ export class AppComponent implements OnInit {
         private usuarioService: UsuarioService,
     ) {
         this.initializeApp();
-        if (this.autenticacionService.isLogged()) {
-            this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(result => {
-                this.usuario = result;
+        if(this.autenticacionService.isLogged()){
+            this.usuarioService.getLoggedUser().subscribe(u => {
+                this.usuario = u;
+            }, error => {
+                this.autenticacionService.Logout();
             });
         }
+
     }
 
     initializeApp() {
@@ -60,7 +64,6 @@ export class AppComponent implements OnInit {
         if (path !== undefined) {
             this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
         }
-
-
     }
+
 }
