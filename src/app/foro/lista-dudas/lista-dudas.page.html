@@ -46,7 +46,11 @@
                     </ion-label>
 
                     <mat-action-row>
-                        <ion-button color="primary" [routerLink]="'/foro/duda/' + duda.Id">Ver respuestas ({{duda.ObtenerNumeroDeRespuestas}})</ion-button>
+                        <ion-item lines="none">
+                            <ion-button [routerLink]="'/foro/duda/' + duda.Id">
+                                Ver respuestas ({{duda.ObtenerNumeroDeRespuestas}})
+                            </ion-button>
+                        </ion-item>
                     </mat-action-row>
                 </mat-expansion-panel>
             </mat-accordion>
@@ -56,7 +60,8 @@
             </ng-container>
 
             <ion-item lines="none">
-                <ion-button slot="end" routerLink="/foro/duda/crear/{{tema.Id}}">Añadir {{ tema.Tema.toLowerCase() }}</ion-button>
+                <ion-button slot="end" routerLink="/foro/duda/crear/{{tema.Id}}">
+                    Añadir {{ tema.Tema.toLowerCase() }}</ion-button>
             </ion-item>
         </mat-expansion-panel>
     </mat-accordion>
