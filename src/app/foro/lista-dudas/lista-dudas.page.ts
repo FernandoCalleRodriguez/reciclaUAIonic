@@ -16,17 +16,19 @@ export class ListaDudasPage implements OnInit {
 
   constructor(protected dudaService: DudaService, protected temaService: TemaService) { }
 
-  ngOnInit() {
-    this.temas = this.temaService.getTemas();
-    this.temas.forEach(tema => {
-      this.dudas.push([]);
-    });
+  ionViewWillEnter() {
     this.temas.forEach(tema => {
       this.dudaService.getDudasByTema(tema.Id).subscribe(d => {
         this.dudas[tema.Id] = d;
       });
     });
-    console.log(this.dudas);
   }
 
+  ngOnInit() {
+    console.log('init');
+    this.temas = this.temaService.getTemas();
+    this.temas.forEach(tema => {
+      this.dudas.push([]);
+    });
+  }
 }
