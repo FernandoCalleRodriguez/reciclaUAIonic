@@ -13,9 +13,11 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { environment } from '../environments/environment';
+import {SidebarComponent} from './shared/components/sidebar/sidebar.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,
+  SidebarComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

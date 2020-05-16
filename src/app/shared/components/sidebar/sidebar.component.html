@@ -1,0 +1,23 @@
+<ion-menu contentId="main-content" type="overlay">
+  <ion-content>
+    <ion-list id="inbox-list">
+      <ion-list-header>{{usuario?.Nombre}}</ion-list-header>
+      <ion-note><a [routerLink]="['/perfil']">{{usuario?.Email}}</a></ion-note>
+
+      <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+        <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
+          <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+          <ion-label>{{ p.title }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-item-divider></ion-item-divider>
+
+      <ion-menu-toggle auto-hide="false" >
+        <ion-item lines="none" (click)="autenticacionService.Logout()">
+          <ion-icon slot="start" ios="enter-outline" md="enter-sharp"></ion-icon>
+          <ion-label >Cerrar sesión</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>

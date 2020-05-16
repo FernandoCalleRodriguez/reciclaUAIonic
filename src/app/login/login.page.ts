@@ -19,6 +19,8 @@ export class LoginPage implements OnInit {
     constructor(private  autenticacionService: AutenticacionService,
                 private  router: Router,
                 private configuracionService: ConfiguracionService) {
+        this.autenticacionService.noEstaAutenticado();
+
     }
 
     ngOnInit() {

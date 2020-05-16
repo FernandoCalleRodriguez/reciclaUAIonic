@@ -14,42 +14,14 @@ import {Observable} from 'rxjs';
     styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
-    public selectedIndex = 0;
-    public appPages = [
-        {
-            title: 'Foro',
-            url: '/home',
-            icon: 'list'
-        },
-        {
-            title: 'Juego',
-            url: '/home',
-            icon: 'trophy'
-        },
-        {
-            title: 'Notas informativas',
-            url: '/home',
-            icon: 'reader'
-        },
-    ];
-    usuario: Usuario;
 
     constructor(
         private platform: Platform,
         private splashScreen: SplashScreen,
         private statusBar: StatusBar,
         private autenticacionService: AutenticacionService,
-        private usuarioService: UsuarioService,
     ) {
         this.initializeApp();
-        if(this.autenticacionService.isLogged()){
-            this.usuarioService.getLoggedUser().subscribe(u => {
-                this.usuario = u;
-            }, error => {
-                this.autenticacionService.Logout();
-            });
-        }
-
     }
 
     initializeApp() {
@@ -60,10 +32,6 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        const path = window.location.pathname.split('folder/')[1];
-        if (path !== undefined) {
-            this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
-        }
     }
 
 }

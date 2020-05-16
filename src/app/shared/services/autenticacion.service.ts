@@ -56,7 +56,6 @@ export class AutenticacionService {
   }
 
   isLogged(): boolean {
-    console.log(this.getToken() != null && this.getID() != null && this.getID() == this.parseJwt(this.getToken()).id);
     return this.getToken() != null && this.getID() != null && this.getID() == this.parseJwt(this.getToken()).id;
   }
 
