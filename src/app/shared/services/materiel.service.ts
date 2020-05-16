@@ -41,7 +41,7 @@ export class MaterialService {
     return this.http.get<Material[]>(this.SERVER + "BuscarPorTipoContenedor?p_tipocontenedor=" + id, { headers: this.headers })
   }
   public BuscarMaterialesPorUsuario(id): Observable<Material[]> {
-    return this.http.get<Material[]>(this.SERVER + "BuscarMaterialesPorUsuario?id_usuario=" + id, { headers: this.headers })
+    return this.http.get<Material[]>(this.SERVER + "BuscarMaterialesPorUsuario?id_usuario=" + id/*, { headers: this.headers }*/)
   }
   public MaterialCount(): Observable<number> {
     return this.http.get<number>(this.SERVER + "MaterialCount", { headers: this.headers })

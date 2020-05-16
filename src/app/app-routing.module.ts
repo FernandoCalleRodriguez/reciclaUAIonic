@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'item',
+    redirectTo: 'item-list',
     pathMatch: 'full'
   },
   {
@@ -50,7 +50,8 @@ const routes: Routes = [
   {
     path: 'item',
     loadChildren: () => import('./juego/item/item.module').then( m => m.ItemPageModule)
-  },  {
+  },
+  {
     path: 'item-list',
     loadChildren: () => import('./juego/item-list/item-list.module').then( m => m.ItemListPageModule)
   },

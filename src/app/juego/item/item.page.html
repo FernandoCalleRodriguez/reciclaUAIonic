@@ -25,15 +25,11 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-item lines="full">
-          <ion-label position="floating">Imagen</ion-label>
-          <ion-select value="notifications" interface="action-sheet" (ionChange)="pickImage($event)">
-            <ion-label position="floating">Imagen</ion-label>
-            <ion-select-option value="0">Camera</ion-select-option>
-            <ion-select-option value="1">Galeria</ion-select-option>
-            <ion-select-option value="2">Sin imagen</ion-select-option>
-          </ion-select>
-
+        <ion-item lines="full" (click)="presentActionSheet()">
+          <ion-label>
+            Imagen
+          </ion-label>
+          <ion-icon name="image-outline" size="large" slot="end" ></ion-icon>
         </ion-item>
         <ion-item lines="full" *ngIf="selectedImg!=null">
           <img [src]="selectedImg" />

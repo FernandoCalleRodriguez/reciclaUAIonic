@@ -6,7 +6,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MaterialService } from 'src/app/shared/services/materiel.service';
 import { TipoContenedorService } from 'src/app/shared/services/tipo-contenedor.service';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ToastController, ActionSheetController } from '@ionic/angular';
 import { AutenticacionService } from 'src/app/shared/services/autenticacion.service';
 import { ItemService } from 'src/app/shared/services/item.service';
 
@@ -21,6 +21,7 @@ export class ItemPage implements OnInit {
   item: Item;
   materiales: Material[];
   constructor(
+    public actionSheetController: ActionSheetController,
     private cameraService: CameraService,
     private materialService: MaterialService,
     private itemService: ItemService,
@@ -50,6 +51,9 @@ export class ItemPage implements OnInit {
     this.item.Imagen = this.selectedImg;
 
     this.itemService.setItem(this.item).subscribe(res => {
+      if (this.selectedImg != null) {
+         this.uploadImage(res.Id);
+      }
       this.presentToast(' Item Creado Correctamente', 'success');
     })
   }
@@ -82,14 +86,40 @@ export class ItemPage implements OnInit {
     });
     toast.present();
   }
-  pickImage(src) {
-    var source = src.detail.value;
-    if (source == 0)
-      this.takePic();
-    else if (source == 1)
-      this.getPic()
-    else { this.selectedImg = null; this.item.Imagen = null; }
+
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Imagen',
+      buttons: [{
+        text: 'Desde Camera',
+        role: 'destructive',
+        icon: 'camera-outline',
+        handler: () => {
+          this.takePic();
+        }
+      }, {
+        text: 'Desde Geleria',
+        icon: 'images-outline',
+        handler: () => {
+          this.getPic();
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          this.selectedImg = null; this.item.Imagen = null;
+        }
+      }]
+    });
+    await actionSheet.present();
   }
 
-
+  uploadImage(id) {
+    const fd = new FormData();
+    fd.append('img', this.selectedImg, this.selectedImg.name);
+    this.itemService.uploadImage(fd, id).subscribe(res => {
+    });
+  }
 }
