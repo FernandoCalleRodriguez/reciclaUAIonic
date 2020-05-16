@@ -43,7 +43,6 @@ const routes: Routes = [
     path: 'cambiarcontrasena',
     loadChildren: () => import('./usuario/cambiarcontrasena/cambiarcontrasena.module').then(m => m.CambiarcontrasenaPageModule)
   },
-
   {
     path: 'notainfo',
     loadChildren: () => import('./notainfo/notainfo.module').then(m => m.NotainfoPageModule)
@@ -59,6 +58,22 @@ const routes: Routes = [
   {
     path: 'punto',
     loadChildren: () => import('./punto/punto.module').then( m => m.PuntoPageModule)
+  },
+  {
+    path: 'material',
+    loadChildren: () => import('./juego/material/material.module').then( m => m.MaterialPageModule)
+  },
+  {
+    path: 'item',
+    loadChildren: () => import('./juego/item/item.module').then( m => m.ItemPageModule)
+  },
+  {
+    path: 'item-list',
+    loadChildren: () => import('./juego/item-list/item-list.module').then( m => m.ItemListPageModule)
+  },
+  {
+    path: 'material-list',
+    loadChildren: () => import('./juego/material-list/material-list.module').then( m => m.MaterialListPageModule)
   }
 
 ];
