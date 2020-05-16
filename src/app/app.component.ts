@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
         },
         {
             title: 'Notas informativas',
-            url: '/home',
+            url: '/notainfo',
             icon: 'reader'
         },
     ];

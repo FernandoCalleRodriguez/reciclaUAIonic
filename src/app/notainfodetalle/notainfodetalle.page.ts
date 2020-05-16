@@ -1,40 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Nota } from '../shared/models/nota';
 import {NotaService} from '../shared/services/nota.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastController} from '@ionic/angular';
 import {AutenticacionService} from '../shared/services/autenticacion.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-notainfodetalle',
   templateUrl: './notainfodetalle.page.html',
   styleUrls: ['./notainfodetalle.page.scss'],
 })
-export class NotainfodetallePage implements OnInit {
-  Nota: Nota;
-  Notas: Nota[];
-  id2 : number;
+export class NotainfodetallePage implements OnInit, OnDestroy {
+  nota: Nota;
+  notas: Nota[];
+  ids: number[];
+  id: number;
 
   constructor(private  notaService: NotaService,
               private  router: Router,
               private toastController: ToastController,
               private  autenticationService: AutenticacionService,
-              private activatedRouted: ActivatedRoute
+              private activatedRouted: ActivatedRoute,
+              private storage: Storage
               ) {
     // this.autenticationService.estaAutenticado();
-    const id = this.activatedRouted.snapshot.paramMap.get('id');
-    this.notaService.obtenerNotaPorId(id).subscribe(res => {
-      this.Nota = res;
+    this.id = Number(this.activatedRouted.snapshot.paramMap.get('id'));
+    console.log('Se envia el siguiente id ' + this.id);
+    this.notaService.obtenerNotaPorId(this.id).subscribe((res) => {
+      this.nota = res;
+      console.log('Se obtiene la siguiente nota ' + this.nota.Id);
+      this.notaService.agregarNotaStorage(this.nota);
     });
   }
 
   ngOnInit() {
-    // set a key/value
-    // this.storage.set('notasLeidas', this.Nota.Id);
+    }
 
-    // this.storage.get('age').then((val) => {
-    //       this.id2 = val;
-    //     });
-  }
+ngOnDestroy() {
+    }
 
 }

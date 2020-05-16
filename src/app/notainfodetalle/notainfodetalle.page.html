@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Detalle</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="notainfo"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -8,12 +11,12 @@
 
   <ion-card color="primary" >
     <ion-card-header>
-      <ion-card-title>{{Nota?.Titulo}} {{Nota?.Id}}</ion-card-title>
+      <ion-card-title>{{nota?.Titulo}}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
-      {{Nota?.Cuerpo}}
-      {{id2}}
+      {{nota?.Cuerpo}}
+      {{id}}
     </ion-card-content>
   </ion-card>
 
