@@ -52,8 +52,12 @@
             </mat-accordion>
 
             <ng-container *ngIf="!dudas[tema.Id] || !dudas[tema.Id].length">
-                Actualmente vacío. <a routerLink="/foro/duda/crear/{{tema.Id}}">Añadir {{ tema.Tema.toLowerCase() }}. </a>
+                Actualmente vacío.
             </ng-container>
+
+            <ion-item lines="none">
+                <ion-button slot="end" routerLink="/foro/duda/crear/{{tema.Id}}">Añadir {{ tema.Tema.toLowerCase() }}</ion-button>
+            </ion-item>
         </mat-expansion-panel>
     </mat-accordion>
 </ion-content>
