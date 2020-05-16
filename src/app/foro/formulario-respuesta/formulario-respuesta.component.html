@@ -1,0 +1,24 @@
+<ion-card *ngIf="usuario">
+  <ion-card-header>
+    <ion-card-title>
+      {{ (respuestaId? 'Edita' : 'Envía') + ' tu respuesta'}}
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <form [formGroup]="formResponder" (ngSubmit)="responder()">
+      <ion-item class="ion-no-padding">
+        <ion-textarea class="ion-no-padding" rows="5" formControlName="cuerpo" id="cuerpo" name="cuerpo"
+                      placeholder="Introduce tu respuesta para '{{ duda?.Titulo }}'...">
+        </ion-textarea>
+      </ion-item>
+      <ion-item lines="none" class="ion-no-padding">
+        <ion-label class="ion-text-wrap" color="{{ cuerpo.invalid && cuerpo.value? 'danger' : '' }}">
+          Caracteres restantes: {{ maxlen - cuerpo.value?.length }}
+        </ion-label>
+        <ion-button size="6" slot="end" type="submit">
+          <ion-icon name="send"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </form>
+  </ion-card-content>
+</ion-card>

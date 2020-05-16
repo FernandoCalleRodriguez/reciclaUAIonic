@@ -50,7 +50,12 @@ const routes: Routes = [
   {
     path: 'foro/duda/crear/:tema',
     loadChildren: () => import('./foro/formulario-duda/formulario-duda.module').then(m => m.FormularioDudaPageModule)
+  },
+  {
+    path: 'foro/duda/:duda/respuesta/:respuesta/editar',
+    loadChildren: () => import('./foro/editar-respuesta/editar-respuesta.module').then( m => m.EditarRespuestaPageModule)
   }
+
 ];
 
 @NgModule({

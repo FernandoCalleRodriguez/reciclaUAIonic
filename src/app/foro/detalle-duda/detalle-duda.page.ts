@@ -86,4 +86,11 @@ export class DetalleDudaPage implements OnInit {
         });
         toast.present();
     }
+
+    pushRespuesta(respuesta: Respuesta) {
+        if (!this.respuestas) {
+            this.respuestas = [];
+        }
+        this.respuestas.push(respuesta);
+    }
 }

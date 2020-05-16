@@ -8,6 +8,7 @@ import {DetalleDudaPageRoutingModule} from './detalle-duda-routing.module';
 
 import {DetalleDudaPage} from './detalle-duda.page';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {FormularioRespuestaComponent} from '../formulario-respuesta/formulario-respuesta.component';
 
 @NgModule({
     imports: [
@@ -18,7 +19,13 @@ import {MatExpansionModule} from '@angular/material/expansion';
         MatExpansionModule,
         ReactiveFormsModule
     ],
-    declarations: [DetalleDudaPage]
+    exports: [
+        FormularioRespuestaComponent
+    ],
+    declarations: [
+        DetalleDudaPage,
+        FormularioRespuestaComponent
+    ]
 })
 export class DetalleDudaPageModule {
 }
