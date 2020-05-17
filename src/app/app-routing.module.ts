@@ -78,7 +78,12 @@ const routes: Routes = [
   {
     path: 'punto',
     loadChildren: () => import('./punto/punto.module').then( m => m.PuntoPageModule)
+  },
+  {
+    path: 'notainfodetalle/:id',
+    loadChildren: () => import('./notainfodetalle/notainfodetalle.module').then( m => m.NotainfodetallePageModule)
   }
+
 ];
 
 @NgModule({

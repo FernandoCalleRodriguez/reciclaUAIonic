@@ -4,4 +4,5 @@ export class Nota {
   Titulo?: string;
   Cuerpo?: string;
   Fecha?: Date;
+  Leida?: boolean;
 }

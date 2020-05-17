@@ -6,6 +6,8 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {AutenticacionService} from './shared/services/autenticacion.service';
 import {UsuarioService} from './shared/services/usuario.service';
 import {Usuario} from './shared/models/usuario';
+import {NotaService} from './shared/services/nota.service';
+import {Nota} from './shared/models/nota';
 
 @Component({
     selector: 'app-root',
@@ -27,11 +29,15 @@ export class AppComponent implements OnInit {
         },
         {
             title: 'Notas informativas',
-            url: '/home',
-            icon: 'reader'
+            url: '/notainfo',
+            icon: 'reader',
+            count: 0
         },
     ];
     usuario: Usuario;
+    notificacionesNotas = 0;
+    notas: Nota[];
+    notasS: Nota[];
 
     constructor(
         private platform: Platform,
@@ -39,6 +45,7 @@ export class AppComponent implements OnInit {
         private statusBar: StatusBar,
         public autenticacionService: AutenticacionService,
         private usuarioService: UsuarioService,
+        private notaService: NotaService
     ) {
         this.initializeApp();
         if (this.autenticacionService.isLogged()) {
@@ -60,7 +67,22 @@ export class AppComponent implements OnInit {
         if (path !== undefined) {
             this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
         }
+        this.notify();
+    }
 
-
+    notify() {
+        this.notaService.obtenerTodasNotas().subscribe( res => {
+            this.notaService.obtenerNotasStorage().then(res2 => {
+                this.notas = res;
+                this.notasS = res2
+                if (this.notasS != null && this.notas != null) {
+                    this.notificacionesNotas = this.notas.length - this.notasS.length;
+                    this.appPages[2].count = this.notificacionesNotas;
+                } else {
+                    this.notificacionesNotas = this.notas.length
+                    this.appPages[2].count = this.notificacionesNotas;
+                }
+            });
+        });
     }
 }
