@@ -8,28 +8,43 @@
   <ion-row>
     <ion-col size="12" size-sm="10" offset-sm="1" size-md="8" offset-md="2" size-lg="6" offset-lg="3">
       <form (ngSubmit)="createPunto()" [formGroup]="puntoForm">
+
         <ion-item lines="full">
           <ion-label position="floating">Latitud</ion-label>
           <ion-input type="number" formControlName="Latitud"></ion-input>
         </ion-item>
+
         <ion-item lines="full">
           <ion-label position="floating">Longitud</ion-label>
           <ion-input type="number" formControlName="Longitud"></ion-input>
         </ion-item>
-        <ion-row>
-          <ion-item>
 
+        <ion-item lines="full">
+          <ion-label position="floating">Estancias</ion-label>
+          <ion-select placeholder="Select One" formControlName="Estancia_oid">
+
+            <ion-select-option *ngFor="let estancia of estancias" value="{{estancia.Id}}">{{estancia.Nombre}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-row>
+
+          <ion-item>
             <ion-label>Contenedores</ion-label>
           </ion-item>
-        </ion-row>
-        <ion-row *ngIf="contenedores!=null">
-          <ion-item *ngFor="let c of contenedores">
-            <ion-checkbox color="dark"  slot="start" value="{{c.Id}}"  (ionChange)="onCheckboxChange($event)"></ion-checkbox>
-            <ion-label>{{c.Tipo}}</ion-label>
-          </ion-item>
-        </ion-row>
-        <ion-row>
-          <ion-col class="ion-hide-sm-up">
+
+
+          <ion-row *ngIf="contenedores!=null">
+            <ion-item *ngFor="let c of contenedores">
+
+              <ion-checkbox color="dark" slot="start" value="{{c.Id}}" (ionChange)="onCheckboxChange($event)">
+              </ion-checkbox>
+              <ion-label>{{c.Tipo}}</ion-label>
+
+            </ion-item>
+          </ion-row>
+
+          <ion-col>
             <ion-button type="submit" color="primary" expand="block">Crear punto</ion-button>
           </ion-col>
         </ion-row>
