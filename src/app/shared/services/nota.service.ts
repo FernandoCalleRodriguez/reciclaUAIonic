@@ -11,8 +11,8 @@ import {Usuario} from '../models/usuario';
 })
 export class NotaService {
   server = 'http://localhost:16209/api/';
-  // private token = localStorage.getItem('ACCESS_TOKEN');
-  // private headers: HttpHeaders = new HttpHeaders({Authorization: this.token});
+  private token = localStorage.getItem('ACCESS_TOKEN');
+  private headers: HttpHeaders = new HttpHeaders({Authorization: this.token});
   notas: Nota[];
   notasS: Nota[];
 
@@ -21,11 +21,15 @@ export class NotaService {
   }
 
   public obtenerNotaPorId(id) {
-    return this.http.get<Nota>(this.server + 'NotaInformativa/' + id);
+    return this.http.get<Nota>(this.server + 'NotaInformativa/' + id,{ headers: this.headers });
   }
 
   public obtenerTodasNotas() {
-    return this.http.get<Nota[]>(this.server + 'NotaInformativa/BuscarTodos');
+    return this.http.get<Nota[]>(this.server + 'NotaInformativa/BuscarTodos',{ headers: this.headers });
+  }
+
+  public obtenerNotasPorTitulo(texto: string) {
+    return this.http.get<Nota[]>(this.server + 'NotaInformativa/BuscarPorTitulo?p_titulo=' + texto,{ headers: this.headers });
   }
 
   public agregarNotaStorage(nota: Nota) {
@@ -59,47 +63,6 @@ export class NotaService {
   public obtenerNotasStorage(): Promise<Nota[]> {
       return this.storage.get('notasLeidas');
       console.log('Se obtienen las notas del storage');
-  }
-
-  public identificarNotasLeidas(): Observable<Nota[]> {
-    this.obtenerTodasNotas().subscribe( res => {
-      this.notas = res;
-      if (this.notas.length > 0) {
-        this.obtenerNotasStorage().then( res2 => {
-          this.notasS = res2;
-          if (this.notasS.length > 0) {
-            const notasNoLeidas = this.notas.filter(item => this.notasS.indexOf(item) < 0);
-            console.log('No se han leido ' +  notasNoLeidas);
-
-            // Se identifican las notas leidas
-            for (let i = 0; i < this.notas.length ; i++) {
-              console.log('Se entra al for');
-              if (this.notas[i].Id === this.notasS[i].Id) {
-                this.notas[i].Leida = true;
-                console.log('Ya leido' + this.notas[i].Id);
-              }
-            }
-            return this.notas;
-          }
-        });
-      }
-    });
-    return null;
-}
-  public obtenerCantidadNotasNoLeidas(): number {
-    let contador = 0;
-    this.obtenerTodasNotas().subscribe( res => {
-        this.obtenerNotasStorage().then(res2 => {
-          this.notas = res;
-          this.notasS = res2
-          if (this.notasS != null && this.notas != null) {
-            contador = this.notas.length - this.notasS.length;
-            console.log(contador);
-            return contador;
-          }
-        });
-    });
-    return contador;
   }
 }
 
