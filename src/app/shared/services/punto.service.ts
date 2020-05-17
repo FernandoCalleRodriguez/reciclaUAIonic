@@ -22,7 +22,7 @@ export class PuntoService {
   }
 
   public setPunto(punto: Punto): Observable<Punto> {
-    return this.http.post<Punto>(this.SERVER + 'Crear', punto, { headers: this.headers });
+    return this.http.post<Punto>(this.SERVER + 'Crear', punto/*, { headers: this.headers }*/);
   }
 
   public removePunto(id: number) {
