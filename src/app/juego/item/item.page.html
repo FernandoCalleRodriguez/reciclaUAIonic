@@ -35,8 +35,8 @@
           <img [src]="selectedImg" />
         </ion-item>
         <ion-row>
-          <ion-col class="ion-hide-sm-up">
-            <ion-button type="submit" color="primary" expand="block">Crear item</ion-button>
+          <ion-col>
+            <ion-button [disabled]="!itemForm.valid" type="submit" color="primary" expand="block">Crear item</ion-button>
           </ion-col>
         </ion-row>
       </form>

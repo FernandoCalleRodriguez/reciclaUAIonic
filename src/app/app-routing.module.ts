@@ -20,6 +20,14 @@ const routes: Routes = [
     loadChildren: () => import('./usuario/registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
+    path: 'modificar',
+    loadChildren: () => import('./usuario/modificarusuario/modificarusuario.module').then( m => m.ModificarusuarioPageModule)
+  },
+  {
+    path: 'cambiarcontrasena',
+    loadChildren: () => import('./usuario/cambiarcontrasena/cambiarcontrasena.module').then( m => m.CambiarcontrasenaPageModule)
+  },
+  {
     path: 'recuperarcontrasena',
     loadChildren: () => import('./usuario/recuperarcontrasena/recuperarcontrasena.module').then( m => m.RecuperarcontrasenaPageModule)
   },

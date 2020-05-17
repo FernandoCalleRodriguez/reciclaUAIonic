@@ -22,6 +22,7 @@ export class ItemService {
   }
 
   public setItem(item: Item): Observable<Item> {
+    console.log(item);
     return this.http.post<Item>(this.SERVER + 'CrearCP', item,{headers: this.headers});
   }
 
