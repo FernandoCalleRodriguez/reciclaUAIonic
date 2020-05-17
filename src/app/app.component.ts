@@ -48,6 +48,11 @@ export class AppComponent implements OnInit {
         private notaService: NotaService
     ) {
         this.initializeApp();
+        if (this.autenticacionService.isLogged()) {
+            this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(result => {
+                this.usuario = result;
+            });
+        }
     }
 
     initializeApp() {
@@ -66,19 +71,20 @@ export class AppComponent implements OnInit {
     }
 
     notify() {
-        this.notaService.obtenerTodasNotas().subscribe( res => {
-            this.notaService.obtenerNotasStorage().then(res2 => {
-                this.notas = res;
-                this.notasS = res2
-                if (this.notasS != null && this.notas != null) {
-                    this.notificacionesNotas = this.notas.length - this.notasS.length;
-                    this.appPages[2].count = this.notificacionesNotas;
-                } else {
-                    this.notificacionesNotas = this.notas.length
-                    this.appPages[2].count = this.notificacionesNotas;
-                }
+        if (this.autenticacionService.isLogged()) {
+            this.notaService.obtenerTodasNotas().subscribe(res => {
+                this.notaService.obtenerNotasStorage().then(res2 => {
+                    this.notas = res;
+                    this.notasS = res2;
+                    if (this.notasS != null && this.notas != null) {
+                        this.notificacionesNotas = this.notas.length - this.notasS.length;
+                        this.appPages[2].count = this.notificacionesNotas;
+                    } else {
+                        this.notificacionesNotas = this.notas.length;
+                        this.appPages[2].count = this.notificacionesNotas;
+                    }
+                });
             });
-        });
+        }
     }
-
 }
