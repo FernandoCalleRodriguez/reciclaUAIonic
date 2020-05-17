@@ -14,7 +14,7 @@ export class HomePage implements OnInit {
     constructor(private menu: MenuController,
                 private  autenticacionService: AutenticacionService) {
         this.autenticacionService.estaAutenticado();
-        this.menu.open();
+        //this.menu.open();
     }
 
     ngOnInit() {
