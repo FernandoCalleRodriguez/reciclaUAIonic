@@ -48,11 +48,6 @@ export class AppComponent implements OnInit {
         private notaService: NotaService
     ) {
         this.initializeApp();
-        if (this.autenticacionService.isLogged()) {
-            this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(result => {
-                this.usuario = result;
-            });
-        }
     }
 
     initializeApp() {
@@ -85,4 +80,5 @@ export class AppComponent implements OnInit {
             });
         });
     }
+
 }
