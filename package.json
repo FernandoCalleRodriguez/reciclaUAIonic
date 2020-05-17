@@ -28,7 +28,8 @@
     "core-js": "^2.5.4",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "@sweetalert2/ngx-sweetalert2": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.20",
@@ -52,7 +53,8 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "typescript": "~3.4.3",
+    "sweetalert2": "latest"
   },
   "description": "An Ionic project"
 }

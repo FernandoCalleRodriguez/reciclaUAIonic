@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 import { environment } from '../environments/environment';
 import {SidebarComponent} from './shared/components/sidebar/sidebar.component';
@@ -26,6 +27,7 @@ import {SidebarComponent} from './shared/components/sidebar/sidebar.component';
     HttpClientModule,
     ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    SweetAlert2Module.forRoot(),
 
   ],
   providers: [
