@@ -46,7 +46,7 @@ export class ItemPage implements OnInit {
   createItem() {
     this.item.Nombre = this.itemForm.value.Nombre;
     this.item.Descripcion = this.itemForm.value.Descripcion;
-    this.item.Material_oid = this.itemForm.value.Material_oid;
+    this.item.Material_oid = parseInt(this.itemForm.value.Material_oid);
     this.item.Usuario_oid = parseInt(this.autenticacionService.getID());
     this.item.Imagen = this.selectedImg;
 

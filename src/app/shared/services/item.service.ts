@@ -22,7 +22,7 @@ export class ItemService {
   }
 
   public setItem(item: Item): Observable<Item> {
-    return this.http.post<Item>(this.SERVER + 'Crear', item,{headers: this.headers});
+    return this.http.post<Item>(this.SERVER + 'CrearCP', item,{headers: this.headers});
   }
 
   public getById(id: number): Observable<Item> {
