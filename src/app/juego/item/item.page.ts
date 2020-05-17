@@ -55,6 +55,7 @@ export class ItemPage implements OnInit {
          this.uploadImage(res.Id);
       }
       this.presentToast(' Item Creado Correctamente', 'success');
+      this.itemForm.reset();
     })
   }
   takePic() {

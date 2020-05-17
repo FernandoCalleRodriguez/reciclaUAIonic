@@ -15,10 +15,10 @@ export class MaterialService {
 
 
   public getMaterial(): Observable<Material[]> {
-    return this.http.get<Material[]>(this.SERVER + "BuscarTodos"/*, { headers: this.headers }*/)
+    return this.http.get<Material[]>(this.SERVER + "BuscarTodos", { headers: this.headers })
   }
   public setMaterial(Material: Material): Observable<Material> {
-    return this.http.post<Material>(this.SERVER + "Crear", Material/*, { headers: this.headers }*/);
+    return this.http.post<Material>(this.SERVER + "Crear", Material, { headers: this.headers });
   }
   public removeMaterial(id: number) {
     return this.http.delete<Material>(this.SERVER + "Borrar?p_Material_oid=" + id, { headers: this.headers });
@@ -41,7 +41,7 @@ export class MaterialService {
     return this.http.get<Material[]>(this.SERVER + "BuscarPorTipoContenedor?p_tipocontenedor=" + id, { headers: this.headers })
   }
   public BuscarMaterialesPorUsuario(id): Observable<Material[]> {
-    return this.http.get<Material[]>(this.SERVER + "BuscarMaterialesPorUsuario?id_usuario=" + id/*, { headers: this.headers }*/)
+    return this.http.get<Material[]>(this.SERVER + "BuscarMaterialesPorUsuario?id_usuario=" + id, { headers: this.headers })
   }
   public MaterialCount(): Observable<number> {
     return this.http.get<number>(this.SERVER + "MaterialCount", { headers: this.headers })

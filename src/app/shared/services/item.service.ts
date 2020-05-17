@@ -30,7 +30,7 @@ export class ItemService {
   }
 
   public getByUserId(id: number): Observable<Item[]> {
-    return this.http.get<Item[]>(this.SERVER + 'BuscarItemsPorUsuario?id_usuario=' + id/*,{headers: this.headers}*/);
+    return this.http.get<Item[]>(this.SERVER + 'BuscarItemsPorUsuario?id_usuario=' + id,{headers: this.headers});
   }
 
   public removeItem(id: number) {
@@ -46,7 +46,7 @@ export class ItemService {
   }
 
   public GetImage(id, imageName) {
-    return this.http.get(this.SERVER + 'GetImage?id=' + id + '&imageName=' + imageName/*,{headers: this.headers}*/);
+    return this.http.get(this.SERVER + 'GetImage?id=' + id + '&imageName=' + imageName,{headers: this.headers});
   }
 
   public RemoveImage(id, imageName) {

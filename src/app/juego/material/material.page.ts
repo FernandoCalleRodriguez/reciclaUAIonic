@@ -39,6 +39,7 @@ export class MaterialPage implements OnInit {
     this.material.Usuario_oid = parseInt(this.autenticacionService.getID());
     this.materialService.setMaterial(this.material).subscribe(res => {
       this.presentToast(' Material Creado Correctamente', 'success');
+      this.materialForm.reset();
     })
   }
 
