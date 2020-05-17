@@ -58,7 +58,26 @@ const routes: Routes = [
   {
     path: 'propuestas',
     loadChildren: () => import('./validacion/propuestas-usuario/propuestas-usuario.module').then( m => m.PropuestasUsuarioPageModule)
+  },
+  {
+    path: 'material',
+    loadChildren: () => import('./juego/material/material.module').then( m => m.MaterialPageModule)
+  },
+  {
+    path: 'item',
+    loadChildren: () => import('./juego/item/item.module').then( m => m.ItemPageModule)
+  },
+  {
+    path: 'item-list',
+    loadChildren: () => import('./juego/item-list/item-list.module').then( m => m.ItemListPageModule)
+  },
+  {
+    path: 'material-list',
+    loadChildren: () => import('./juego/material-list/material-list.module').then( m => m.MaterialListPageModule)
   }
+
+
+
 
 
 ];

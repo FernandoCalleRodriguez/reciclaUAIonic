@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>item-list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="items != null">
+    <ion-card *ngFor="let item of items;let i = index">
+     
+      <ion-card-header>
+        <ion-card-title>{{item.Nombre}}</ion-card-title>
+        <ion-card-subtitle>Estado: {{getEstado(item.EsValido)}}</ion-card-subtitle>
+        <ion-card-subtitle>Material: {{item.MaterialItem.Nombre}}, Contenedor: {{getTipo(item.MaterialItem.Contenedor)}} </ion-card-subtitle>
+        <ion-card-subtitle></ion-card-subtitle>
+      </ion-card-header>
+      <img [src]="getItemImage(i)" />
+      <ion-card-content>
+        {{item.Descripcion}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

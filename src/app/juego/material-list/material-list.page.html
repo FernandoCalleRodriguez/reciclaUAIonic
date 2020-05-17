@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>material-list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="materiales != null">
+
+    <ion-item *ngFor="let material of materiales">
+      <ion-label>
+        <h2>{{material.Nombre}}</h2>
+        <h3>Estado: {{getEstado(material.EsValido)}}</h3>
+        <p>Tipo contenedor: {{getTipo(material.Contenedor)}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
