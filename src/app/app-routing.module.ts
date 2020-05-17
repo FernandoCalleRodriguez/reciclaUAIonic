@@ -17,11 +17,11 @@ const routes: Routes = [
   },
   {
     path: 'registro',
-    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
+    loadChildren: () => import('./usuario/registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
     path: 'recuperarcontrasena',
-    loadChildren: () => import('./recuperarcontrasena/recuperarcontrasena.module').then( m => m.RecuperarcontrasenaPageModule)
+    loadChildren: () => import('./usuario/recuperarcontrasena/recuperarcontrasena.module').then( m => m.RecuperarcontrasenaPageModule)
   },
   {
     path: 'home',
@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'perfil',
-    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
+    loadChildren: () => import('./usuario/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
   {
     path: 'notainfo',
@@ -74,12 +74,11 @@ const routes: Routes = [
   {
     path: 'material-list',
     loadChildren: () => import('./juego/material-list/material-list.module').then( m => m.MaterialListPageModule)
+  },
+  {
+    path: 'punto',
+    loadChildren: () => import('./punto/punto.module').then( m => m.PuntoPageModule)
   }
-
-
-
-
-
 ];
 
 @NgModule({

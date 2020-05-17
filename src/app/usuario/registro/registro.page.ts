@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Usuario} from '../shared/models/usuario';
+import {Usuario} from '../../shared/models/usuario';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UsuarioService} from '../shared/services/usuario.service';
-import {ConfiguracionService} from '../shared/services/configuracion.service';
+import {UsuarioService} from '../../shared/services/usuario.service';
+import {ConfiguracionService} from '../../shared/services/configuracion.service';
 import {Router} from '@angular/router';
+import {ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-registro',
@@ -51,22 +52,22 @@ export class RegistroPage implements OnInit {
         this.usuarioService.CrearUsuario(this.usuario, 'web').subscribe(
             data => {
                 if (data === null) {
-                    //this.toaster.error(' El Usuario no se ha podido crear vuelva a probar más tarde');
-                    console.log(' El Usuario no se ha podido crear vuelva a probar más tarde');
+                    this.presentToast(' El Usuario no se ha podido crear vuelva a probar más tarde', 'danger');
 
                 } else {
-                    //this.toaster.success(' El Usuario se ha creado con éxito');
+                    this.presentToast(' El Usuario se ha creado con éxito', 'success');
                     this.router.navigate(['/login']);
-                    console.log(' El Usuario se ha creado con éxito');
 
                 }
 
             }, error => {
-                //this.toaster.error(' El Usuario no se ha podido crear vuelva a probar más tarde');
-                console.log(' El Usuario no se ha podido crear vuelva a probar más tarde' + error);
+                this.presentToast(' El Usuario no se ha podido crear vuelva a probar más tarde', 'danger');
 
 
             }
         );
+    }
+    async presentToast(messagetext, color) {
+        this.configuracionService.presentToast(messagetext, color);
     }
 }

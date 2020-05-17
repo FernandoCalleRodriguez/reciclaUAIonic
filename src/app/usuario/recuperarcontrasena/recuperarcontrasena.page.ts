@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UsuarioService} from '../shared/services/usuario.service';
-import {AutenticacionService} from '../shared/services/autenticacion.service';
+import {UsuarioService} from '../../shared/services/usuario.service';
+import {AutenticacionService} from '../../shared/services/autenticacion.service';
 import {ToastController} from '@ionic/angular';
 import {colors} from '@angular/cli/utilities/color';
 

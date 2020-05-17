@@ -41,8 +41,6 @@ export class UsuarioService {
 
         if (tipo === 'web') {
             url = 'UsuarioWebAutenticado/Modificar?idUsuarioWebAutenticado=';
-        } else if (tipo === 'administrador') {
-            //url = 'UsuarioAdminAutenticado/Modificar?idUsuarioAdminAutenticado=';
         }
         return this.http.put<Usuario>(this.SERVER + url + usuario.Id, usuario, this.getHeaderToken());
     }
@@ -74,7 +72,7 @@ export class UsuarioService {
 
     cambiarPass(usuario: Usuario): Observable<Usuario> {
         // tslint:disable-next-line:max-line-length
-        return this.http.put<Usuario>(this.SERVER + 'UsuarioWebAutenticado/CambiarPassword?p_oid=ds&p_pass=' + usuario.Id, usuario, this.getHeaderToken());
+        return this.http.put<Usuario>(this.SERVER + 'UsuarioWebAutenticado/CambiarPassword?idUsuarioWebAutenticado=' + usuario.Id, usuario, this.getHeaderToken());
     }
 
     private getHeaderToken() {

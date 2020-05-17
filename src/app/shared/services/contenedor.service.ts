@@ -18,7 +18,7 @@ export class ContenedorService {
     return this.http.get<Contenedor[]>(this.SERVER + "BuscarTodos", { headers: this.headers })
   }
   public setContenedor(contenedor: Contenedor): Observable<Contenedor> {
-    return this.http.post<Contenedor>(this.SERVER + "Crear", contenedor, { headers: this.headers });
+    return this.http.post<Contenedor>(this.SERVER + "Crear", contenedor/*, { headers: this.headers }*/);
   }
   public removeContenedor(id: number) {
     return this.http.delete<Contenedor>(this.SERVER + "Borrar?p_contenedor_oid=" + id, { headers: this.headers });

@@ -4,6 +4,7 @@ import {AutenticacionService} from '../shared/services/autenticacion.service';
 import {Router} from '@angular/router';
 import {Usuario} from '../shared/models/usuario';
 import {ToastController} from '@ionic/angular';
+import {ConfiguracionService} from '../shared/services/configuracion.service';
 
 @Component({
     selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginPage implements OnInit {
 
     constructor(private  autenticacionService: AutenticacionService,
                 private  router: Router,
-                private toastController: ToastController) {
+                private configuracionService: ConfiguracionService) {
     }
 
     ngOnInit() {
@@ -49,12 +50,6 @@ export class LoginPage implements OnInit {
     }
 
     async presentToast(messagetext, color) {
-        const toast = await this.toastController.create({
-            message: messagetext,
-            duration: 2000,
-            color: color
-
-        });
-        toast.present();
+        this.configuracionService.presentToast(messagetext, color);
     }
 }
