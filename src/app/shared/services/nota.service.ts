@@ -4,6 +4,7 @@ import {map} from 'rxjs/operators';
 import {Nota} from '../models/nota';
 import {Observable, of, throwError} from 'rxjs';
 import {Storage} from '@ionic/storage';
+import {Usuario} from '../models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -29,11 +30,10 @@ export class NotaService {
 
   public agregarNotaStorage(nota: Nota) {
     this.obtenerNotasStorage().then( val => {
-      //this.notasS = val;
-      console.log('Se obtienen las notas del Storage ' + val)
+      console.log('Se obtienen las notas del Storage ' + val);
       if (val == null) {
         console.log('Se entra al caso storage vacio');
-        const nuevanota: Nota[] = [nota]
+        const nuevanota: Nota[] = [nota];
         this.storage.set('notasLeidas', nuevanota);
         console.log('Case NEW - Storage listo');
       } else {
@@ -86,10 +86,21 @@ export class NotaService {
     });
     return null;
 }
-  public obtenerCantidadNotasNoLeidas() {
-
+  public obtenerCantidadNotasNoLeidas(): number {
+    let contador = 0;
+    this.obtenerTodasNotas().subscribe( res => {
+        this.obtenerNotasStorage().then(res2 => {
+          this.notas = res;
+          this.notasS = res2
+          if (this.notasS != null && this.notas != null) {
+            contador = this.notas.length - this.notasS.length;
+            console.log(contador);
+            return contador;
+          }
+        });
+    });
+    return contador;
   }
-
 }
 
 

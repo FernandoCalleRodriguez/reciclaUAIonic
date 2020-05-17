@@ -24,12 +24,21 @@ export class NotainfoPage {
               private toastController: ToastController,
               private  autenticationService: AutenticacionService,
               private storage: Storage) {
-    // this.autenticationService.estaAutenticado();
+    this.autenticationService.estaAutenticado();
     //console.log('Constructor');
   }
 
 
   ionViewWillEnter() {
+    this.identificarNotasLeidas();
+  }
+
+
+  verNotaDetalle(id): void {
+    this.router.navigate(['/notainfodetalle', id]);
+  }
+
+  identificarNotasLeidas(){
     this.notaService.obtenerTodasNotas().subscribe( res => {
       this.notas = res;
       if (this.notas != null) {
@@ -54,9 +63,8 @@ export class NotainfoPage {
     });
   }
 
-
-  verNotaDetalle(id): void {
-    this.router.navigate(['/notainfodetalle', id]);
+  clickFiltrar(event: any) {
+  console.log('Se activa la barra' + event.target.value);
   }
 
 }

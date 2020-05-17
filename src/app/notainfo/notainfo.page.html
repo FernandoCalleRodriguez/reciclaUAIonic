@@ -1,12 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Nota Informativa</ion-title>
-    <button ion-button icon-only slot="end" >
-      <ion-badge *ngIf="1" color="accent">{{ 5 }}</ion-badge>
-      <ion-icon name="notifications"></ion-icon>
-    </button>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-searchbar (ionInput)="clickFiltrar($event)" animated placeholder="Buscar nota informativa por titulo"></ion-searchbar>
   </ion-toolbar>
-
 </ion-header>
 
 <ion-content>
@@ -15,10 +14,10 @@
     <ion-card  [color]="nota?.Leida == null ? 'warning' : 'primary'" (click)="verNotaDetalle(nota?.Id)">
       <ion-card-header>
         <ion-card-title>{{nota?.Titulo}}</ion-card-title>
-        <ion-card-subtitle  *ngIf=" nota?.Leida == null" >¡Nueva Nota! <ion-icon name="reader-outline" *ngIf=" nota?.Leida == null"></ion-icon></ion-card-subtitle>
+        <ion-card-subtitle  *ngIf=" nota?.Leida == null" >¡Nueva nota! <ion-icon name="reader-outline" *ngIf=" nota?.Leida == null"></ion-icon></ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        {{nota?.Cuerpo.substring(0,50) + '.....'}}
+        {{nota?.Cuerpo.substring(0,100) + '.....'}}
       </ion-card-content>
 
     </ion-card>

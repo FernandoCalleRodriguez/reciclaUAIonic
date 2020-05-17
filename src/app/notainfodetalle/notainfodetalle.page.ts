@@ -11,7 +11,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: './notainfodetalle.page.html',
   styleUrls: ['./notainfodetalle.page.scss'],
 })
-export class NotainfodetallePage implements OnInit, OnDestroy {
+export class NotainfodetallePage {
   nota: Nota;
   notas: Nota[];
   ids: number[];
@@ -24,7 +24,7 @@ export class NotainfodetallePage implements OnInit, OnDestroy {
               private activatedRouted: ActivatedRoute,
               private storage: Storage
               ) {
-    // this.autenticationService.estaAutenticado();
+    this.autenticationService.estaAutenticado();
     this.id = Number(this.activatedRouted.snapshot.paramMap.get('id'));
     console.log('Se envia el siguiente id ' + this.id);
     this.notaService.obtenerNotaPorId(this.id).subscribe((res) => {
@@ -33,11 +33,4 @@ export class NotainfodetallePage implements OnInit, OnDestroy {
       this.notaService.agregarNotaStorage(this.nota);
     });
   }
-
-  ngOnInit() {
-    }
-
-ngOnDestroy() {
-    }
-
 }
