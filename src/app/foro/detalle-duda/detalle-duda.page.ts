@@ -8,7 +8,7 @@ import {AutenticacionService} from '../../shared/services/autenticacion.service'
 import {UsuarioService} from '../../shared/services/usuario.service';
 import {Usuario} from '../../shared/models/usuario';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ToastController} from '@ionic/angular';
+import {AlertController, ToastController} from '@ionic/angular';
 import {ConfiguracionService} from '../../shared/services/configuracion.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class DetalleDudaPage implements OnInit {
 
     constructor(protected route: ActivatedRoute, protected dudaService: DudaService, protected toastController: ToastController,
                 protected respuestaService: RespuestaService, protected  usuarioService: UsuarioService,
-                protected router: Router, protected config: ConfiguracionService) {
+                protected router: Router, protected config: ConfiguracionService, protected alertController: AlertController) {
         this.maxlen = 1500;
     }
 
@@ -74,8 +74,52 @@ export class DetalleDudaPage implements OnInit {
         }
     }
 
-    borrar(duda: Duda) {
+    async borrar(duda: Duda) {
+        const alert = await this.alertController.create({
+            header: 'Eliminar duda',
+            message: '¿Estás seguro de que deseas eliminar la duda ' + duda.Id + '?',
+            buttons: [
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: () => {
+                    }
+                }, {
+                    text: 'Sí',
+                    handler: () => {
+                        this.dudaService.borrar(duda).subscribe();
+                        this.config.presentToast('Duda borrada', 'danger');
+                        this.router.navigate(['/foro']);
+                    }
+                }
+            ]
+        });
+        await alert.present();
+    }
 
+    async borrarRespuesta(respuesta: Respuesta) {
+        const alert = await this.alertController.create({
+            header: 'Eliminar respuesta',
+            message: '¿Estás seguro de que deseas eliminar la respuesta ' + respuesta.Id + '?',
+            buttons: [
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: () => {
+                    }
+                }, {
+                    text: 'Sí',
+                    handler: () => {
+                        this.respuestaService.borrar(respuesta).subscribe();
+                        this.config.presentToast('Respuesta borrada', 'danger');
+                        this.deleteRespuesta(respuesta);
+                    }
+                }
+            ]
+        });
+        await alert.present();
     }
 
     pushRespuesta(respuesta: Respuesta) {
@@ -83,5 +127,12 @@ export class DetalleDudaPage implements OnInit {
             this.respuestas = [];
         }
         this.respuestas.push(respuesta);
+    }
+
+    deleteRespuesta(respuesta: Respuesta) {
+        const index = this.respuestas.indexOf(respuesta);
+        if (index > -1) {
+            this.respuestas.splice(index, 1);
+        }
     }
 }

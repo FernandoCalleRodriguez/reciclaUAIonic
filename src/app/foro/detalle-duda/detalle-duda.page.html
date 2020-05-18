@@ -55,7 +55,7 @@
                                         <ion-icon name="pencil"></ion-icon>
                                     </ion-button>
                                     <ion-button *ngIf="usuario && usuario.Id === respuesta?.UsuarioRespuesta.Id"
-                                        color="danger">
+                                        color="danger" (click)="borrarRespuesta(respuesta)">
                                         <ion-icon name="trash"></ion-icon>
                                     </ion-button>
                                 </ion-item>
