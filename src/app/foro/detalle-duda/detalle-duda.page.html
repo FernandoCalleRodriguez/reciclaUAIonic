@@ -9,10 +9,12 @@
         <ion-card-header>
             <ion-item class="ion-no-padding">
                 <ion-label class="ion-text-wrap duda-title">{{ duda?.Titulo }}</ion-label>
-                <ion-button *ngIf="usuario && usuario.Id === duda?.UsuarioDuda.Id" routerLink="/foro/duda/{{duda.Id}}/editar">
+                <ion-button *ngIf="usuario && usuario.Id === duda?.UsuarioDuda.Id"
+                            routerLink="/foro/duda/{{duda.Id}}/editar">
                     <ion-icon name="pencil"></ion-icon>
                 </ion-button>
-                <ion-button *ngIf="usuario && usuario.Id === duda?.UsuarioDuda.Id" color="danger" (click)="borrar(duda)">
+                <ion-button *ngIf="usuario && usuario.Id === duda?.UsuarioDuda.Id" color="danger"
+                            (click)="borrar(duda)">
                     <ion-icon name="trash"></ion-icon>
                 </ion-button>
             </ion-item>
@@ -26,7 +28,7 @@
         <ion-label>
             <p class="ion-text-right mr-1 mb-1 ion-hide-sm-up" slot="end">
                 <small>
-                    {{ duda?.UsuarioDuda.Nombre }} <br> {{ duda?.Fecha | date: "HH:mm, dd/MM/yyyy"}}
+                    {{ duda?.UsuarioDuda.Borrado? 'Usuario borrado' : duda?.UsuarioDuda.Nombre }} <br> {{ duda?.Fecha | date: "HH:mm, dd/MM/yyyy"}}
                 </small>
             </p>
             <p class="ion-text-right mr-1 mb-1 ion-hide-sm-down" slot="end">
@@ -48,14 +50,15 @@
                         <ion-row>
                             <ion-col class="pb-0">
                                 <ion-item lines="none" class="ion-no-padding">
-                                    <ion-label
-                                            class="ion-text-wrap usuario-respuesta">{{ respuesta?.UsuarioRespuesta.Nombre }}</ion-label>
+                                    <ion-label class="ion-text-wrap usuario-respuesta">
+                                        {{ respuesta?.UsuarioRespuesta.Borrado? 'Usuario borrado' : respuesta?.UsuarioRespuesta.Nombre }}
+                                    </ion-label>
                                     <ion-button *ngIf="usuario && usuario.Id === respuesta?.UsuarioRespuesta.Id"
                                                 routerLink="/foro/duda/{{duda.Id}}/respuesta/{{respuesta.Id}}/editar">
                                         <ion-icon name="pencil"></ion-icon>
                                     </ion-button>
                                     <ion-button *ngIf="usuario && usuario.Id === respuesta?.UsuarioRespuesta.Id"
-                                        color="danger" (click)="borrarRespuesta(respuesta)">
+                                                color="danger" (click)="borrarRespuesta(respuesta)">
                                         <ion-icon name="trash"></ion-icon>
                                     </ion-button>
                                 </ion-item>
@@ -63,6 +66,11 @@
                         </ion-row>
                         <ion-row>
                             <ion-col class="pr-0 pt-0">
+                                <!--ion-item class="ion-no-padding" lines="none">
+                                    <ion-thumbnail>
+                                        <img src="https://picsum.photos/seed/{{respuesta.UsuarioRespuesta.Id}}/200">
+                                    </ion-thumbnail>
+                                </ion-item-->
                                 <p class="ion-text-wrap">{{ respuesta.Cuerpo }}</p>
                             </ion-col>
                         </ion-row>
@@ -85,5 +93,6 @@
             </ion-list>
         </ion-card-content>
     </ion-card>
-    <app-formulario-respuesta *ngIf="duda" [dudaId]="duda.Id" (output)="pushRespuesta($event)"></app-formulario-respuesta>
+    <app-formulario-respuesta *ngIf="duda" [dudaId]="duda.Id"
+                              (output)="pushRespuesta($event)"></app-formulario-respuesta>
 </ion-content>
