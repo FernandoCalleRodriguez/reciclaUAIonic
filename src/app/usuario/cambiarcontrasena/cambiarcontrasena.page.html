@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text=""  defaultHref="perfil"></ion-back-button>
+            <ion-back-button text="" defaultHref="perfil"></ion-back-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
@@ -16,18 +16,39 @@
                     <ion-input type="password" formControlName="pwd"
                     ></ion-input>
                 </ion-item>
+                <ion-item class="label-row"
+                          *ngIf="formularioCambiarPass.get('pwd').invalid && formularioCambiarPass.get('pwd').touched">
+                    <ion-label class="label-error" color="danger">Contraseña demasiado sencilla debe contener :
+                        mayúscula, minúscula, número, caracter especial (@$!%*?&-_) y 8 caracteres
+                    </ion-label>
+                </ion-item>
                 <ion-item lines="full">
                     <ion-label position="floating">Repetir Contraseña</ion-label>
                     <ion-input type="password" formControlName="pwd2"
                     ></ion-input>
+                </ion-item>
+                <ion-item class="label-row"
+                          *ngIf="formularioCambiarPass.get('pwd2').invalid && formularioCambiarPass.get('pwd2').touched">
+                    <ion-label class="label-error" color="danger">Contraseña demasiado sencilla debe contener :
+                        mayúscula, minúscula, número, caracter especial (@$!%*?&-_) y 8 caracteres
+                    </ion-label>
+                </ion-item>
+                <ion-item class="label-row"
+                          *ngIf="formularioCambiarPass.get('pwd').value != formularioCambiarPass.get('pwd2').value">
+                    <ion-label class="label-error" color="danger">Las contraseña no coinciden
+                    </ion-label>
                 </ion-item>
                 <ion-row>
                     <ion-col class="ion-hide-sm-up">
                         <ion-button type="submit" color="primary" expand="block">Cambiar</ion-button>
                     </ion-col>
                     <ion-col class="ion-hide-sm-down">
-                        <ion-button [disabled]="formularioCambiarPass.invalid" type="submit" color="primary" expand="block">Cambiar</ion-button>
+                        <ion-button
+                                [disabled]="formularioCambiarPass.invalid || formularioCambiarPass.get('pwd').value != formularioCambiarPass.get('pwd2').value "
+                                type="submit" color="primary" expand="block">Cambiar
+                        </ion-button>
                     </ion-col>
+
                 </ion-row>
             </form>
         </ion-col>
