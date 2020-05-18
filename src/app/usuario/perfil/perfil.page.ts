@@ -5,6 +5,8 @@ import {Usuario} from '../../shared/models/usuario';
 import {AlertController, MenuController, PopoverController} from '@ionic/angular';
 import {ConfiguracionService} from '../../shared/services/configuracion.service';
 import {PopoverComponent} from '../../shared/components/popover/popover.component';
+import {AccionreciclarService} from '../../shared/services/accionreciclar.service';
+import {AccionwebService} from '../../shared/services/accionweb.service';
 
 @Component({
     selector: 'app-perfil',
@@ -17,14 +19,28 @@ export class PerfilPage implements OnInit {
     usuarios: Usuario[];
     posicion: number;
     propuestas: number;
+    acciones: 0;
 
     constructor(private autenticacionService: AutenticacionService,
                 private usuarioService: UsuarioService,
                 public  menu: MenuController,
-                public popoverController: PopoverController) {
+                public popoverController: PopoverController,
+                private accionreciclarService: AccionreciclarService,
+                private accionwebService: AccionwebService) {
         if (this.autenticacionService.isLogged()) {
             this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(result => {
                 this.usuario = result;
+                this.accionreciclarService.obtenerAccionReciclarPorUsuario(result.Id).subscribe(acciones => {
+                    if (acciones != null) {
+                        this.acciones += acciones.length;
+                    }
+                });
+                this.accionwebService.obtenerAccionWebPorUsuario(result.Id).subscribe(acciones => {
+                    if (acciones != null) {
+                        this.acciones += acciones.length;
+                    }
+                });
+
             });
             this.usuarioService.obtenerRanking().subscribe(usuarios => {
                 this.usuarios = usuarios;

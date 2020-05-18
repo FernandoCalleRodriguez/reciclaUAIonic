@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { AccionPageRoutingModule } from './accion-routing.module';
 
 import { AccionPage } from './accion.page';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    AccionPageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        AccionPageRoutingModule,
+        MatExpansionModule
+    ],
   declarations: [AccionPage]
 })
 export class AccionPageModule {}

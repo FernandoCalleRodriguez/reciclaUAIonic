@@ -23,9 +23,9 @@
                     <ion-card-subtitle><strong>Email:</strong>{{usuario?.Email}}</ion-card-subtitle>
                 </ion-card-header>
             </ion-col>
-            <ion-col offset=2>
+            <ion-col>
                 <ion-avatar>
-                    <ion-img style="width: 120px; height: 90px;"
+                    <ion-img style="width: 90px; height: 80px;"
                              src="https://picsum.photos/seed/{{usuario?.Id}}/1000">
                     </ion-img>
                 </ion-avatar>
@@ -49,13 +49,13 @@
                     </ion-col>
                 </ion-chip>
             </ion-item>
-            <ion-item [routerLink]="['/']" detail>
+            <ion-item [routerLink]="['/accion']" detail>
                 <ion-chip outline color="primary">
                     <ion-col>
                         <ion-label>Tú número de acciones es:</ion-label>
                     </ion-col>
                     <ion-col>
-                        <ion-badge slot="end" color="primary">{{posicion}}</ion-badge>
+                        <ion-badge slot="end" color="primary">{{acciones}}</ion-badge>
                     </ion-col>
                 </ion-chip>
             </ion-item>
