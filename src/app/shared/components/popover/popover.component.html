@@ -1,0 +1,11 @@
+<ion-list>
+    <ion-item detail (click)="close()" [routerLink]="['/cambiarcontrasena']">
+        <ion-label>Cambiar contraseña</ion-label>
+    </ion-item>
+    <ion-item detail [routerLink]="['/modificar']">
+        <ion-label>Modificar datos</ion-label>
+    </ion-item>
+    <ion-item  detail  (click)= "EliminarUsuario()">
+        <ion-label>Eliminar cuenta</ion-label>
+    </ion-item>
+</ion-list>

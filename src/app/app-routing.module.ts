@@ -90,7 +90,12 @@ const routes: Routes = [
   {
     path: 'notainfodetalle/:id',
     loadChildren: () => import('./notainfodetalle/notainfodetalle.module').then( m => m.NotainfodetallePageModule)
+  },
+  {
+    path: 'ranking',
+    loadChildren: () => import('./usuario/ranking/ranking.module').then( m => m.RankingPageModule)
   }
+
 
 ];
 

@@ -16,9 +16,11 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Camera } from '@ionic-native/camera/ngx';
 import {IonicStorageModule} from '@ionic/storage';
+import {PopoverComponent} from './shared/components/popover/popover.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,
+  PopoverComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
