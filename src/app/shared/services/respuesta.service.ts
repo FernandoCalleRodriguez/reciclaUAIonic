@@ -38,4 +38,12 @@ export class RespuestaService {
   public borrar(respuesta: Respuesta): Observable<void> {
     return this.http.delete<void>(this.SERVER + 'Respuesta/Borrar?p_respuesta_oid=' + respuesta.Id, {headers: this.headers});
   }
+
+  public marcarCorrecta(id: number): Observable<void> {
+    return this.http.post<void>(this.SERVER + 'Respuesta/ConfirmacionRespuestaCorrecta?p_oid=' + id, null, {headers: this.headers});
+  }
+
+  public desmarcarCorrecta(id: number): Observable<void> {
+    return this.http.post<void>(this.SERVER + 'Respuesta/DescartarRespuestaCorrecta?p_oid=' + id, null, {headers: this.headers});
+  }
 }

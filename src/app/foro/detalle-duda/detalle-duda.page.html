@@ -28,7 +28,8 @@
         <ion-label>
             <p class="ion-text-right mr-1 mb-1 ion-hide-sm-up" slot="end">
                 <small>
-                    {{ duda?.UsuarioDuda.Borrado? 'Usuario borrado' : duda?.UsuarioDuda.Nombre }} <br> {{ duda?.Fecha | date: "HH:mm, dd/MM/yyyy"}}
+                    {{ duda?.UsuarioDuda.Borrado ? 'Usuario borrado' : duda?.UsuarioDuda.Nombre }}
+                    <br> {{ duda?.Fecha | date: "HH:mm, dd/MM/yyyy"}}
                 </small>
             </p>
             <p class="ion-text-right mr-1 mb-1 ion-hide-sm-down" slot="end">
@@ -38,58 +39,86 @@
     </ion-card>
     <ion-card *ngIf="respuestas && respuestas.length">
         <ion-card-header>
-            <ion-card-title>
-                Respuestas
-            </ion-card-title>
+            <ion-item lines="none" class="ion-no-padding">
+                <ion-card-title>
+                    Respuestas
+                </ion-card-title>
+                <ion-toggle *ngIf="esCuestion && duda.ObtenerSiRespuestaValida" slot="end" color="success"
+                            [(ngModel)]="correctas"></ion-toggle>
+            </ion-item>
+
         </ion-card-header>
 
         <ion-card-content class="pl-0">
             <ion-list class="pt-0">
-                <ion-item *ngFor="let respuesta of respuestas">
-                    <ion-grid class="pl-0 pt-0 pb-0 pr-0">
-                        <ion-row>
-                            <ion-col class="pb-0">
-                                <ion-item lines="none" class="ion-no-padding">
-                                    <ion-label class="ion-text-wrap usuario-respuesta">
-                                        {{ respuesta?.UsuarioRespuesta.Borrado? 'Usuario borrado' : respuesta?.UsuarioRespuesta.Nombre }}
-                                    </ion-label>
-                                    <ion-button *ngIf="usuario && usuario.Id === respuesta?.UsuarioRespuesta.Id"
-                                                routerLink="/foro/duda/{{duda.Id}}/respuesta/{{respuesta.Id}}/editar">
-                                        <ion-icon name="pencil"></ion-icon>
-                                    </ion-button>
-                                    <ion-button *ngIf="usuario && usuario.Id === respuesta?.UsuarioRespuesta.Id"
-                                                color="danger" (click)="borrarRespuesta(respuesta)">
-                                        <ion-icon name="trash"></ion-icon>
-                                    </ion-button>
-                                </ion-item>
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col class="pr-0 pt-0">
-                                <!--ion-item class="ion-no-padding" lines="none">
-                                    <ion-thumbnail>
-                                        <img src="https://picsum.photos/seed/{{respuesta.UsuarioRespuesta.Id}}/200">
-                                    </ion-thumbnail>
-                                </ion-item-->
-                                <p class="ion-text-wrap">{{ respuesta.Cuerpo }}</p>
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col class="pr-0">
-                                <ion-label>
-                                    <p class="ion-text-right ion-hide-sm-up" slot="end">
-                                        <small>
+                <ng-container *ngFor="let respuesta of respuestas">
+                    <ion-item [ngClass]="{'success-border' : respuesta.EsCorrecta}"
+                              *ngIf="!esCuestion || (respuesta.EsCorrecta == correctas && correctas == true) || !correctas">
+                        <ion-grid class="pl-0 pt-0 pb-0 pr-0">
+                            <ion-row>
+                                <ion-col class="pb-0">
+                                    <ion-item lines="none" class="ion-no-padding">
+                                        <ion-label class="ion-text-wrap usuario-respuesta">
+                                            {{ respuesta?.UsuarioRespuesta.Borrado ? 'Usuario borrado' : respuesta?.UsuarioRespuesta.Nombre }}
+                                        </ion-label>
+                                        <ion-button *ngIf="usuario && usuario.Id === respuesta?.UsuarioRespuesta.Id"
+                                                    routerLink="/foro/duda/{{duda.Id}}/respuesta/{{respuesta.Id}}/editar">
+                                            <ion-icon name="pencil"></ion-icon>
+                                        </ion-button>
+                                        <ion-button *ngIf="usuario && usuario.Id === respuesta?.UsuarioRespuesta.Id"
+                                                    color="danger" (click)="borrarRespuesta(respuesta)">
+                                            <ion-icon name="trash"></ion-icon>
+                                        </ion-button>
+                                        <ion-button *ngIf="esCuestion && usuario && usuario.Id === duda.UsuarioDuda.Id
+                                                       && usuario.Id !== respuesta?.UsuarioRespuesta.Id && !respuesta.EsCorrecta"
+                                                    color="success" (click)="marcarCorrecta(respuesta)">
+                                            <ion-icon name="checkmark"></ion-icon>
+                                        </ion-button>
+                                        <ion-button *ngIf="esCuestion && usuario && usuario.Id === duda.UsuarioDuda.Id
+                                                       && usuario.Id !== respuesta?.UsuarioRespuesta.Id && respuesta.EsCorrecta"
+                                                    color="warning" (click)="desmarcarCorrecta(respuesta)">
+                                            <ion-icon name="close"></ion-icon>
+                                        </ion-button>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col class="pr-0 pt-0">
+                                    <!--ion-item class="ion-no-padding" lines="none">
+                                        <ion-thumbnail>
+                                            <img src="https://picsum.photos/seed/{{respuesta.UsuarioRespuesta.Id}}/200">
+                                        </ion-thumbnail>
+                                    </ion-item-->
+                                    <p class="ion-text-wrap">{{ respuesta.Cuerpo }}</p>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col class="pr-0">
+                                    <ion-label>
+                                        <p class="ion-text-right ion-hide-sm-up" slot="end">
+                                            <small>
+                                                {{ respuesta?.Fecha | date: "HH:mm, dd/MM/yyyy"}}
+                                            </small>
+                                            <ng-container *ngIf="respuesta.EsCorrecta">
+                                                <br>
+                                                <small>
+                                                    <ion-label color="success">Marcada como correcta</ion-label>
+                                                </small>
+                                            </ng-container>
+                                        </p>
+                                        <p class="ion-text-right ion-hide-sm-down" slot="end">
                                             {{ respuesta?.Fecha | date: "HH:mm, dd/MM/yyyy"}}
-                                        </small>
-                                    </p>
-                                    <p class="ion-text-right ion-hide-sm-down" slot="end">
-                                        {{ respuesta?.Fecha | date: "HH:mm, dd/MM/yyyy"}}
-                                    </p>
-                                </ion-label>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
-                </ion-item>
+                                            <ng-container *ngIf="respuesta.EsCorrecta">
+                                                <br>
+                                                <ion-label color="success">Marcada como correcta</ion-label>
+                                            </ng-container>
+                                        </p>
+                                    </ion-label>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-item>
+                </ng-container>
             </ion-list>
         </ion-card-content>
     </ion-card>

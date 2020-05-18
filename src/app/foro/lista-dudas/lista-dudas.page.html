@@ -23,7 +23,7 @@
                         </ion-col>
                         <ion-col class="ion-hide-sm-down" size-sm="3">
                             <p>
-                                {{ duda.UsuarioDuda.Nombre }}
+                                {{ duda.UsuarioDuda.Borrado? 'Usuario borrado' : duda.UsuarioDuda.Nombre }}
                             </p>
                         </ion-col>
                         <ion-col class="ion-hide-sm-down" size-sm="3">
@@ -40,7 +40,7 @@
                     <ion-label>
                         <p class="ion-text-right mr-1 mb-1 ion-hide-sm-up" slot="end">
                             <small>
-                                {{ duda?.UsuarioDuda.Nombre }} <br> {{ duda?.Fecha | date: "HH:mm, dd/MM/yyyy"}}
+                                {{ duda.UsuarioDuda.Borrado? 'Usuario borrado' : duda.UsuarioDuda.Nombre }} <br> {{ duda?.Fecha | date: "HH:mm, dd/MM/yyyy"}}
                             </small>
                         </p>
                     </ion-label>

@@ -10,6 +10,8 @@ import {Usuario} from '../../shared/models/usuario';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AlertController, ToastController} from '@ionic/angular';
 import {ConfiguracionService} from '../../shared/services/configuracion.service';
+import {Tema} from '../../shared/models/tema';
+import {TemaService} from '../../shared/services/tema.service';
 
 @Component({
     selector: 'app-detalle-duda',
@@ -23,11 +25,16 @@ export class DetalleDudaPage implements OnInit {
     public usuario: Usuario = null;
     public formResponder: FormGroup;
     public maxlen: 1500;
+    public tema: Tema = null;
+    public esCuestion = false;
+    public correctas: boolean = null;
 
     constructor(protected route: ActivatedRoute, protected dudaService: DudaService, protected toastController: ToastController,
-                protected respuestaService: RespuestaService, protected  usuarioService: UsuarioService,
+                protected respuestaService: RespuestaService, protected  usuarioService: UsuarioService, protected temaService: TemaService,
                 protected router: Router, protected config: ConfiguracionService, protected alertController: AlertController) {
         this.maxlen = 1500;
+        this.esCuestion = false;
+        this.correctas = false;
     }
 
     ionViewWillEnter() {
@@ -37,6 +44,9 @@ export class DetalleDudaPage implements OnInit {
             this.respuestaService.getRespuestasByDuda(this.duda.Id).subscribe(r => {
                 this.respuestas = r;
             });
+            this.tema = this.temaService.getTemaById(this.duda.Tema);
+            this.esCuestion = this.tema.Tema === 'Cuestión';
+            this.correctas = this.duda.ObtenerSiRespuestaValida;
         }, error => {
             this.config.presentToast('Error al obtener la duda ' + id, 'danger');
             this.router.navigate(['/foro']);
@@ -134,5 +144,30 @@ export class DetalleDudaPage implements OnInit {
         if (index > -1) {
             this.respuestas.splice(index, 1);
         }
+    }
+
+    marcarCorrecta(respuesta: Respuesta) {
+        this.respuestaService.marcarCorrecta(respuesta.Id).subscribe(r => {
+            respuesta.EsCorrecta = true;
+            this.duda.ObtenerSiRespuestaValida = true;
+            this.config.presentToast('Respuesta marcada como correcta', 'success');
+        });
+    }
+
+    desmarcarCorrecta(respuesta: Respuesta) {
+        this.respuestaService.desmarcarCorrecta(respuesta.Id).subscribe(r => {
+            respuesta.EsCorrecta = false;
+            let hayvalida = false;
+            this.respuestas.forEach(res => {
+                if (res.EsCorrecta) {
+                    hayvalida = true;
+                }
+            });
+            this.duda.ObtenerSiRespuestaValida = hayvalida;
+            if (!hayvalida) {
+                this.correctas = false;
+            }
+            this.config.presentToast('Respuesta desmarcada como correcta', 'success');
+        });
     }
 }
