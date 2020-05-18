@@ -33,7 +33,7 @@
                         <ion-button type="submit" color="primary" expand="block">Modificar</ion-button>
                     </ion-col>
                     <ion-col class="ion-hide-sm-down">
-                        <ion-button type="submit" color="primary" expand="block">Modificar</ion-button>
+                        <ion-button [disabled]="formularioModificar.invalid" type="submit" color="primary" expand="block">Modificar</ion-button>
                     </ion-col>
                 </ion-row>
             </form>

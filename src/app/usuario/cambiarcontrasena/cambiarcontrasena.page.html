@@ -26,7 +26,7 @@
                         <ion-button type="submit" color="primary" expand="block">Cambiar</ion-button>
                     </ion-col>
                     <ion-col class="ion-hide-sm-down">
-                        <ion-button type="submit" color="primary" expand="block">Cambiar</ion-button>
+                        <ion-button [disabled]="formularioCambiarPass.invalid" type="submit" color="primary" expand="block">Cambiar</ion-button>
                     </ion-col>
                 </ion-row>
             </form>

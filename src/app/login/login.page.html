@@ -37,7 +37,7 @@
                         </ion-row>
                     </ion-col>
                     <ion-col class="ion-hide-sm-down">
-                        <ion-button type="submit" color="primary" expand="block">Inicia sesión</ion-button>
+                        <ion-button [disabled]="formularioLogin.invalid" type="submit" color="primary" expand="block">Inicia sesión</ion-button>
                     </ion-col>
                 </ion-row>
             </form>
