@@ -94,7 +94,11 @@ const routes: Routes = [
   {
     path: 'ranking',
     loadChildren: () => import('./usuario/ranking/ranking.module').then( m => m.RankingPageModule)
+  },  {
+    path: 'accion',
+    loadChildren: () => import('./accion/accion.module').then( m => m.AccionPageModule)
   }
+
 
 
 ];

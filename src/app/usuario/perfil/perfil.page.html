@@ -23,17 +23,61 @@
                     <ion-card-subtitle><strong>Email:</strong>{{usuario?.Email}}</ion-card-subtitle>
                 </ion-card-header>
             </ion-col>
-            <ion-col>
-                <ion-img style="width: 120px; height: 90px;" src="https://picsum.photos/seed/{{usuario?.Id}}/1000" ></ion-img>
+            <ion-col offset=2>
+                <ion-avatar>
+                    <ion-img style="width: 120px; height: 90px;"
+                             src="https://picsum.photos/seed/{{usuario?.Id}}/1000">
+                    </ion-img>
+                </ion-avatar>
             </ion-col>
         </ion-row>
-
     </ion-card>
     <ion-list>
         <ion-item-group>
-            <ion-item detail>
-                <ion-label>Tu posición en el ranking es: {{posicion}}</ion-label>
-                <ion-note slot="end" color="success">Ver ranking</ion-note>
+            <ion-item [routerLink]="['/ranking']" detail>
+                <ion-chip outline color="primary">
+                    <ion-col>
+                        <ion-label>Estas en la posición</ion-label>
+
+                    </ion-col>
+                    <ion-col>
+                        <ion-badge color="primary"> {{posicion}}</ion-badge>
+                    </ion-col>
+                    <ion-col>
+                        <ion-label>del ranking</ion-label>
+
+                    </ion-col>
+                </ion-chip>
+            </ion-item>
+            <ion-item [routerLink]="['/']" detail>
+                <ion-chip outline color="primary">
+                    <ion-col>
+                        <ion-label>Tú número de acciones es:</ion-label>
+                    </ion-col>
+                    <ion-col>
+                        <ion-badge slot="end" color="primary">{{posicion}}</ion-badge>
+                    </ion-col>
+                </ion-chip>
+            </ion-item>
+            <ion-item [routerLink]="['/']" detail>
+                <ion-chip outline color="primary">
+                    <ion-col>
+                        <ion-label>Tú número de dudas es:</ion-label>
+                    </ion-col>
+                    <ion-col>
+                        <ion-badge slot="end" color="primary">{{posicion}}</ion-badge>
+                    </ion-col>
+                </ion-chip>
+            </ion-item>
+            <ion-item [routerLink]="['/propuestas']" detail>
+                <ion-chip outline color="primary">
+                    <ion-col>
+                        <ion-label>Tú número de propuestas es:</ion-label>
+                    </ion-col>
+                    <ion-col>
+                        <ion-badge slot="end" color="primary">{{posicion}}</ion-badge>
+                    </ion-col>
+                </ion-chip>
             </ion-item>
         </ion-item-group>
     </ion-list>

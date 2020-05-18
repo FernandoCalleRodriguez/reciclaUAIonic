@@ -14,7 +14,9 @@ import {PopoverComponent} from '../../shared/components/popover/popover.componen
 export class PerfilPage implements OnInit {
 
     usuario: Usuario;
+    usuarios: Usuario[];
     posicion: number;
+    propuestas: number;
 
     constructor(private autenticacionService: AutenticacionService,
                 private usuarioService: UsuarioService,
@@ -23,6 +25,9 @@ export class PerfilPage implements OnInit {
         if (this.autenticacionService.isLogged()) {
             this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(result => {
                 this.usuario = result;
+            });
+            this.usuarioService.obtenerRanking().subscribe(usuarios => {
+                this.usuarios = usuarios;
                 this.posicion = this.obtenerPosicion(this.usuario.Id);
             });
         }
@@ -46,13 +51,11 @@ export class PerfilPage implements OnInit {
     obtenerPosicion(id: number): number {
         let posicion = 0;
         let contador: number;
-        this.usuarioService.obtenerRanking().subscribe(usuarios => {
-            usuarios.forEach(u => {
-                posicion++;
-                if (u.Id == id) {
-                    contador = posicion;
-                }
-            });
+        this.usuarios.forEach(u => {
+            posicion++;
+            if (u.Id == id) {
+                contador = posicion;
+            }
         });
 
         return contador;
