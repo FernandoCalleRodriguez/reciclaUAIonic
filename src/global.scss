@@ -27,3 +27,8 @@
 
 /* leaflet */
 @import "~leaflet/dist/leaflet.css";
+
+.larger-alert {
+  --min-width: 80% !important;
+  font-size: 10px !important;
+}

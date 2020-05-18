@@ -17,7 +17,7 @@ export class EstanciaService {
     }
 
     public getEstancia(): Observable<Estancia[]> {
-        return this.http.get<Estancia[]>(this.SERVER + 'BuscarTodos', { headers: this.headers });
+        return this.http.get<Estancia[]>(this.SERVER + 'BuscarTodos', {headers: this.headers});
     }
 
     public setEstancia(estancia: Estancia): Observable<Estancia> {
@@ -36,4 +36,7 @@ export class EstanciaService {
         return this.http.put<Estancia>(this.SERVER + 'Modificar?idEstancia=' + estancia.Id, estancia, {headers: this.headers});
     }
 
+    public getEstanciasByEdificio(id: number): Observable<Estancia[]> {
+        return this.http.get<Estancia[]>(this.SERVER + 'BuscarEstanciasPorEdificio?id_edificio=' + id, {headers: this.headers});
+    }
 }

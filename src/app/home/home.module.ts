@@ -10,6 +10,7 @@ import { HomePage } from './home.page';
 import {AppModule} from '../app.module';
 import {MapaPuntosComponent} from '../shared/components/mapa-puntos/mapa-puntos.component';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import {MapaEstanciasComponent} from '../shared/components/mapa-estancias/mapa-estancias.component';
 
 @NgModule({
     imports: [
@@ -19,6 +20,6 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
         HomePageRoutingModule,
         LeafletModule,
     ],
-  declarations: [HomePage, MapaPuntosComponent]
+  declarations: [HomePage, MapaPuntosComponent, MapaEstanciasComponent]
 })
 export class HomePageModule {}
