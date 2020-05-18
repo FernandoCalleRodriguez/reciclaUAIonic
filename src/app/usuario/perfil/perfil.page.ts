@@ -7,6 +7,10 @@ import {ConfiguracionService} from '../../shared/services/configuracion.service'
 import {PopoverComponent} from '../../shared/components/popover/popover.component';
 import {AccionreciclarService} from '../../shared/services/accionreciclar.service';
 import {AccionwebService} from '../../shared/services/accionweb.service';
+import {Material} from '../../shared/models/material';
+import {MaterialService} from '../../shared/services/materiel.service';
+import {ItemService} from '../../shared/services/item.service';
+import {PuntoService} from '../../shared/services/punto.service';
 
 @Component({
     selector: 'app-perfil',
@@ -18,15 +22,18 @@ export class PerfilPage implements OnInit {
     usuario: Usuario;
     usuarios: Usuario[];
     posicion: number;
-    propuestas: number;
-    acciones: 0;
+    propuestas = 0;
+    acciones = 0;
 
     constructor(private autenticacionService: AutenticacionService,
                 private usuarioService: UsuarioService,
                 public  menu: MenuController,
                 public popoverController: PopoverController,
                 private accionreciclarService: AccionreciclarService,
-                private accionwebService: AccionwebService) {
+                private accionwebService: AccionwebService,
+                private materialService: MaterialService,
+                private itemService: ItemService,
+                private puntoService: PuntoService) {
         if (this.autenticacionService.isLogged()) {
             this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(result => {
                 this.usuario = result;
@@ -38,6 +45,21 @@ export class PerfilPage implements OnInit {
                 this.accionwebService.obtenerAccionWebPorUsuario(result.Id).subscribe(acciones => {
                     if (acciones != null) {
                         this.acciones += acciones.length;
+                    }
+                });
+                this.materialService.BuscarMaterialesPorUsuario(result.Id).subscribe(materiales => {
+                    if (materiales != null) {
+                        this.propuestas += materiales.length;
+                    }
+                });
+                this.itemService.getByUserId(result.Id).subscribe(items => {
+                    if (items != null) {
+                        this.propuestas += items.length;
+                    }
+                });
+                this.puntoService.getPuntoByUsuario(result.Id).subscribe(puntos => {
+                    if (puntos != null) {
+                        this.propuestas = puntos.length;
                     }
                 });
 
