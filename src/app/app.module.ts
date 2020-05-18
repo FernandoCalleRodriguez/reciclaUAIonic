@@ -16,9 +16,13 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Camera } from '@ionic-native/camera/ngx';
 import {IonicStorageModule} from '@ionic/storage';
+import {MapaPuntosComponent} from './shared/components/mapa-puntos/mapa-puntos.component';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+  ],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -26,15 +30,17 @@ import {IonicStorageModule} from '@ionic/storage';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     BrowserAnimationsModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     Camera
+  ],
+  exports: [
   ],
   bootstrap: [AppComponent]
 })
