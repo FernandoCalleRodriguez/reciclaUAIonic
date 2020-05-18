@@ -8,6 +8,7 @@ import {RespuestaService} from '../../shared/services/respuesta.service';
 import {UsuarioService} from '../../shared/services/usuario.service';
 import {Respuesta} from '../../shared/models/respuesta';
 import {Duda} from '../../shared/models/duda';
+import {ConfiguracionService} from '../../shared/services/configuracion.service';
 
 @Component({
     selector: 'app-formulario-respuesta',
@@ -30,7 +31,7 @@ export class FormularioRespuestaComponent implements OnInit {
 
     constructor(protected route: ActivatedRoute, protected dudaService: DudaService, protected toastController: ToastController,
                 protected respuestaService: RespuestaService, protected  usuarioService: UsuarioService,
-                protected router: Router) {
+                protected router: Router, protected config: ConfiguracionService) {
         this.maxlen = 1500;
     }
 
@@ -42,10 +43,12 @@ export class FormularioRespuestaComponent implements OnInit {
                 this.respuestaService.getRespuestaById(this.respuestaId).subscribe(res => {
                     this.r = res;
                     this.cuerpo.setValue(res.Cuerpo);
+                    /*
                     if (this.r.UsuarioRespuesta.Id !== this.usuario.Id) {
-                        this.presentToast('Permiso denegado', 'danger');
+                        this.config.presentToast('Permiso denegado', 'danger');
                         this.router.navigate(['/foro']);
                     }
+                     */
                 });
             }
         });
@@ -72,26 +75,17 @@ export class FormularioRespuestaComponent implements OnInit {
             if (this.respuestaId) {
                 this.respuestaService.modificar(this.r).subscribe(data => {
                     this.output.emit(data);
-                    this.presentToast('Respuesta editada', 'success');
+                    this.config.presentToast('Respuesta editada', 'success');
                     this.router.navigate(['/foro/duda/', this.dudaId]);
                 });
             } else {
                 this.respuestaService.crear(this.r).subscribe(data => {
                     this.output.emit(data);
                     this.cuerpo.reset();
-                    this.presentToast('Respuesta enviada', 'success');
+                    this.config.presentToast('Respuesta enviada', 'success');
                     this.router.navigate(['/foro/duda/', this.dudaId]);
                 });
             }
         }
-    }
-
-    async presentToast(messagetext, color) {
-        const toast = await this.toastController.create({
-            message: messagetext,
-            duration: 2000,
-            color: color
-        });
-        toast.present();
     }
 }

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {EditDudaGuardService} from './shared/services/edit-duda-guard.service';
+import {EditRespuestaGuardService} from './shared/services/edit-respuesta-guard.service';
 
 const routes: Routes = [
   {
@@ -53,15 +55,18 @@ const routes: Routes = [
   },
   {
     path: 'foro/duda/:id/editar',
-    loadChildren: () => import('./foro/formulario-duda/formulario-duda.module').then(m => m.FormularioDudaPageModule)
+    loadChildren: () => import('./foro/formulario-duda/formulario-duda.module').then(m => m.FormularioDudaPageModule),
+    canActivate: [EditDudaGuardService]
   },
   {
     path: 'foro/duda/crear/:tema',
-    loadChildren: () => import('./foro/formulario-duda/formulario-duda.module').then(m => m.FormularioDudaPageModule)
+    loadChildren: () => import('./foro/formulario-duda/formulario-duda.module').then(m => m.FormularioDudaPageModule),
+    canActivate: [EditDudaGuardService]
   },
   {
     path: 'foro/duda/:duda/respuesta/:respuesta/editar',
-    loadChildren: () => import('./foro/editar-respuesta/editar-respuesta.module').then( m => m.EditarRespuestaPageModule)
+    loadChildren: () => import('./foro/editar-respuesta/editar-respuesta.module').then( m => m.EditarRespuestaPageModule),
+    canActivate: [EditRespuestaGuardService]
   },
   {
     path: 'propuestas',

@@ -9,6 +9,7 @@ import {UsuarioService} from '../../shared/services/usuario.service';
 import {Usuario} from '../../shared/models/usuario';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastController} from '@ionic/angular';
+import {ConfiguracionService} from '../../shared/services/configuracion.service';
 
 @Component({
     selector: 'app-detalle-duda',
@@ -25,7 +26,7 @@ export class DetalleDudaPage implements OnInit {
 
     constructor(protected route: ActivatedRoute, protected dudaService: DudaService, protected toastController: ToastController,
                 protected respuestaService: RespuestaService, protected  usuarioService: UsuarioService,
-                protected router: Router) {
+                protected router: Router, protected config: ConfiguracionService) {
         this.maxlen = 1500;
     }
 
@@ -37,7 +38,7 @@ export class DetalleDudaPage implements OnInit {
                 this.respuestas = r;
             });
         }, error => {
-            this.presentToast('Error al obtener la duda ' + id, 'danger');
+            this.config.presentToast('Error al obtener la duda ' + id, 'danger');
             this.router.navigate(['/foro']);
         });
     }
@@ -68,23 +69,13 @@ export class DetalleDudaPage implements OnInit {
                 }
                 this.respuestas.push(data);
                 this.cuerpo.reset();
-                this.presentToast('Respuesta enviada', 'success');
+                this.config.presentToast('Respuesta enviada', 'success');
             });
         }
     }
 
     borrar(duda: Duda) {
 
-    }
-
-    async presentToast(messagetext, color) {
-        const toast = await this.toastController.create({
-            message: messagetext,
-            duration: 2000,
-            color: color
-
-        });
-        toast.present();
     }
 
     pushRespuesta(respuesta: Respuesta) {
