@@ -19,9 +19,9 @@
 
         <ion-item lines="full">
           <ion-label position="floating">Material</ion-label>
-          <ion-select placeholder="Select One" formControlName="Material_oid">
+          <ion-select placeholder="Select One"  formControlName="Material_oid">
 
-            <ion-select-option *ngFor="let material of materiales" value="{{material.Id}}">{{material.Nombre}}
+            <ion-select-option *ngFor="let material of materiales" value="{{material.Id}}"  >{{material.Nombre}}
             </ion-select-option>
           </ion-select>
         </ion-item>
@@ -36,7 +36,7 @@
         </ion-item>
         <ion-row>
           <ion-col>
-            <ion-button [disabled]="!itemForm.valid" type="submit" color="primary" expand="block">Crear item</ion-button>
+            <ion-button [disabled]="!itemForm.valid" type="submit" color="primary" expand="block">{{title}}</ion-button>
           </ion-col>
         </ion-row>
       </form>

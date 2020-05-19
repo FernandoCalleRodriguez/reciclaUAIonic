@@ -5,48 +5,77 @@
 </ion-header>
 
 <ion-content>
+
     <mat-accordion>
         <!-- ITEMS -->
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <h4>{{ propuestas[0].categoria }}</h4>
             </mat-expansion-panel-header>
+            <ion-searchbar debounce="500" (ionChange)="buscar($event,0)"></ion-searchbar>
 
             <ion-item class="ion-no-padding" lines="none" *ngFor="let estado of estados">
                 <ion-label>{{ estado.Estado }}</ion-label>
-                <ion-checkbox slot="end" [color]="estado.Color"
-                              [(ngModel)]="propuestas[0].controles[estado.Id - 1]">
+                <ion-checkbox slot="end" [color]="estado.Color" [(ngModel)]="propuestas[0].controles[estado.Id - 1]">
                 </ion-checkbox>
             </ion-item>
 
             <ng-container *ngFor="let item of propuestas[0].elementos">
-                <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
-                          *ngIf="propuestas[0].controles[item.EsValido - 1]">
-                    <ion-label>{{ item.Nombre }}</ion-label>
-                    <!-- ion-label>{{ item.EsValido | estado }}</ion-label-->
-                </ion-item>
+                <ion-item-sliding>
+
+                    <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
+                        *ngIf="propuestas[0].controles[item.EsValido - 1]">
+                        <ion-label>{{ item.Nombre }}</ion-label>
+                        <!-- ion-label>{{ item.EsValido | estado }}</ion-label-->
+                    </ion-item>
+                    <ion-item-options side="start" *ngIf="item.EsValido ==2">
+                        <ion-item-option [routerLink]="['/item/edit',item.Id]" color="success">Modificar
+                        </ion-item-option>
+                    </ion-item-options>
+
+                    <ion-item-options side="end" *ngIf="item.EsValido ==2">
+                        <ion-item-option (click)="delete(item,0)" color="danger">Borrar</ion-item-option>
+                    </ion-item-options>
+                </ion-item-sliding>
+
             </ng-container>
         </mat-expansion-panel>
 
         <!-- MATERIALES -->
         <mat-expansion-panel>
+            
             <mat-expansion-panel-header>
                 <h4>{{ propuestas[1].categoria }}</h4>
             </mat-expansion-panel-header>
+            <ion-searchbar debounce="500" (ionChange)="buscar($event,1)"></ion-searchbar>
 
             <ion-item class="ion-no-padding" lines="none" *ngFor="let estado of estados">
                 <ion-label>{{ estado.Estado }}</ion-label>
-                <ion-checkbox slot="end" [color]="estado.Color"
-                              [(ngModel)]="propuestas[1].controles[estado.Id - 1]">
+                <ion-checkbox slot="end" [color]="estado.Color" [(ngModel)]="propuestas[1].controles[estado.Id - 1]">
                 </ion-checkbox>
             </ion-item>
 
             <ng-container *ngFor="let item of propuestas[1].elementos">
-                <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
-                          *ngIf="propuestas[1].controles[item.EsValido - 1]">
-                    <ion-label>{{ item.Nombre }}</ion-label>
-                    <!-- ion-label>{{ item.EsValido | estado }}</ion-label-->
-                </ion-item>
+
+                <ion-item-sliding>
+
+                    <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
+                        *ngIf="propuestas[1].controles[item.EsValido - 1]">
+                        <ion-label>{{ item.Nombre }}</ion-label>
+                        <!-- ion-label>{{ item.EsValido | estado }}</ion-label-->
+                    </ion-item>
+                    <ion-item-options side="start" *ngIf="item.EsValido ==2">
+                        <ion-item-option [routerLink]="['/material/edit',item.Id]" color="success">Modificar
+                        </ion-item-option>
+                    </ion-item-options>
+
+                    <ion-item-options side="end" *ngIf="item.EsValido ==2">
+                        <ion-item-option (click)="delete(item,1)" color="danger">Borrar</ion-item-option>
+                    </ion-item-options>
+                </ion-item-sliding>
+
+
+
             </ng-container>
         </mat-expansion-panel>
 
@@ -58,14 +87,13 @@
 
             <ion-item class="ion-no-padding" lines="none" *ngFor="let estado of estados">
                 <ion-label>{{ estado.Estado }}</ion-label>
-                <ion-checkbox slot="end" [color]="estado.Color"
-                              [(ngModel)]="propuestas[2].controles[estado.Id - 1]">
+                <ion-checkbox slot="end" [color]="estado.Color" [(ngModel)]="propuestas[2].controles[estado.Id - 1]">
                 </ion-checkbox>
             </ion-item>
 
             <ng-container *ngFor="let item of propuestas[2].elementos">
                 <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
-                          *ngIf="propuestas[2].controles[item.EsValido - 1]">
+                    *ngIf="propuestas[2].controles[item.EsValido - 1]">
                     <ion-label>{{ item.Latitud }}</ion-label>
                     <ion-label>{{ item.Longitud }}</ion-label>
                     <!-- ion-label>{{ item.EsValido | estado }}</ion-label-->

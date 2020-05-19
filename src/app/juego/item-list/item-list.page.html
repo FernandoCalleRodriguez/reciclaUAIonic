@@ -1,23 +1,39 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>item-list</ion-title>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div *ngIf="items != null">
+  <ion-searchbar debounce="500" (ionChange)="buscarItem($event)"></ion-searchbar>
+
+  <div *ngIf="items != null && items.length>0;else noItems">
     <ion-card *ngFor="let item of items;let i = index">
-     
+
       <ion-card-header>
         <ion-card-title>{{item.Nombre}}</ion-card-title>
+
+        <ion-item class="ion-no-padding" *ngIf="item.EsValido==2">
+          <ion-button routerLink="/item/edit/{{item.Id}}">
+            <ion-icon name="pencil"></ion-icon>
+          </ion-button>
+          <ion-button  (click)="delete(item)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-item>
         <ion-card-subtitle>Estado: {{getEstado(item.EsValido)}}</ion-card-subtitle>
-        <ion-card-subtitle>Material: {{item.MaterialItem.Nombre}}, Contenedor: {{getTipo(item.MaterialItem.Contenedor)}} </ion-card-subtitle>
+        <ion-card-subtitle>Material: {{item?.MaterialItem?.Nombre}}, Contenedor: {{getTipo(item?.MaterialItem?.Contenedor)}}
+        </ion-card-subtitle>
         <ion-card-subtitle></ion-card-subtitle>
       </ion-card-header>
-      <img [src]="getItemImage(i)" />
+      <img *ngIf="getItemImage(i)!=null" [src]="getItemImage(i)" />
       <ion-card-content>
         {{item.Descripcion}}
       </ion-card-content>
     </ion-card>
   </div>
+  <ng-template #noItems>
+    <p>no hay items</p>
+  </ng-template>
 </ion-content>

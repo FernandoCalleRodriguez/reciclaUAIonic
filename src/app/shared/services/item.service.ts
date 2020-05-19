@@ -35,6 +35,7 @@ export class ItemService {
   }
 
   public removeItem(id: number) {
+
     return this.http.delete<Item>(this.SERVER + 'Borrar?p_Item_oid=' + id,{headers: this.headers});
   }
 
