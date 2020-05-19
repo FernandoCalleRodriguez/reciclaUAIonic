@@ -10,6 +10,7 @@ import {EdificioService} from '../shared/services/edificio.service';
 import {MapaEstanciasComponent} from '../shared/components/mapa-estancias/mapa-estancias.component';
 import {Planta} from '../shared/models/planta';
 import {Estancia} from '../shared/models/estancia';
+import {MapaPickerComponent} from '../shared/components/mapa-picker/mapa-picker.component';
 
 class Puntos {
 }
@@ -24,9 +25,14 @@ export class HomePage implements OnInit {
     public edificios: Edificio[] = null;
     public idx = -1;
     public idxPlanta = -1;
+    public selectedEstancia: Estancia = null;
 
     @ViewChild(MapaEstanciasComponent)
     public mapa: MapaEstanciasComponent;
+
+    @ViewChild(MapaPickerComponent)
+    public picker: MapaPickerComponent;
+
     alertOpts: any = {
         header: 'Listado de edificios',
         cssClass: 'larger-alert'
@@ -50,6 +56,7 @@ export class HomePage implements OnInit {
     ngOnInit() {
         this.idx = null;
         this.idxPlanta = null;
+        this.selectedEstancia = null;
     }
 
     changeEdificio(idx: number) {
@@ -69,5 +76,11 @@ export class HomePage implements OnInit {
 
     printSelected(estancia: Estancia) {
         console.log(estancia);
+        this.selectedEstancia = estancia;
+        this.picker.setZone(estancia.Latitud, estancia.Longitud);
+    }
+
+    printCoord(coord: L.LatLng) {
+        console.log(coord);
     }
 }
