@@ -25,7 +25,16 @@
         </ion-row>
         <ion-row>
             <ion-col>
-                <app-mapa-estancias></app-mapa-estancias>
+                <ion-select *ngIf="idx" placeholder="Selecciona la planta" interface="alert"
+                            [(ngModel)]="idxPlanta" (ngModelChange)="changePlanta($event)">
+                    <ion-select-option *ngFor="let planta of sortedPlantas(edificios[idx].PlantasEdificio)"
+                                       value="{{planta.Planta}}">{{planta.Planta | planta}}</ion-select-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <app-mapa-estancias (selectedEstanciaChange)="printSelected($event)"></app-mapa-estancias>
             </ion-col>
         </ion-row>
     </ion-grid>

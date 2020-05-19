@@ -7,6 +7,7 @@ import {TipoContenedorService} from '../../services/tipo-contenedor.service';
 import {Estancia} from '../../models/estancia';
 import {Edificio} from '../../models/edificio';
 import {EstanciaService} from '../../services/estancia.service';
+import {PlantaPipe} from '../../pipes/planta.pipe';
 
 @Component({
     selector: 'app-mapa-estancias',
@@ -40,7 +41,8 @@ export class MapaEstanciasComponent implements OnInit {
     @Output()
     public selectedEstanciaChange: EventEmitter<Estancia> = new EventEmitter<Estancia>();
 
-    constructor(protected tipoContenedorService: TipoContenedorService, protected estanciaService: EstanciaService) {
+    constructor(protected tipoContenedorService: TipoContenedorService, protected estanciaService: EstanciaService,
+                protected plantaPipe: PlantaPipe) {
     }
 
     ngOnInit(): void {
@@ -56,12 +58,22 @@ export class MapaEstanciasComponent implements OnInit {
         marker.bindPopup(this.getPopup(estancia));
     }
 
-    public setUpMap(edificio: Edificio) {
+    public setUpMap(edificio: Edificio, planta: number = null) {
         this.edificio = edificio;
+        this.planta = planta;
         this.estanciaService.getEstanciasByEdificio(this.edificio.Id).subscribe(e => {
             this.estancias = e;
+            this.filterPoints();
             this.setUpPoints();
         });
+    }
+
+    filterPoints() {
+        if (this.planta && this.estancias && this.estancias.length > 0) {
+            this.estancias = this.estancias.filter(estancia => {
+                return estancia.PlantaEstancia.Planta == this.planta;
+            });
+        }
     }
 
     onMapReady(map: L.Map) {
@@ -82,6 +94,7 @@ export class MapaEstanciasComponent implements OnInit {
 
     readyMap() {
         this.setUpControls();
+        this.filterPoints();
         this.setUpPoints();
     }
 
@@ -144,9 +157,7 @@ export class MapaEstanciasComponent implements OnInit {
             this.cleanPoints();
 
             this.estancias.forEach(e => {
-                if (!this.planta || (this.planta && e.PlantaEstancia.Planta === this.planta)) {
-                    this.setMarker(e);
-                }
+                this.setMarker(e);
             });
 
             if (this.single) {
@@ -208,12 +219,16 @@ export class MapaEstanciasComponent implements OnInit {
     }
 
     private getPopup(estancia: Estancia): L.Popup {
-        let content = `<h4>Punto ${estancia.Id}</h4><hr>`;
+        let content = `<h4>Estancia ${estancia.Id}</h4><hr>`;
         content += '<ul>';
-        content += `<li>${estancia.Nombre}</li>`;
-        content += `<li>${estancia.Actividad}</li>`;
+        if (estancia.Nombre && estancia.Nombre != '') {
+            content += `<li>Nombre: ${estancia.Nombre}</li>`;
+        }
+        if (estancia.Actividad && estancia.Actividad != '') {
+            content += `<li>Actividad: ${estancia.Actividad}</li>`;
+        }
         content += `<li>${estancia.EdificioEstancia.Nombre}</li>`;
-        content += `<li>${estancia.PlantaEstancia.Planta}</li>`;
+        content += `<li>${this.plantaPipe.transform(estancia.PlantaEstancia.Planta)}</li>`;
         content += '</ul>';
         content += '<hr>';
         content += `${estancia.Latitud}, ${estancia.Longitud}`;

@@ -8,6 +8,8 @@ import {MapaPuntosComponent} from '../shared/components/mapa-puntos/mapa-puntos.
 import {Edificio} from '../shared/models/edificio';
 import {EdificioService} from '../shared/services/edificio.service';
 import {MapaEstanciasComponent} from '../shared/components/mapa-estancias/mapa-estancias.component';
+import {Planta} from '../shared/models/planta';
+import {Estancia} from '../shared/models/estancia';
 
 class Puntos {
 }
@@ -20,7 +22,8 @@ class Puntos {
 export class HomePage implements OnInit {
     public puntos: Puntos[] = null;
     public edificios: Edificio[] = null;
-    public idx = 0;
+    public idx = -1;
+    public idxPlanta = -1;
 
     @ViewChild(MapaEstanciasComponent)
     public mapa: MapaEstanciasComponent;
@@ -28,6 +31,7 @@ export class HomePage implements OnInit {
         header: 'Listado de edificios',
         cssClass: 'larger-alert'
     };
+
 
     constructor(private menu: MenuController,
                 private  autenticacionService: AutenticacionService,
@@ -44,10 +48,26 @@ export class HomePage implements OnInit {
     }
 
     ngOnInit() {
+        this.idx = null;
+        this.idxPlanta = null;
     }
 
     changeEdificio(idx: number) {
-        console.log(idx);
-        this.mapa.setUpMap(this.edificios[idx]);
+        this.idxPlanta = null;
+        this.mapa.setUpMap(this.edificios[idx], this.idxPlanta);
+    }
+
+    changePlanta(idxPlanta: any) {
+        this.mapa.setUpMap(this.edificios[this.idx], idxPlanta);
+    }
+
+    sortedPlantas(plantas: Planta[]) {
+        return plantas.sort((a, b) => {
+            return a.Planta - b.Planta;
+        });
+    }
+
+    printSelected(estancia: Estancia) {
+        console.log(estancia);
     }
 }

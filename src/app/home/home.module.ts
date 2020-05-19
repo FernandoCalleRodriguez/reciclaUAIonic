@@ -11,6 +11,7 @@ import {AppModule} from '../app.module';
 import {MapaPuntosComponent} from '../shared/components/mapa-puntos/mapa-puntos.component';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {MapaEstanciasComponent} from '../shared/components/mapa-estancias/mapa-estancias.component';
+import {PlantaPipe} from '../shared/pipes/planta.pipe';
 
 @NgModule({
     imports: [
@@ -20,6 +21,7 @@ import {MapaEstanciasComponent} from '../shared/components/mapa-estancias/mapa-e
         HomePageRoutingModule,
         LeafletModule,
     ],
-  declarations: [HomePage, MapaPuntosComponent, MapaEstanciasComponent]
+    declarations: [HomePage, MapaPuntosComponent, MapaEstanciasComponent, PlantaPipe],
+    providers: [PlantaPipe]
 })
 export class HomePageModule {}
