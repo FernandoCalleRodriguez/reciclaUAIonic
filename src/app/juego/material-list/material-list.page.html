@@ -5,15 +5,37 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="materiales != null">
+  <ion-searchbar debounce="500" (ionChange)="buscarMaterial($event)"></ion-searchbar>
 
-    <ion-item *ngFor="let material of materiales">
-      <ion-label>
-        <h2>{{material.Nombre}}</h2>
-        <h3>Estado: {{getEstado(material.EsValido)}}</h3>
-        <p>Tipo contenedor: {{getTipo(material.Contenedor)}}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <div *ngIf="materiales != null  && materiales.length>0;else noMaterials">
+    <ion-list>
+      <ion-item-sliding *ngFor="let material of materiales">
+        <ion-item>
+          <ion-label>{{material.Nombre}}
+            <h3>Estado: {{getEstado(material.EsValido)}}</h3>
+            <p>Tipo contenedor: {{getTipo(material.Contenedor)}}</p>
+          </ion-label>
 
+        </ion-item>
+
+        <ion-item-options side="start">
+          <ion-item-option [routerLink]="['/material/edit',material.Id]" routerLinkActive="router-link-active"  color="success">Modificar</ion-item-option>
+        </ion-item-options>
+
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="delete(material)">Borrar</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+      <!-- <ion-item *ngFor="let material of materiales">
+        <ion-label>
+          <h2>{{material.Nombre}}</h2>
+          <h3>Estado: {{getEstado(material.EsValido)}}</h3>
+          <p>Tipo contenedor: {{getTipo(material.Contenedor)}}</p>
+        </ion-label>
+      </ion-item> -->
+    </ion-list>
+  </div>
+  <ng-template #noMaterials>
+    <p>no hay items</p>
+  </ng-template>
 </ion-content>

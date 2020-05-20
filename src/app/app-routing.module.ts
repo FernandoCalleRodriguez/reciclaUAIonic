@@ -81,6 +81,14 @@ const routes: Routes = [
     loadChildren: () => import('./juego/item/item.module').then( m => m.ItemPageModule)
   },
   {
+    path: 'item/edit/:id',
+    loadChildren: () => import('./juego/item/item.module').then( m => m.ItemPageModule)
+  },
+  {
+    path: 'material/edit/:id',
+    loadChildren: () => import('./juego/material/material.module').then( m => m.MaterialPageModule)
+  },
+  {
     path: 'item-list',
     loadChildren: () => import('./juego/item-list/item-list.module').then( m => m.ItemListPageModule)
   },
