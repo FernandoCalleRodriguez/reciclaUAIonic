@@ -22,11 +22,11 @@ const routes: Routes = [
     loadChildren: () => import('./usuario/registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
-    path: 'modificar',
+    path: 'usuario/modificar',
     loadChildren: () => import('./usuario/modificarusuario/modificarusuario.module').then( m => m.ModificarusuarioPageModule)
   },
   {
-    path: 'cambiarcontrasena',
+    path: 'usuario/cambiarcontrasena',
     loadChildren: () => import('./usuario/cambiarcontrasena/cambiarcontrasena.module').then( m => m.CambiarcontrasenaPageModule)
   },
   {
@@ -69,7 +69,7 @@ const routes: Routes = [
     canActivate: [EditRespuestaGuardService]
   },
   {
-    path: 'propuestas',
+    path: 'usuario/propuestas',
     loadChildren: () => import('./validacion/propuestas-usuario/propuestas-usuario.module').then( m => m.PropuestasUsuarioPageModule)
   },
   {
@@ -95,7 +95,17 @@ const routes: Routes = [
   {
     path: 'notainfodetalle/:id',
     loadChildren: () => import('./notainfodetalle/notainfodetalle.module').then( m => m.NotainfodetallePageModule)
+  },
+  {
+    path: 'usuario/ranking',
+    loadChildren: () => import('./usuario/ranking/ranking.module').then( m => m.RankingPageModule)
+  },
+  {
+    path: 'usuario/acciones',
+    loadChildren: () => import('./accion/accion.module').then( m => m.AccionPageModule)
   }
+
+
 
 ];
 

@@ -2,8 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {AutenticacionService} from '../../shared/services/autenticacion.service';
 import {UsuarioService} from '../../shared/services/usuario.service';
 import {Usuario} from '../../shared/models/usuario';
-import {AlertController, MenuController} from '@ionic/angular';
+import {AlertController, MenuController, PopoverController} from '@ionic/angular';
 import {ConfiguracionService} from '../../shared/services/configuracion.service';
+import {PopoverComponent} from '../../shared/components/popover/popover.component';
+import {AccionreciclarService} from '../../shared/services/accionreciclar.service';
+import {AccionwebService} from '../../shared/services/accionweb.service';
+import {Material} from '../../shared/models/material';
+import {MaterialService} from '../../shared/services/materiel.service';
+import {ItemService} from '../../shared/services/item.service';
+import {PuntoService} from '../../shared/services/punto.service';
 
 @Component({
     selector: 'app-perfil',
@@ -13,48 +20,84 @@ import {ConfiguracionService} from '../../shared/services/configuracion.service'
 export class PerfilPage implements OnInit {
 
     usuario: Usuario;
+    usuarios: Usuario[];
+    posicion: number;
+    propuestas = 0;
+    acciones = 0;
 
     constructor(private autenticacionService: AutenticacionService,
                 private usuarioService: UsuarioService,
                 public  menu: MenuController,
-                protected configuracionService: ConfiguracionService,
-                private alertController: AlertController) {
+                public popoverController: PopoverController,
+                private accionreciclarService: AccionreciclarService,
+                private accionwebService: AccionwebService,
+                private materialService: MaterialService,
+                private itemService: ItemService,
+                private puntoService: PuntoService) {
         if (this.autenticacionService.isLogged()) {
             this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(result => {
                 this.usuario = result;
+                this.accionreciclarService.obtenerAccionReciclarPorUsuario(result.Id).subscribe(acciones => {
+                    if (acciones != null) {
+                        this.acciones += acciones.length;
+                    }
+                });
+                this.accionwebService.obtenerAccionWebPorUsuario(result.Id).subscribe(acciones => {
+                    if (acciones != null) {
+                        this.acciones += acciones.length;
+                    }
+                });
+                this.materialService.BuscarMaterialesPorUsuario(result.Id).subscribe(materiales => {
+                    if (materiales != null) {
+                        this.propuestas += materiales.length;
+                    }
+                });
+                this.itemService.getByUserId(result.Id).subscribe(items => {
+                    if (items != null) {
+                        this.propuestas += items.length;
+                    }
+                });
+                this.puntoService.getPuntoByUsuario(result.Id).subscribe(puntos => {
+                    if (puntos != null) {
+                        this.propuestas = puntos.length;
+                    }
+                });
+
+            });
+            this.usuarioService.obtenerRanking().subscribe(usuarios => {
+                this.usuarios = usuarios;
+                this.posicion = this.obtenerPosicion(this.usuario.Id);
             });
         }
         this.menu.close();
+
     }
 
     ngOnInit() {
     }
 
-    async EliminarUsuario() {
-        const alert = await this.alertController.create({
-            header: 'Eliminar usuario!',
-            message: '¿Estas seguro de que desea eliminar su usuario?',
-            buttons: [
-                {
-                    text: 'No',
-                    role: 'cancel',
-                    cssClass: 'secondary',
-                    handler: (blah) => {
-                    }
-                }, {
-                    text: 'Sí',
-                    handler: () => {
-                        this.usuarioService.borrarUsuario(this.usuario.Id, 'web').subscribe(res => {
-                            this.autenticacionService.Logout();
-                        }, error => {
-
-                        });
-                    }
-                }
-            ]
+    async presentPopover(ev: any) {
+        const popover = await this.popoverController.create({
+            component: PopoverComponent,
+            event: ev,
+            translucent: true
         });
 
-        await alert.present();
+        return await popover.present();
     }
+
+    obtenerPosicion(id: number): number {
+        let posicion = 0;
+        let contador: number;
+        this.usuarios.forEach(u => {
+            posicion++;
+            if (u.Id == id) {
+                contador = posicion;
+            }
+        });
+
+        return contador;
+    }
+
 }
 

@@ -1,0 +1,88 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="" defaultHref="perfil"></ion-back-button>
+        </ion-buttons>
+        <ion-title>accion</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Acciones reciclaje
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-accordion *ngIf="accionesReciclar!= null && accionesReciclar.length > 0">
+            <mat-expansion-panel *ngFor="let accion of accionesReciclar">
+                <mat-expansion-panel-header>
+                    <ion-col size-xs="12" size-sm="6">
+                        <p class="ion-text-wrap">
+                            {{ accion.ItemAccion.Nombre }}
+                        </p>
+                    </ion-col>
+                    <ion-col class="ion-hide-sm-down" size-sm="3">
+                        <p>
+                            {{ accion.Fecha | date: 'dd/MM/yyyy - HH:mm'}}
+                        </p>
+                    </ion-col>
+                </mat-expansion-panel-header>
+
+                <p class="ion-text-wrap">
+                    Cantidad: {{ accion.Cantidad}}
+                </p>
+
+                <ion-label>
+                    <p class="ion-text-right mr-1 mb-1 ion-hide-sm-up" slot="end">
+                        <small>
+                            <br> {{ accion?.Fecha | date: "HH:mm, dd/MM/yyyy"}}
+                        </small>
+                    </p>
+                </ion-label>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <ng-container *ngIf="accionesReciclar== null || accionesReciclar.length == 0">
+            Actualmente vacío.
+        </ng-container>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Acciones web
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-accordion *ngIf="accionesWeb!= null && accionesWeb.length > 0">
+            <mat-expansion-panel *ngFor="let accion of accionesWeb">
+                <mat-expansion-panel-header>
+                    <ion-col size-xs="12" size-sm="6">
+                        <p class="ion-text-wrap">
+                            {{ accion.Tipo.Nombre }}
+                        </p>
+                    </ion-col>
+                    <ion-col class="ion-hide-sm-down" size-sm="3">
+                        <p>
+                            {{ accion.Fecha | date: 'dd/MM/yyyy - HH:mm'}}
+                        </p>
+                    </ion-col>
+                </mat-expansion-panel-header>
+
+                <p class="ion-text-wrap">
+                    Puntuación: {{ accion.Tipo.Puntuacion }}
+                </p>
+
+                <ion-label>
+                    <p class="ion-text-right mr-1 mb-1 ion-hide-sm-up" slot="end">
+                        <small>
+                            <br> {{ accion?.Fecha | date: "HH:mm, dd/MM/yyyy"}}
+                        </small>
+                    </p>
+                </ion-label>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <ng-container *ngIf="accionesWeb== null || accionesWeb.length == 0">
+            Actualmente vacío.
+        </ng-container>
+    </mat-expansion-panel>
+</ion-content>

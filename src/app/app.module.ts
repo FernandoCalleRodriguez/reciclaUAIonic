@@ -18,11 +18,11 @@ import { Camera } from '@ionic-native/camera/ngx';
 import {IonicStorageModule} from '@ionic/storage';
 import {MapaPuntosComponent} from './shared/components/mapa-puntos/mapa-puntos.component';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import {PopoverComponent} from './shared/components/popover/popover.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent,
+  PopoverComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
