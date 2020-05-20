@@ -70,10 +70,6 @@ export class AppComponent implements OnInit {
         this.notify();
     }
 
-    ionViewWillEnter() {
-        this.notify();
-    }
-
     notify() {
         if (this.autenticacionService.isLogged()) {
             this.notaService.obtenerTodasNotas().subscribe(res => {
@@ -93,6 +89,7 @@ export class AppComponent implements OnInit {
     }
 
     ionViewWillEnter() {
+        this.notify();
         this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(u => {
             console.log("prueba");
             this.usuario = u;

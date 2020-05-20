@@ -27,8 +27,10 @@ export class AutenticacionService {
     }
 
     Logout(): void {
-        localStorage.setItem('ACCESS_TOKEN', null);
-        localStorage.setItem('ID_USER', null);
+        // localStorage.setItem('ACCESS_TOKEN', null);
+        // localStorage.setItem('ID_USER', null);
+        localStorage.removeItem('ACCESS_TOKEN');
+        localStorage.removeItem('ID_USER');
         this.router.navigate(['/login']);
     }
 
