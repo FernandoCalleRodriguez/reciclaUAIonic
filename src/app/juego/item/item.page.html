@@ -40,7 +40,7 @@
         </ion-item>
         <ion-item lines="full">
           <ion-label position="floating">Material</ion-label>
-          <ion-select  value="{{Material_oid.value}}"  formControlName="Material_oid" interface="action-sheet" >
+          <ion-select [disabled]="isEdit==true"  value="{{Material_oid.value}}"  formControlName="Material_oid" interface="action-sheet" >
             <ion-select-option *ngFor="let material of materiales"  value="{{material.Id}}" >{{material.Nombre}}</ion-select-option>
         
           </ion-select>

@@ -20,30 +20,31 @@
                 </ion-checkbox>
             </ion-item>
 
-            <ng-container *ngFor="let item of propuestas[0].elementos">
-                <ion-item-sliding>
+            <ng-container *ngIf="propuestas[0].elementos !=null && propuestas[0].elementos.length>0; else noItem">
+                <ng-container *ngFor="let item of propuestas[0].elementos">
+                        <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
+                            *ngIf="propuestas[0].controles[item.EsValido - 1]">
+                            <ion-label>{{ item.Nombre }}</ion-label>
+                            <ion-button *ngIf="item.EsValido ==2" slot="end" color="success"
+                                [routerLink]="['/item/edit',item.Id]">Editar</ion-button>
+                            <ion-button *ngIf="item.EsValido ==2" slot="end" color="danger" (click)="delete(item,0)">
+                                Borrar</ion-button>
 
-                    <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
-                        *ngIf="propuestas[0].controles[item.EsValido - 1]">
-                        <ion-label>{{ item.Nombre }}</ion-label>
-                        <!-- ion-label>{{ item.EsValido | estado }}</ion-label-->
-                    </ion-item>
-                    <ion-item-options side="start" *ngIf="item.EsValido ==2">
-                        <ion-item-option [routerLink]="['/item/edit',item.Id]" color="success">Modificar
-                        </ion-item-option>
-                    </ion-item-options>
-
-                    <ion-item-options side="end" *ngIf="item.EsValido ==2">
-                        <ion-item-option (click)="delete(item,0)" color="danger">Borrar</ion-item-option>
-                    </ion-item-options>
-                </ion-item-sliding>
+                        </ion-item>
+                </ng-container>
 
             </ng-container>
+            <ng-template #noItem>
+                <ion-item class="ion-no-padding">
+                    <ion-label>No hay item,Quieres crear un nuevo item?</ion-label>
+                    <ion-button [routerLink]="['/item']">Crear nuevo item</ion-button>
+                </ion-item>
+            </ng-template>
         </mat-expansion-panel>
 
         <!-- MATERIALES -->
         <mat-expansion-panel>
-            
+
             <mat-expansion-panel-header>
                 <h4>{{ propuestas[1].categoria }}</h4>
             </mat-expansion-panel-header>
@@ -55,28 +56,24 @@
                 </ion-checkbox>
             </ion-item>
 
-            <ng-container *ngFor="let item of propuestas[1].elementos">
-
-                <ion-item-sliding>
-
-                    <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
-                        *ngIf="propuestas[1].controles[item.EsValido - 1]">
-                        <ion-label>{{ item.Nombre }}</ion-label>
-                        <!-- ion-label>{{ item.EsValido | estado }}</ion-label-->
-                    </ion-item>
-                    <ion-item-options side="start" *ngIf="item.EsValido ==2">
-                        <ion-item-option [routerLink]="['/material/edit',item.Id]" color="success">Modificar
-                        </ion-item-option>
-                    </ion-item-options>
-
-                    <ion-item-options side="end" *ngIf="item.EsValido ==2">
-                        <ion-item-option (click)="delete(item,1)" color="danger">Borrar</ion-item-option>
-                    </ion-item-options>
-                </ion-item-sliding>
-
-
-
+            <ng-container *ngIf="propuestas[1].elementos !=null && propuestas[1].elementos.length!=0; else noMaterial">
+                <ng-container *ngFor="let item of propuestas[1].elementos">
+                        <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
+                            *ngIf="propuestas[1].controles[item.EsValido - 1]">
+                            <ion-label>{{ item.Nombre }}</ion-label>
+                            <ion-button *ngIf="item.EsValido ==2" slot="end" color="success"
+                                [routerLink]="['/material/edit',item.Id]">Editar</ion-button>
+                            <ion-button *ngIf="item.EsValido ==2" slot="end" color="danger" (click)="delete(item,1)">
+                                Borrar</ion-button>
+                        </ion-item>
+                </ng-container>
             </ng-container>
+            <ng-template #noMaterial>
+                <ion-item class="ion-no-padding">
+                    <ion-label>No hay material, Quieres crear un nuevo material?</ion-label>
+                    <ion-button [routerLink]="['/material']">Crear nuevo material</ion-button>
+                </ion-item>
+            </ng-template>
         </mat-expansion-panel>
 
         <!-- PUNTOS -->

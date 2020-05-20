@@ -54,6 +54,7 @@ export class PropuestasUsuarioPage implements OnInit {
                 p.controles.push(true);
             });
         });
+   
         this.usuarioService.getLoggedUser().subscribe(u => {
             this.usuario = u;
             this.itemService.getByUserId(this.usuario.Id).subscribe(i => {
@@ -61,9 +62,8 @@ export class PropuestasUsuarioPage implements OnInit {
                 this.itemCopy = i;
             });
             this.materialService.BuscarMaterialesPorUsuario(this.usuario.Id).subscribe(m => {
-                this.propuestas[1].elementos = m;
-                this.materialCopy = m;
-
+                    this.propuestas[1].elementos = m;
+                    this.materialCopy = m;
             });
             this.puntoService.getPuntoByUsuario(this.usuario.Id).subscribe(p => {
                 this.propuestas[2].elementos = p;
