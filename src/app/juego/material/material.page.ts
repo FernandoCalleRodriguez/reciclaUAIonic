@@ -75,7 +75,7 @@ export class MaterialPage implements OnInit {
     }
     
    this.isEdit=false
-   this.router.navigate(['/propuestas']);
+   this.router.navigate(['/usuario/propuestas']);
   }
 
   async presentToast(messagetext, color) {
