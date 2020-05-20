@@ -1,29 +1,42 @@
 <ion-header>
   <ion-toolbar>
-
     <ion-title>Nota Informativa</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
-
-    <ion-searchbar (ionInput)="clickFiltrar($event)" animated placeholder="Filtrar por título"></ion-searchbar>
   </ion-toolbar>
-
 </ion-header>
 
-
 <ion-content>
+  <ion-searchbar (ionInput)="clickFiltrar($event)" animated placeholder="Filtrar por título" debounce="500" ></ion-searchbar>
+  <mat-accordion>
 
-  <ion-item *ngFor="let nota of notas">
-    <ion-card  [color]="nota?.Leida == null ? 'warning' : 'primary'" (click)="verNotaDetalle(nota?.Id)">
-      <ion-card-header>
-        <ion-card-title>{{nota?.Titulo}}</ion-card-title>
-        <ion-card-subtitle  *ngIf=" nota?.Leida == null" >¡Nueva nota! <ion-icon name="reader-outline" *ngIf=" nota?.Leida == null"></ion-icon></ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        {{nota?.Cuerpo.substring(0,100) + '.....'}}
-      </ion-card-content>
+    <mat-expansion-panel [disabled]=" nNoLeidas > 0 ? false : true">
+      <mat-expansion-panel-header>
+        Notas no leidas
+        <ion-chip [color]="nNoLeidas > 0 ? 'danger' : 'dark'"  >
+          <ion-label>{{ nNoLeidas}}</ion-label>
+        </ion-chip>
+      </mat-expansion-panel-header>
+      <ion-item *ngFor="let nota of notasNoLeidas" (click)="verNotaDetalle(nota?.Id)" detail>
+        <ion-label>
+          <h2 >{{nota?.Titulo}}</h2>
+        </ion-label>
+      </ion-item>
+    </mat-expansion-panel>
 
-    </ion-card>
-  </ion-item>
-</ion-content>
+    <mat-expansion-panel [disabled]=" nLeidas > 0 ? false : true">
+      <mat-expansion-panel-header>
+        Notas leidas
+        <ion-chip color="dark"  >
+          <ion-label>{{ nLeidas}}</ion-label>
+        </ion-chip>
+      </mat-expansion-panel-header>
+      <ion-item *ngFor="let nota of notasLeidas" (click)="verNotaDetalle(nota?.Id)" detail>
+        <ion-label>
+          <h2 >{{nota?.Titulo}}</h2>
+        </ion-label>
+      </ion-item>
+    </mat-expansion-panel>
+
+  </mat-accordion>
