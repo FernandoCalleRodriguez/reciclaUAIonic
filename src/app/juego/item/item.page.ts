@@ -16,12 +16,13 @@ import { ItemService } from 'src/app/shared/services/item.service';
     styleUrls: ['./item.page.scss'],
 })
 export class ItemPage implements OnInit {
-    title="Crear item"
+    title = "Crear item"
     selectedImg: any;
     itemForm: FormGroup;
     item: Item;
     materiales: Material[];
     isEdit = false;
+    selectedMat = -1;
     constructor(
         public actionSheetController: ActionSheetController,
         private cameraService: CameraService,
@@ -42,16 +43,14 @@ export class ItemPage implements OnInit {
         });
         const id = this.activeRouter.snapshot.paramMap.get('id');
         if (id) {
-            this.title="Modificar item"
+            this.title = "Modificar item"
             this.isEdit = true;
             this.itemService.getById(parseInt(id, 10)).subscribe(res => {
                 if (res == null) return;
                 this.item = res;
                 this.Nombre.setValue(res.Nombre)
                 this.Descripcion.setValue(res.Descripcion)
-                this.Material_oid.setValue(res.MaterialItem.Contenedor)
-                console.log(this.itemForm.value)
-
+                this.Material_oid.setValue(res.MaterialItem.Id);
             });
 
         }
@@ -71,7 +70,7 @@ export class ItemPage implements OnInit {
         return this.itemForm.get('Material_oid')
     }
     createItem() {
-        const id =parseInt( this.activeRouter.snapshot.paramMap.get('id'),10);
+        const id = parseInt(this.activeRouter.snapshot.paramMap.get('id'), 10);
         this.item.Nombre = this.itemForm.value.Nombre;
         this.item.Descripcion = this.itemForm.value.Descripcion;
         this.item.Material_oid = parseInt(this.itemForm.value.Material_oid);
@@ -79,7 +78,8 @@ export class ItemPage implements OnInit {
         this.item.Imagen = this.selectedImg != null ? this.selectedImg : "";
 
         if (this.isEdit) {
-            this.item.Id=id;
+            this.item.MaterialItem = null;
+            this.item.Id = id;
             this.itemService.updateItem(this.item).subscribe(res => {
                 if (res != null) {
                     this.uploadImage(res.Id);
@@ -96,7 +96,7 @@ export class ItemPage implements OnInit {
                 this.itemForm.reset();
             });
         }
-        this.isEdit=false
+        this.isEdit = false
         this.router.navigate(['/propuestas']);
     }
 
@@ -172,5 +172,5 @@ export class ItemPage implements OnInit {
             });
         }
     }
-
+  
 }

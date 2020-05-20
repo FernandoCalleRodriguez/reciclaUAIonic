@@ -75,8 +75,8 @@ export class PropuestasUsuarioPage implements OnInit {
     }
     async presentAlertMultipleButtons(item, obj) {
         const alert = await this.alertController.create({
-            header: 'Borrar item ' + item.Nombre,
-            message: 'Estas seguro que quieres borrar este material',
+            header: 'Borrar ' + item.Nombre,
+            message: 'Estas seguro que quieres borrar'+item.Nombre,
             buttons: ['Cancel', {
                 text: 'Borrar',
                 cssClass: 'danger',
