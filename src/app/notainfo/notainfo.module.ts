@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { NotainfoPageRoutingModule } from './notainfo-routing.module';
 
 import { NotainfoPage } from './notainfo.page';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NotainfoPageRoutingModule
+    NotainfoPageRoutingModule,
+    MatExpansionModule
   ],
   declarations: [NotainfoPage]
 })

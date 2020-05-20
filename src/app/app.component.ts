@@ -70,6 +70,10 @@ export class AppComponent implements OnInit {
         this.notify();
     }
 
+    ionViewWillEnter() {
+        this.notify();
+    }
+
     notify() {
         if (this.autenticacionService.isLogged()) {
             this.notaService.obtenerTodasNotas().subscribe(res => {
