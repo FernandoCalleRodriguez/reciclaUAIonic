@@ -1,3 +1,5 @@
+import {Juego} from './juego';
+
 export class Usuario {
     Id?: number;
     Nombre?: string;
@@ -8,4 +10,7 @@ export class Usuario {
     EmailVerificado?: string;
     Borrado?: boolean;
     Puntuacion?: boolean;
+    Juego?: Juego;
 }
+
+

@@ -19,7 +19,7 @@ export class NivelService {
 
   itemNivel: { item: Item, nivel: Nivel }[] = [];
 
-  public getNivel(): Observable<Nivel[]> {
+  public getNiveles(): Observable<Nivel[]> {
     return this.http.get<Nivel[]>(this.SERVER + 'BuscarTodos', {headers: this.headers});
   }
 

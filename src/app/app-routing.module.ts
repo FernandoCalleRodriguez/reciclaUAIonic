@@ -111,7 +111,11 @@ const routes: Routes = [
   {
     path: 'usuario/acciones',
     loadChildren: () => import('./accion/accion.module').then( m => m.AccionPageModule)
+  },  {
+    path: 'juego',
+    loadChildren: () => import('./juego/juego/juego.module').then( m => m.JuegoPageModule)
   }
+
 
 
 
