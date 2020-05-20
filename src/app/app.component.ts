@@ -48,11 +48,11 @@ export class AppComponent implements OnInit {
         private notaService: NotaService
     ) {
         this.initializeApp();
-        if (this.autenticacionService.isLogged()) {
-            this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(result => {
-                this.usuario = result;
-            });
-        }
+        this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(u => {
+            this.usuario = u;
+        }, error => {
+            this.autenticacionService.Logout();
+        });
     }
 
     initializeApp() {
@@ -86,5 +86,14 @@ export class AppComponent implements OnInit {
                 });
             });
         }
+    }
+
+    ionViewWillEnter() {
+        this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(u => {
+            console.log("prueba");
+            this.usuario = u;
+        }, error => {
+            this.autenticacionService.Logout();
+        });
     }
 }
