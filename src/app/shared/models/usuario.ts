@@ -10,7 +10,6 @@ export class Usuario {
     EmailVerificado?: string;
     Borrado?: boolean;
     Puntuacion?: boolean;
-    Juego?: Juego;
 }
 
 

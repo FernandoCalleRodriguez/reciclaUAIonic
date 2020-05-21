@@ -8,6 +8,7 @@ import {NivelService} from '../../shared/services/nivel.service';
 import {ItemService} from '../../shared/services/item.service';
 import {Nivel} from '../../shared/models/nivel';
 import {Item} from '../../shared/models/item';
+import {TipoContenedor} from '../../shared/models/contenedor';
 
 @Component({
     selector: 'app-juego',
@@ -22,31 +23,34 @@ export class JuegoPage implements OnInit {
     items: Item[];
     itemActual: Item;
 
-    constructor(private autenticacionService: AutenticacionService,
-                private usuarioService: UsuarioService,
+    constructor(private usuarioService: UsuarioService,
                 private juegoService: JuegoService,
                 private nivelService: NivelService,
                 private itemService: ItemService) {
 
         this.usuarioService.getLoggedUser().subscribe(usuario => {
             this.usuario = usuario;
-            console.log(this.usuario.Juego);
-            if (this.usuario.Juego == null) {
-                this.juego = {
-                    Usuarios_oid: this.usuario.Id,
 
-                };
-                this.juegoService.CrearJuego(this.juego).subscribe(result => {
-                    this.juego = result;
-                    console.log(this.juego);
+            console.log(this.usuario.Id);
+            this.juegoService.obtenerJuegoPorUsuario(this.usuario.Id).subscribe(result => {
+                if (result == null) {
+                    this.juego = {
+                        Usuarios_oid: this.usuario.Id,
+
+                    };
+                    this.juegoService.CrearJuego(this.juego).subscribe(juego => {
+                        this.juego = juego;
+                        console.log(this.juego);
+                        this.obtenerNivel();
+
+                    });
+                } else {
+                    this.juego = result[0];
                     this.obtenerNivel();
-
-                });
-            } else {
-                this.juego = this.usuario.Juego;
-                this.obtenerNivel();
-            }
+                }
+            });
         });
+
     }
 
     ngOnInit() {
@@ -71,5 +75,13 @@ export class JuegoPage implements OnInit {
 
         });
 
+    }
+
+    enviarRespuesta(tipo: number) {
+
+        this.juegoService.SiguienteNivel(tipo, this.juego).subscribe(result => {
+
+            this.juego = result;
+        });
     }
 }

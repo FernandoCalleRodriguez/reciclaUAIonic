@@ -24,18 +24,18 @@
     </ion-row>
     <ion-row>
         <ion-col>
-            <ion-button expand="block" color="warning">Plástico</ion-button>
+            <ion-button (click)="enviarRespuesta(3)" expand="block" color="warning">Plástico</ion-button>
         </ion-col>
         <ion-col>
-            <ion-button expand="block" color="success">Vidrio</ion-button>
+            <ion-button (click)="enviarRespuesta(2)" expand="block" color="success">Vidrio</ion-button>
         </ion-col>
     </ion-row>
     <ion-row>
         <ion-col>
-            <ion-button expand="block" color="medium">Orgánico</ion-button>
+            <ion-button (click)="enviarRespuesta(4)" expand="block" color="medium">Orgánico</ion-button>
         </ion-col>
         <ion-col>
-            <ion-button expand="block" color="primary">Papel y carton</ion-button>
+            <ion-button (click)="enviarRespuesta(1)" expand="block" color="primary">Papel y carton</ion-button>
         </ion-col>
     </ion-row>
 </ion-content>
