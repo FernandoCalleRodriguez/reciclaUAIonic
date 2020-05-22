@@ -1,7 +1,7 @@
 import { Planta } from './planta';
 import { Edificio } from './edificio';
 export class Estancia {
-    Id: number;
+    Id: string;
     Actividad: string;
     Latitud: number;
     Longitud: number;
