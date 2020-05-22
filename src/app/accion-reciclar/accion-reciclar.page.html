@@ -1,0 +1,107 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>He reciclado...</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Ítem
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ion-searchbar (ionInput)="filterItems($event)" animated placeholder="Buscar ítem..."></ion-searchbar>
+
+            <ion-list *ngIf="fitems">
+                <ion-radio-group [(ngModel)]="idItem">
+                    <ng-container *ngFor="let item of fitems">
+                        <ion-item *ngIf="item.EsValido != EstadoEnum.Descartado"
+                                  [ngClass]="{'warning-border': item.EsValido == EstadoEnum.Pendiente }">
+                            <ion-grid class="ion-no-padding">
+                                <ion-row class="ion-no-padding">
+                                    <ion-col class="ion-no-padding">
+                                        <ion-label class="ion-no-margin ion-margin-top" [color]="item.EsValido == EstadoEnum.Pendiente? 'medium' : ''">
+                                            {{item.Nombre}}
+                                            <br>
+                                            <small class="ion-text-wrap">
+                                                {{item.Descripcion}}
+                                            </small>
+                                        </ion-label>
+                                        <ion-label color="warning" class="ion-text-right ion-no-padding" *ngIf="item.EsValido == EstadoEnum.Pendiente">
+                                            <small>En validación</small>
+                                        </ion-label>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                            <ion-radio slot="end" value="{{item.Id}}" (click)="cantidadPrompt()" *ngIf="item.EsValido == EstadoEnum.Validado"></ion-radio>
+                        </ion-item>
+                    </ng-container>
+                </ion-radio-group>
+            </ion-list>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Punto de reciclaje
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <ion-select placeholder="Selecciona el edificio" interface="alert" [interfaceOptions]="edificioAlertOpts"
+                                    [(ngModel)]="idxEdificio" (ngModelChange)="changeEdificio($event)"
+                                    class="ion-no-padding ion-padding-end ion-padding-bottom">
+                            <ion-select-option *ngFor="let edificio of edificios; index as i;"
+                                               value="{{i}}">{{edificio.Nombre}}</ion-select-option>
+                        </ion-select>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-select *ngIf="idxEdificio" placeholder="Selecciona la planta (opcional)" [interfaceOptions]="plantaAlertOpts"
+                                    [(ngModel)]="idxPlanta" (ngModelChange)="changePlanta($event)"
+                                    class="ion-no-padding ion-padding-end ion-padding-bottom">
+                            <ion-select-option *ngFor="let planta of sortedPlantas(edificios[idxEdificio].PlantasEdificio)"
+                                               value="{{planta.Planta}}">{{planta.Planta | planta}}</ion-select-option>
+                        </ion-select>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="contenedores">
+                    <ion-col>
+                        <ion-select placeholder="Selecciona el contenedor"
+                                    [interfaceOptions]="{header: 'Contenedor'}" [(ngModel)]="idContenedor" (ngModelChange)="changeContenedor($event)"
+                                    class="ion-no-padding ion-padding-end ion-padding-bottom">
+                            <ion-select-option *ngFor="let contenedor of contenedores"
+                                               value="{{contenedor.Id}}">{{contenedor.Tipo | tipoContenedor}}</ion-select-option>
+                        </ion-select>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="idxEdificio && (!puntos || !puntos.length)">
+                    <ion-col size="12">
+                        <ion-label color="danger">
+                            No se han encontrado puntos de reciclaje
+                        </ion-label>
+                    </ion-col>
+                    <ion-col size="12" offset-md="9" size-md="3">
+                        <ion-button expand="block">Proponer punto de reciclaje</ion-button>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="canCreate">
+                    <ion-col size="12" offset-md="9" size-md="3">
+                        <ion-button expand="block" (click)="reciclar()">Reciclar</ion-button>
+                    </ion-col>
+                </ion-row>
+                <ion-row [hidden]="!idxEdificio || (idxEdificio && (!puntos || !puntos.length))">
+                    <ion-col>
+                        <app-mapa-puntos (mapReadyChange)="onMapReady($event)"
+                                         (selectedPuntoChange)="onPuntoChange($event)"></app-mapa-puntos>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </mat-expansion-panel>
+    </mat-accordion>
+</ion-content>

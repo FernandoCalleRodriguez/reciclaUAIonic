@@ -115,7 +115,12 @@ const routes: Routes = [
   {
     path: 'punto/crear',
     loadChildren: () => import('./seleccion-estancia-punto/seleccion-estancia-punto.module').then( m => m.SeleccionEstanciaPuntoPageModule)
+  },
+  {
+    path: 'reciclar',
+    loadChildren: () => import('./accion-reciclar/accion-reciclar.module').then( m => m.AccionReciclarPageModule)
   }
+
 
 
 
