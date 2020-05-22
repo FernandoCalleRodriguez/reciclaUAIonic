@@ -38,11 +38,55 @@ export class MapaPuntosComponent implements OnInit {
     @Output()
     public selectedPuntoChange: EventEmitter<Punto> = new EventEmitter<Punto>();
 
+    @Output()
+    public mapReadyChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
     constructor(protected tipoContenedorService: TipoContenedorService) {
     }
 
     ngOnInit(): void {
-        // this.refreshLocation();
+        this.mapReadyChange.emit(false);
+    }
+
+    public setUpMap(puntos: Punto[]) {
+        this.puntos = puntos;
+        this.cleanPoints();
+        this.setUpPoints();
+        console.log('setup', this.puntos);
+    }
+
+    cleanPoints() {
+        if (this.markers && this.markers.length > 0) {
+            this.markers.forEach(m => {
+                this.map.removeLayer(m);
+            });
+            this.markers = [];
+        }
+        this.actualMarker = null;
+    }
+
+    setUpPoints() {
+        if (this.puntos && this.puntos.length > 0) {
+            this.single = this.puntos.length === 1;
+
+            this.puntos.forEach(e => {
+                this.setMarker(e);
+            });
+
+            this.puntos.sort((a, b) => {
+                return (this.distance(this.mlat, this.mlong, a.Latitud, a.Longitud))
+                    - (this.distance(this.mlat, this.mlong, b.Latitud, b.Longitud));
+            });
+
+            if (this.single) {
+                this.map.setView(this.markers[0].getLatLng(), 12);
+                this.actualMarker = this.markers[0];
+            } else {
+                this.map.setView(new L.LatLng(this.puntos[0].Latitud, this.puntos[0].Longitud), 19);
+            }
+
+            this.refreshLocation();
+        }
     }
 
     public setMarker(punto: Punto) {
@@ -57,7 +101,22 @@ export class MapaPuntosComponent implements OnInit {
 
     onMapReady(map: L.Map) {
         this.map = map;
-        this.single = this.puntos.length === 1;
+        if (this.puntos && this.puntos.length > 0) {
+            this.readyMap();
+        } else {
+            this.setUpControls();
+        }
+        this.mapReadyChange.emit(true);
+        console.log('ready');
+    }
+
+    readyMap() {
+        this.setUpControls();
+        this.cleanPoints();
+        this.setUpPoints();
+    }
+
+    setUpControls() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.mlat = position.coords.latitude;
@@ -104,22 +163,11 @@ export class MapaPuntosComponent implements OnInit {
                         this.actualMarker.fire('click');
                     }
                 }).addTo(this.map);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
 
-                this.puntos.sort((a, b) => {
-                    return (this.distance(this.mlat, this.mlong, a.Latitud, a.Longitud))
-                        - (this.distance(this.mlat, this.mlong, b.Latitud, b.Longitud));
-                });
-
-                this.puntos.forEach(p => {
-                    this.setMarker(p);
-                });
-
-                if (this.single) {
-                    this.map.setView(this.markers[0].getLatLng(), 12);
-                    this.actualMarker = this.markers[0];
-                    // this.actualMarker.fire('click');
-                }
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxNativeZoom: 19,
+                    maxZoom: 30
+                }).addTo(this.map);
 
                 this.refreshLocation();
             });

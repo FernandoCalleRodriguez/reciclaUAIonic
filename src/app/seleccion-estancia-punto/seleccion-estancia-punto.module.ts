@@ -24,6 +24,9 @@ import {LeafletModule} from '@asymmetrik/ngx-leaflet';
         MapaEstanciasComponent,
         PlantaPipe
     ],
+    exports: [
+        PlantaPipe
+    ],
     providers: [PlantaPipe]
 })
 export class SeleccionEstanciaPuntoPageModule {
