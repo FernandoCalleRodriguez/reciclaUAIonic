@@ -50,6 +50,10 @@ export class PuntoService {
         return this.http.get<Punto[]>(this.SERVER + 'BuscarPuntosPorPlanta?id_edificio=' + idEdificio + '&num_planta=' + idPlanta, {headers: this.headers});
     }
 
+    public getPuntoByEdificio(idEdificio: number) {
+        return this.http.get<Punto[]>(this.SERVER + 'BuscarPuntosPorEdificio?id_edificio=' + idEdificio, {headers: this.headers});
+    }
+
     public getPuntoByEstancia(idEstancia: number) {
         return this.http.get<Punto[]>(this.SERVER + 'BuscarPuntosPorPlanta?id_estancia=' + idEstancia, {headers: this.headers});
     }

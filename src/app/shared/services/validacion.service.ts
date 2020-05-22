@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Duda} from '../models/duda';
 import {Punto} from '../models/punto';
 import {Material} from '../models/material';
 import {Item} from '../models/item';
-import {Estado} from '../models/estado';
+import {Estado, EstadoEnum} from '../models/estado';
 
 @Injectable({
   providedIn: 'root'
@@ -17,17 +16,17 @@ export class ValidacionService {
 
   private estados: Estado[] = [
     {
-      Id: 1,
+      Id: EstadoEnum.Validado,
       Estado: 'Validado',
       Color: 'success'
     },
     {
-      Id: 2,
+      Id: EstadoEnum.Pendiente,
       Estado: 'Pendiente',
       Color: 'warning'
     },
     {
-      Id: 3,
+      Id: EstadoEnum.Descartado,
       Estado: 'Descartado',
       Color: 'danger'
     }

@@ -16,6 +16,9 @@ export class AccionReciclar {
   Cantidad?: number;
   Fecha?: Date;
   UsuarioAccionReciclar?: Usuario;
+  Usuario_oid?: number;
+  Item_oid?: number;
+  Contenedor_oid?: number;
 }
 
 export class TipoAccion {

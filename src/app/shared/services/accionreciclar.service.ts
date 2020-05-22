@@ -33,4 +33,7 @@ export class AccionreciclarService {
         return this.http.delete<void>(this.server + 'AccionReciclar/Borrar?p_accionreciclar_oid=' + accion.Id, {headers: this.headers});
     }
 
+    public crear(accion: AccionReciclar): Observable<AccionReciclar> {
+        return this.http.post<AccionReciclar>(this.server + 'AccionReciclar/CrearCP', accion, {headers: this.headers});
+    }
 }
