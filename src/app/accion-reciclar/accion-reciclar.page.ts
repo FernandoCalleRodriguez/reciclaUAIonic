@@ -176,13 +176,14 @@ export class AccionReciclarPage implements OnInit {
                 {
                     text: 'Aceptar',
                     handler: data => {
-                        this.cantidad = parseInt(data.cantidad, 10);
-                        if (isNaN(this.cantidad) || this.cantidad < 1) {
+                        const c = parseInt(data.cantidad, 10);
+                        if (isNaN(c) || c < 1) {
                             alert.then(a => {
                                 a.setAttribute('message', 'Número inválido');
                             });
                             return false;
                         }
+                        this.cantidad = c;
                         this.selectedItem = this.items.find(i => {
                             return i.Id == this.idItem;
                         });
