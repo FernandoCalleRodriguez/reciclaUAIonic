@@ -111,7 +111,12 @@ const routes: Routes = [
   {
     path: 'usuario/acciones',
     loadChildren: () => import('./accion/accion.module').then( m => m.AccionPageModule)
+  },
+  {
+    path: 'punto/crear',
+    loadChildren: () => import('./seleccion-estancia-punto/seleccion-estancia-punto.module').then( m => m.SeleccionEstanciaPuntoPageModule)
   }
+
 
 
 

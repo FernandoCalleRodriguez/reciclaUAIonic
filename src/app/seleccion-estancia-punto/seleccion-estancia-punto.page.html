@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Añadir punto de reciclaje</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-select placeholder="Selecciona el edificio" interface="alert" [interfaceOptions]="edificioAlertOpts"
+                            [(ngModel)]="idxEdificio" (ngModelChange)="changeEdificio($event)">
+                    <ion-select-option *ngFor="let edificio of edificios; index as i;"
+                                       value="{{i}}">{{edificio.Nombre}}</ion-select-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-select *ngIf="idxEdificio" placeholder="Selecciona la planta (opcional)" [interfaceOptions]="plantaAlertOpts"
+                            [(ngModel)]="idxPlanta" (ngModelChange)="changePlanta($event)">
+                    <ion-select-option *ngFor="let planta of sortedPlantas(edificios[idxEdificio].PlantasEdificio)"
+                                       value="{{planta.Planta}}">{{planta.Planta | planta}}</ion-select-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-select *ngIf="idxEdificio" placeholder="Selecciona la estancia" interface="alert"
+                            [(ngModel)]="selectedEstanciaId" (ngModelChange)="changeEstancia($event)">
+                    <ion-select-option *ngFor="let estancia of estancias"
+                                       value="{{estancia.Id}}">{{estancia.Id}}</ion-select-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <app-mapa-estancias style="margin: auto" (selectedEstanciaChange)="onEstanciaChange($event)"></app-mapa-estancias>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12" offset-md="10" size-md="2">
+                <ion-button *ngIf="selectedEstancia" expand="block">Siguiente</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

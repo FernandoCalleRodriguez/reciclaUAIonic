@@ -2,12 +2,17 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import * as L from 'leaflet';
 import {timer} from 'rxjs';
 import {LeafletDirective} from '@asymmetrik/ngx-leaflet';
-import {Punto} from '../../models/punto';
 import {TipoContenedorService} from '../../services/tipo-contenedor.service';
 import {Estancia} from '../../models/estancia';
 import {Edificio} from '../../models/edificio';
 import {EstanciaService} from '../../services/estancia.service';
 import {PlantaPipe} from '../../pipes/planta.pipe';
+import 'leaflet-easybutton/src/easy-button';
+import 'leaflet/dist/images/marker-shadow.png';
+import 'leaflet/dist/images/marker-icon-2x.png';
+import 'leaflet/dist/images/marker-icon.png';
+import 'leaflet/dist/images/layers.png';
+import 'leaflet/dist/images/layers-2x.png';
 
 @Component({
     selector: 'app-mapa-estancias',
@@ -59,10 +64,12 @@ export class MapaEstanciasComponent implements OnInit {
     }
 
     public setUpMap(edificio: Edificio, planta: number = null) {
+        // console.log('Markers length: ' + this.markers.length);
         this.edificio = edificio;
         this.planta = planta;
         this.estanciaService.getEstanciasByEdificio(this.edificio.Id).subscribe(e => {
             this.estancias = e;
+            this.cleanPoints();
             this.filterPoints();
             this.setUpPoints();
         });
@@ -94,6 +101,7 @@ export class MapaEstanciasComponent implements OnInit {
 
     readyMap() {
         this.setUpControls();
+        this.cleanPoints();
         this.filterPoints();
         this.setUpPoints();
     }
@@ -154,8 +162,6 @@ export class MapaEstanciasComponent implements OnInit {
         if (this.estancias && this.estancias.length > 0) {
             this.single = this.estancias.length === 1;
 
-            this.cleanPoints();
-
             this.estancias.forEach(e => {
                 this.setMarker(e);
             });
@@ -175,6 +181,7 @@ export class MapaEstanciasComponent implements OnInit {
             this.markers.forEach(m => {
                 this.map.removeLayer(m);
             });
+            this.markers = [];
         }
         this.actualMarker = null;
     }
@@ -205,13 +212,12 @@ export class MapaEstanciasComponent implements OnInit {
         this.selectedEstanciaChange.emit(estancia);
     }
 
-    public setActualMarker(id: number) {
-        if (id) {
-            const index = this.estancias.findIndex(p => p.Id == id);
+    public setActualMarker(id: string) {
+        if (id != null && id != '') {
+            const index = this.estancias.findIndex(e => e.Id == id);
             if (index !== -1 && this.actualMarker != this.markers[index]) {
-                this.actualMarker = this.markers[index];
-                this.map.setView(this.actualMarker.getLatLng(), 18);
-                this.actualMarker.openPopup();
+                this.markers[index].fire('click');
+                this.map.setView(this.actualMarker.getLatLng(), this.map.getZoom());
             }
         } else {
             this.refresh();
