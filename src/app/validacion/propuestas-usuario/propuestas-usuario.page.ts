@@ -115,4 +115,7 @@ export class PropuestasUsuarioPage implements OnInit {
 
 
     }
+    ionViewWillEnter(){
+        this.ngOnInit();
+     }
 }

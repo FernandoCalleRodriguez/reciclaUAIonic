@@ -19,7 +19,7 @@ export class MaterialPage implements OnInit {
   contenedores: TipoContenedor[];
   material: Material;
   isEdit = false;
-  title="Crear material"
+  title = "Crear material"
   constructor(
     private activeRouter: ActivatedRoute,
     private materialService: MaterialService,
@@ -38,13 +38,13 @@ export class MaterialPage implements OnInit {
 
     const id = this.activeRouter.snapshot.paramMap.get('id');
     if (id) {
-      this.title="Modificar material"
+      this.title = "Modificar material"
       this.isEdit = true;
       this.materialService.getMaterialById(parseInt(id, 10)).subscribe(res => {
         if (res == null) return;
         this.material = res;
         this.Nombre.setValue(res.Nombre)
-        this.Contenedor.setValue(res.Contenedor)
+        this.Contenedor.setValue(""+res.Contenedor)
       });
     }
   }
@@ -73,9 +73,9 @@ export class MaterialPage implements OnInit {
         this.materialForm.reset();
       })
     }
-    
-   this.isEdit=false
-   this.router.navigate(['/usuario/propuestas']);
+
+    this.isEdit = false
+    this.router.navigate(['/usuario/propuestas']);
   }
 
   async presentToast(messagetext, color) {
@@ -87,4 +87,7 @@ export class MaterialPage implements OnInit {
     });
     toast.present();
   }
+  ionViewWillEnter() {
+    this.ngOnInit();
+   }
 }

@@ -1,7 +1,7 @@
 import { CameraService } from './../../shared/services/camera.service';
 import { Material } from './../../shared/models/material';
 import { Item } from './../../shared/models/item';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MaterialService } from 'src/app/shared/services/materiel.service';
 import { TipoContenedorService } from 'src/app/shared/services/tipo-contenedor.service';
@@ -22,8 +22,9 @@ export class ItemPage implements OnInit {
     item: Item;
     materiales: Material[];
     isEdit = false;
-    selectedMat = -1;
+    selectedMaterial = "";
     constructor(
+
         public actionSheetController: ActionSheetController,
         private cameraService: CameraService,
         private materialService: MaterialService,
@@ -41,7 +42,11 @@ export class ItemPage implements OnInit {
             Descripcion: new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(250)]),
             Material_oid: new FormControl(null, [Validators.required]),
         });
+        this.materialService.getMaterial().subscribe(res => {
+            this.materiales = res;
+        });
         const id = this.activeRouter.snapshot.paramMap.get('id');
+        console.log(id,"id")
         if (id) {
             this.title = "Modificar item"
             this.isEdit = true;
@@ -50,7 +55,8 @@ export class ItemPage implements OnInit {
                 this.item = res;
                 this.Nombre.setValue(res.Nombre)
                 this.Descripcion.setValue(res.Descripcion)
-                this.Material_oid.setValue(res.MaterialItem.Id);
+                this.Material_oid.setValue(""+res.MaterialItem.Id);
+                this.selectedMaterial=this.materiales.find(m=>m.Id==res.MaterialItem.Id).Nombre
             });
 
         }
@@ -172,5 +178,9 @@ export class ItemPage implements OnInit {
             });
         }
     }
-  
+
+    ionViewWillEnter(){
+        this.ngOnInit();
+      }
+   
 }
