@@ -28,7 +28,35 @@
 /* leaflet */
 @import "~leaflet/dist/leaflet.css";
 
-.larger-alert {
-  --min-width: 80% !important;
-  font-size: 10px !important;
+/* xs */
+@media (max-width: 576px) {
+  .larger-alert {
+    --min-width: 90% !important;
+    /* font-size: 10px !important; */
+  }
+}
+
+/* sm */
+@media (min-width: 576px) {
+  .larger-alert {
+    --min-width: 80% !important;
+    /* font-size: 10px !important; */
+  }
+}
+
+/* md */
+@media (min-width: 768px) {
+  .larger-alert {
+    --min-width: 70% !important;
+    /* font-size: 10px !important; */
+  }
+}
+
+
+/* lg, xl */
+@media(min-width: 992px) {
+  .larger-alert {
+    --min-width: 40% !important;
+    /* font-size: 8px !important; */
+  }
 }
