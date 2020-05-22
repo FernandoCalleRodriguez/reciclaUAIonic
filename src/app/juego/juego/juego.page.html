@@ -2,9 +2,13 @@
     <ion-toolbar>
         <ion-title>juego</ion-title>
     </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
     <ion-row>
         <ion-label color="primary">¿En que tipo de contenedor se recicla el siguiente objeto?</ion-label>
     </ion-row>
@@ -17,25 +21,30 @@
     <ion-row>
         <ion-col></ion-col>
         <ion-col>
-            <ion-img style="width: 200px; height: 200px; text-align: center" [src]="itemActual?.Imagen" ></ion-img>
+            <ion-img style="width: 200px; height: 200px; text-align: center" [src]="itemActual?.Imagen"></ion-img>
         </ion-col>
         <ion-col></ion-col>
 
     </ion-row>
     <ion-row>
         <ion-col>
-            <ion-button (click)="enviarRespuesta(3)" expand="block" color="warning">Plástico</ion-button>
+            <ion-button [disabled]="isInvalidA" (click)="enviarRespuesta(3)" expand="block" color="warning">Plástico
+            </ion-button>
         </ion-col>
         <ion-col>
-            <ion-button (click)="enviarRespuesta(2)" expand="block" color="success">Vidrio</ion-button>
+            <ion-button [disabled]="isInvalidV" (click)="enviarRespuesta(2)" expand="block" color="success">Vidrio
+            </ion-button>
         </ion-col>
     </ion-row>
     <ion-row>
         <ion-col>
-            <ion-button (click)="enviarRespuesta(4)" expand="block" color="medium">Orgánico</ion-button>
+            <ion-button [disabled]="isInvalidG" (click)="enviarRespuesta(4)" expand="block" color="medium">Orgánico
+            </ion-button>
         </ion-col>
         <ion-col>
-            <ion-button (click)="enviarRespuesta(1)" expand="block" color="primary">Papel y carton</ion-button>
+            <ion-button [disabled]="isInvalidAz" (click)="enviarRespuesta(1)" expand="block" color="primary">Papel y
+                carton
+            </ion-button>
         </ion-col>
     </ion-row>
 </ion-content>

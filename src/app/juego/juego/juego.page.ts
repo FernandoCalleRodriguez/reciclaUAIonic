@@ -9,6 +9,9 @@ import {ItemService} from '../../shared/services/item.service';
 import {Nivel} from '../../shared/models/nivel';
 import {Item} from '../../shared/models/item';
 import {TipoContenedor} from '../../shared/models/contenedor';
+import {Router} from '@angular/router';
+import {ConfiguracionService} from '../../shared/services/configuracion.service';
+import {AlertController, NavController} from '@ionic/angular';
 
 @Component({
     selector: 'app-juego',
@@ -22,11 +25,19 @@ export class JuegoPage implements OnInit {
     nivelActual: Nivel;
     items: Item[];
     itemActual: Item;
+    isInvalidA: boolean;
+    isInvalidG: boolean;
+    isInvalidAz: boolean;
+    isInvalidV: boolean;
 
     constructor(private usuarioService: UsuarioService,
                 private juegoService: JuegoService,
                 private nivelService: NivelService,
-                private itemService: ItemService) {
+                private itemService: ItemService,
+                private  route: Router,
+                private config: ConfiguracionService,
+                private navCtrl: NavController,
+                private alertController: AlertController) {
 
         this.usuarioService.getLoggedUser().subscribe(usuario => {
             this.usuario = usuario;
@@ -54,9 +65,21 @@ export class JuegoPage implements OnInit {
     }
 
     ngOnInit() {
+        this.inicializarDisabled();
     }
 
     obtenerNivel() {
+        if (this.juego.Finalizado) {
+            this.presentAlert();
+        } else {
+
+            this.nivelService.getNiveles().subscribe(niveles => {
+                this.niveles = niveles;
+                this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
+                console.log(this.nivelActual);
+                this.obtenerItem(this.nivelActual.Id);
+            });
+        }
         this.nivelService.getNiveles().subscribe(niveles => {
             this.niveles = niveles;
             this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
@@ -77,11 +100,70 @@ export class JuegoPage implements OnInit {
 
     }
 
+    async presentAlert() {
+        const alert = await this.alertController.create({
+            header: 'Fin del Juego',
+            subHeader: 'Te has pasado el juego con una puntuación de ' + Math.round(this.juego.Puntuacion) ,
+            buttons: [
+                {
+                    text: 'Ir al inicio',
+                    cssClass: 'secondary',
+                    handler: (blah) => {
+                        this.route.navigate(['/home']);
+                    }
+                },
+            ]
+        });
+
+        await alert.present();
+    }
+
     enviarRespuesta(tipo: number) {
 
         this.juegoService.SiguienteNivel(tipo, this.juego).subscribe(result => {
-
+            console.log(result);
             this.juego = result;
+            if (this.juego.IntentosItemActual > 1) {
+                console.log('fallo');
+                this.config.presentToast('Respuesta incorrecta', 'danger');
+
+                if (tipo === 1) {
+                    this.isInvalidAz = true;
+
+                } else if (tipo === 2) {
+                    this.isInvalidV = true;
+
+                } else if (tipo === 3) {
+                    this.isInvalidA = true;
+
+                } else {
+                    this.isInvalidG = true;
+
+                }
+            } else {
+                this.juego = result;
+                this.inicializarDisabled();
+                this.obtenerNivel();
+                this.config.presentToast('Respuesta correcta', 'success');
+            }
+
         });
+    }
+
+    inicializarDisabled() {
+        this.isInvalidA = false;
+        this.isInvalidV = false;
+        this.isInvalidAz = false;
+        this.isInvalidG = false;
+    }
+
+
+    doRefresh(event) {
+        console.log('Begin async operation');
+
+        setTimeout(() => {
+            console.log('Async operation has ended');
+            event.target.complete();
+        }, 2000);
     }
 }
