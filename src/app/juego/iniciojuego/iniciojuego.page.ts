@@ -16,14 +16,15 @@ export class IniciojuegoPage implements OnInit {
     @Input() niveles: number;
     @Input() items: number;
     @Input() juego: Juego;
-    isDisabled: boolean;
 
     constructor(private route: Router,
                 private modalCtrl: ModalController) {
+
     }
 
     ngOnInit() {
     }
+
 
     dismiss() {
         // using the injected ModalController this page
@@ -42,9 +43,4 @@ export class IniciojuegoPage implements OnInit {
         this.route.navigate(['/rankingjuego']);
     }
 
-    comprobarFinalizado() {
-        if (this.juego.Finalizado) {
-            this.isDisabled = true;
-        }
-    }
 }

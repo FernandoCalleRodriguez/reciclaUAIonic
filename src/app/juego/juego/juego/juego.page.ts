@@ -40,6 +40,55 @@ export class JuegoPage implements OnInit {
                 private navCtrl: NavController,
                 private alertController: AlertController,
                 private modalController: ModalController) {
+
+
+    }
+
+    ngOnInit() {
+        this.inicializarDisabled();
+    }
+
+    async presentModal() {
+        const modal = await this.modalController.create({
+            component: IniciojuegoPage,
+            componentProps: {
+                item: this.juego.ItemActual,
+                nivel: this.juego.NivelActual,
+                niveles: this.niveles?.length,
+                items: this.items?.length,
+                juego: this.juego,
+            }
+        });
+        return await modal.present();
+    }
+
+    obtenerNivel() {
+
+
+        this.nivelService.getNiveles().subscribe(niveles => {
+            this.niveles = niveles;
+            this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
+            console.log(this.nivelActual);
+            this.obtenerItem(this.nivelActual.Id);
+        });
+
+
+    }
+
+    obtenerItem(nivel) {
+
+        this.itemService.BuscarItemsPorNivel(nivel).subscribe(items => {
+            this.items = items;
+            console.log(items);
+            this.itemActual = items[this.juego.ItemActual];
+            console.log(this.itemActual);
+            this.presentModal();
+
+        });
+
+    }
+
+    ionViewWillEnter() {
         this.usuarioService.getLoggedUser().subscribe(usuario => {
             this.usuario = usuario;
 
@@ -62,53 +111,6 @@ export class JuegoPage implements OnInit {
                 }
             });
         });
-
-    }
-
-    ngOnInit() {
-        this.inicializarDisabled();
-    }
-
-    async presentModal() {
-        const modal = await this.modalController.create({
-            component: IniciojuegoPage,
-            componentProps: {
-                nivel: this.juego.ItemActual,
-                item: this.juego.NivelActual,
-                niveles: this.niveles?.length,
-                items: this.items?.length,
-                juego: this.juego,
-            }
-        });
-        return await modal.present();
-    }
-
-    obtenerNivel() {
-        if (this.juego.Finalizado) {
-            this.presentAlert();
-        } else {
-
-            this.nivelService.getNiveles().subscribe(niveles => {
-                this.niveles = niveles;
-                this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
-                console.log(this.nivelActual);
-                this.obtenerItem(this.nivelActual.Id);
-            });
-        }
-
-    }
-
-    obtenerItem(nivel) {
-
-        this.itemService.BuscarItemsPorNivel(nivel).subscribe(items => {
-            this.items = items;
-            console.log(items);
-            this.itemActual = items[this.juego.ItemActual];
-            console.log(this.itemActual);
-            this.presentModal();
-
-        });
-
     }
 
     async presentAlert() {

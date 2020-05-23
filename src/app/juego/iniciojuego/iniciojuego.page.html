@@ -1,6 +1,9 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>iniciojuego</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button text="" (click)="dismiss()" defaultHref="home"></ion-back-button>
+        </ion-buttons>
+        <ion-title></ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -11,19 +14,24 @@
         </ion-card-header>
         <ion-row>
             <ion-col>
-                <ion-label> Estás en el nivel {{nivel + 1}} de  {{niveles}}</ion-label>
+                <ion-label> Estás en el nivel {{nivel}} de  {{niveles}}</ion-label>
 
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col>
-                <ion-label> Estás en el item {{item}} de  {{items}}</ion-label>
+                <ion-label> Estás en el item {{item + 1}} de  {{items}}</ion-label>
 
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col>
                 <ion-label> Tu puntuación es:  {{this.juego?.Puntuacion}}</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="juego?.Finalizado">
+            <ion-col>
+                <ion-label color="danger"> Has finalizado el Juego!!</ion-label>
             </ion-col>
         </ion-row>
     </ion-card>
@@ -46,7 +54,7 @@
     </ion-card>
     <ion-row>
         <ion-col>
-            <ion-button (click)="dismiss()" [disabled]="comprobarFinalizado()" expand="block" color="success">
+            <ion-button (click)="dismiss()" [disabled]="juego?.Finalizado" expand="block" color="success">
                 Siguiente item
             </ion-button>
         </ion-col>
