@@ -16,6 +16,7 @@ export class IniciojuegoPage implements OnInit {
     @Input() niveles: number;
     @Input() items: number;
     @Input() juego: Juego;
+    isDisabled: boolean;
 
     constructor(private route: Router,
                 private modalCtrl: ModalController) {
@@ -35,6 +36,15 @@ export class IniciojuegoPage implements OnInit {
     ranking() {
         // using the injected ModalController this page
         // can "dismiss" itself and optionally pass back data
+        this.modalCtrl.dismiss({
+            'dismissed': true
+        });
         this.route.navigate(['/rankingjuego']);
+    }
+
+    comprobarFinalizado() {
+        if (this.juego.Finalizado) {
+            this.isDisabled = true;
+        }
     }
 }

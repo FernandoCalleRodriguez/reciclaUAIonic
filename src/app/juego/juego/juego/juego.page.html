@@ -9,23 +9,25 @@
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
-    <ion-row>
-        <ion-label color="primary">¿En que tipo de contenedor se recicla el siguiente objeto?</ion-label>
-    </ion-row>
-    <ion-row>
-        <ion-label><strong>Nombre:</strong> {{itemActual?.Nombre}}</ion-label>
-    </ion-row>
-    <ion-row>
-        <ion-label><strong>Descripción:</strong> {{itemActual?.Descripcion}}</ion-label>
-    </ion-row>
-    <ion-row>
-        <ion-col></ion-col>
-        <ion-col>
-            <ion-img style="width: 200px; height: 200px; text-align: center" [src]="itemActual?.Imagen"></ion-img>
-        </ion-col>
-        <ion-col></ion-col>
+    <ion-card>
+        <ion-row>
+            <ion-card-title>¿En que tipo de contenedor se recicla el siguiente objeto?</ion-card-title>
+        </ion-row>
+        <ion-row>
+            <ion-col></ion-col>
+            <ion-col>
+                <ion-img style="width: 200px; height: 200px; text-align: center" [src]="itemActual?.Imagen"></ion-img>
+            </ion-col>
+            <ion-col></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-label><strong>Nombre:</strong> {{itemActual?.Nombre}}</ion-label>
+        </ion-row>
+        <ion-row>
+            <ion-label><strong>Descripción:</strong> {{itemActual?.Descripcion}}</ion-label>
+        </ion-row>
 
-    </ion-row>
+    </ion-card>
     <ion-row>
         <ion-col>
             <ion-button [disabled]="isInvalidA" (click)="enviarRespuesta(3)" expand="block" color="warning">Plástico

@@ -31,8 +31,13 @@ export class JuegoService {
 
     }
 
+    ObtenerRanking(): Observable<Juego[]> {
+        return this.http.get<Juego[]>(this.SERVER + 'Juego/BuscarTodos', this.getHeaderToken());
+    }
+
     SiguienteNivel(tipo: number, juego: Juego): Observable<Juego> {
-        return this.http.post<Juego>(this.SERVER + 'Juego/SiguienteItem?p_oid=' + juego.Id + '&p_tipocontenedor=' + tipo, juego, this.getHeaderToken());
+        return this.http.post<Juego>(this.SERVER + 'Juego/SiguienteItem?p_oid=' + juego.Id + '&p_tipocontenedor=' + tipo, juego,
+            this.getHeaderToken());
     }
 
     private getHeaderToken() {
