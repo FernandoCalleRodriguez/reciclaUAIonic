@@ -1,17 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {AutenticacionService} from '../../shared/services/autenticacion.service';
-import {UsuarioService} from '../../shared/services/usuario.service';
-import {Usuario} from '../../shared/models/usuario';
-import {JuegoService} from '../../shared/services/juego.service';
-import {Juego} from '../../shared/models/juego';
-import {NivelService} from '../../shared/services/nivel.service';
-import {ItemService} from '../../shared/services/item.service';
-import {Nivel} from '../../shared/models/nivel';
-import {Item} from '../../shared/models/item';
-import {TipoContenedor} from '../../shared/models/contenedor';
+import {AutenticacionService} from '../../../shared/services/autenticacion.service';
+import {UsuarioService} from '../../../shared/services/usuario.service';
+import {Usuario} from '../../../shared/models/usuario';
+import {JuegoService} from '../../../shared/services/juego.service';
+import {Juego} from '../../../shared/models/juego';
+import {NivelService} from '../../../shared/services/nivel.service';
+import {ItemService} from '../../../shared/services/item.service';
+import {Nivel} from '../../../shared/models/nivel';
+import {Item} from '../../../shared/models/item';
+import {TipoContenedor} from '../../../shared/models/contenedor';
 import {Router} from '@angular/router';
-import {ConfiguracionService} from '../../shared/services/configuracion.service';
-import {AlertController, NavController} from '@ionic/angular';
+import {ConfiguracionService} from '../../../shared/services/configuracion.service';
+import {AlertController, ModalController, NavController} from '@ionic/angular';
+import {IniciojuegoPage} from '../../iniciojuego/iniciojuego.page';
 
 @Component({
     selector: 'app-juego',
@@ -37,8 +38,8 @@ export class JuegoPage implements OnInit {
                 private  route: Router,
                 private config: ConfiguracionService,
                 private navCtrl: NavController,
-                private alertController: AlertController) {
-
+                private alertController: AlertController,
+                private modalController: ModalController) {
         this.usuarioService.getLoggedUser().subscribe(usuario => {
             this.usuario = usuario;
 
@@ -68,6 +69,20 @@ export class JuegoPage implements OnInit {
         this.inicializarDisabled();
     }
 
+    async presentModal() {
+        const modal = await this.modalController.create({
+            component: IniciojuegoPage,
+            componentProps: {
+                nivel: this.juego.ItemActual,
+                item: this.juego.NivelActual,
+                niveles: this.niveles?.length,
+                items: this.items?.length,
+                juego: this.juego,
+            }
+        });
+        return await modal.present();
+    }
+
     obtenerNivel() {
         if (this.juego.Finalizado) {
             this.presentAlert();
@@ -80,21 +95,17 @@ export class JuegoPage implements OnInit {
                 this.obtenerItem(this.nivelActual.Id);
             });
         }
-        this.nivelService.getNiveles().subscribe(niveles => {
-            this.niveles = niveles;
-            this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
-            console.log(this.nivelActual);
-            this.obtenerItem(this.nivelActual.Id);
-        });
 
     }
 
     obtenerItem(nivel) {
 
         this.itemService.BuscarItemsPorNivel(nivel).subscribe(items => {
+            this.items = items;
             console.log(items);
             this.itemActual = items[this.juego.ItemActual];
             console.log(this.itemActual);
+            this.presentModal();
 
         });
 
@@ -103,7 +114,7 @@ export class JuegoPage implements OnInit {
     async presentAlert() {
         const alert = await this.alertController.create({
             header: 'Fin del Juego',
-            subHeader: 'Te has pasado el juego con una puntuación de ' + Math.round(this.juego.Puntuacion) ,
+            subHeader: 'Te has pasado el juego con una puntuación de ' + Math.round(this.juego.Puntuacion),
             buttons: [
                 {
                     text: 'Ir al inicio',

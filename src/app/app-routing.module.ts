@@ -74,27 +74,27 @@ const routes: Routes = [
   },
   {
     path: 'material',
-    loadChildren: () => import('./juego/material/material.module').then( m => m.MaterialPageModule)
+    loadChildren: () => import('./juego/juego/material/material.module').then(m => m.MaterialPageModule)
   },
   {
     path: 'item',
-    loadChildren: () => import('./juego/item/item.module').then( m => m.ItemPageModule)
+    loadChildren: () => import('./juego/juego/item/item.module').then(m => m.ItemPageModule)
   },
   {
     path: 'item/edit/:id',
-    loadChildren: () => import('./juego/item/item.module').then( m => m.ItemPageModule)
+    loadChildren: () => import('./juego/juego/item/item.module').then(m => m.ItemPageModule)
   },
   {
     path: 'material/edit/:id',
-    loadChildren: () => import('./juego/material/material.module').then( m => m.MaterialPageModule)
+    loadChildren: () => import('./juego/juego/material/material.module').then(m => m.MaterialPageModule)
   },
   {
     path: 'item-list',
-    loadChildren: () => import('./juego/item-list/item-list.module').then( m => m.ItemListPageModule)
+    loadChildren: () => import('./juego/juego/item-list/item-list.module').then(m => m.ItemListPageModule)
   },
   {
     path: 'material-list',
-    loadChildren: () => import('./juego/material-list/material-list.module').then( m => m.MaterialListPageModule)
+    loadChildren: () => import('./juego/juego/material-list/material-list.module').then(m => m.MaterialListPageModule)
   },
   {
     path: 'punto',
@@ -111,10 +111,19 @@ const routes: Routes = [
   {
     path: 'usuario/acciones',
     loadChildren: () => import('./accion/accion.module').then( m => m.AccionPageModule)
-  },  {
+  },
+  {
     path: 'juego',
-    loadChildren: () => import('./juego/juego/juego.module').then( m => m.JuegoPageModule)
+    loadChildren: () => import('./juego/juego/juego/juego.module').then(m => m.JuegoPageModule)
+  },  {
+    path: 'iniciojuego',
+    loadChildren: () => import('./juego/iniciojuego/iniciojuego.module').then( m => m.IniciojuegoPageModule)
+  },
+  {
+    path: 'rankingjuego',
+    loadChildren: () => import('./juego/rankingjuego/rankingjuego.module').then( m => m.RankingjuegoPageModule)
   }
+
 
 
 
