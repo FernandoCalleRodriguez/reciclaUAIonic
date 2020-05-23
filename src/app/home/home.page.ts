@@ -11,6 +11,7 @@ import {MapaEstanciasComponent} from '../shared/components/mapa-estancias/mapa-e
 import {Planta} from '../shared/models/planta';
 import {Estancia} from '../shared/models/estancia';
 import {MapaPickerComponent} from '../shared/components/mapa-picker/mapa-picker.component';
+import {UsuarioService} from '../shared/services/usuario.service';
 
 class Puntos {
 }
@@ -42,7 +43,8 @@ export class HomePage implements OnInit {
     constructor(private menu: MenuController,
                 private  autenticacionService: AutenticacionService,
                 protected puntoService: PuntoService,
-                protected edificioService: EdificioService) {
+                protected edificioService: EdificioService,
+                private usuarioService: UsuarioService) {
         this.autenticacionService.estaAutenticado();
         // this.menu.open();
         this.puntoService.getPunto().subscribe(p => {
@@ -50,6 +52,10 @@ export class HomePage implements OnInit {
         });
         this.edificioService.getEdificio().subscribe(e => {
             this.edificios = e;
+        });
+
+        this.usuarioService.getLoggedUser().subscribe(usuario => {
+            this.autenticacionService.subject.next(usuario);
         });
     }
 
@@ -82,5 +88,9 @@ export class HomePage implements OnInit {
 
     printCoord(coord: L.LatLng) {
         console.log(coord);
+    }
+
+    ionViewWillEnter() {
+        this.autenticacionService.estaAutenticado();
     }
 }

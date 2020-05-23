@@ -3,6 +3,7 @@ import {Usuario} from '../models/usuario';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AutenticacionService} from './autenticacion.service';
+import { Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -11,8 +12,9 @@ export class UsuarioService {
     SERVER = 'http://localhost:16209/api/';
 
     constructor(private http: HttpClient,
-                private autenticacionService: AutenticacionService) {
+                private autenticacionService: AutenticacionService,) {
     }
+
 
     CrearUsuario(usuario: Usuario, tipo: string): Observable<Usuario> {
         console.log(usuario);
@@ -30,6 +32,7 @@ export class UsuarioService {
         }
 
         return this.http.get<Usuario>(this.SERVER + url + id, this.getHeaderToken());
+
     }
 
     obtenerUsuarioPorEmail(email): Observable<Usuario> {

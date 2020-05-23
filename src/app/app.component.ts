@@ -53,6 +53,10 @@ export class AppComponent implements OnInit {
         }, error => {
             this.autenticacionService.Logout();
         });
+
+        this.autenticacionService.subject.subscribe(u => {
+            this.usuario = u;
+        });
     }
 
     initializeApp() {
@@ -90,11 +94,14 @@ export class AppComponent implements OnInit {
 
     ionViewWillEnter() {
         this.notify();
-        this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(u => {
-            console.log("prueba");
-            this.usuario = u;
-        }, error => {
-            this.autenticacionService.Logout();
-        });
+        if (this.autenticacionService.isLogged()) {
+
+            this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(u => {
+                console.log('prueba');
+                this.usuario = u;
+            }, error => {
+                this.autenticacionService.Logout();
+            });
+        }
     }
 }
