@@ -63,6 +63,12 @@ export class JuegoPage implements OnInit {
     }
 
     obtenerNivel() {
+        if (this.juego.Finalizado) {
+            this.isInvalidA = true;
+            this.isInvalidV = true;
+            this.isInvalidAz = true;
+            this.isInvalidG = true;
+        }
 
 
         this.nivelService.getNiveles().subscribe(niveles => {
@@ -111,24 +117,6 @@ export class JuegoPage implements OnInit {
                 }
             });
         });
-    }
-
-    async presentAlert() {
-        const alert = await this.alertController.create({
-            header: 'Fin del Juego',
-            subHeader: 'Te has pasado el juego con una puntuación de ' + Math.round(this.juego.Puntuacion),
-            buttons: [
-                {
-                    text: 'Ir al inicio',
-                    cssClass: 'secondary',
-                    handler: (blah) => {
-                        this.route.navigate(['/home']);
-                    }
-                },
-            ]
-        });
-
-        await alert.present();
     }
 
     enviarRespuesta(tipo: number) {
