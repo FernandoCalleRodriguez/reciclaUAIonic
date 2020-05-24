@@ -18,6 +18,11 @@ export class AppComponent implements OnInit {
     public selectedIndex = 0;
     public appPages = [
         {
+          title: 'Inicio',
+          url: '/home',
+          icon: 'home'
+        },
+        {
             title: 'Foro',
             url: '/foro',
             icon: 'list'
@@ -38,6 +43,11 @@ export class AppComponent implements OnInit {
             url: '/usuario/propuestas',
             icon: 'hourglass',
             count: 0
+        },
+        {
+            title: 'Sobre nosotros',
+            url: '/aboutus',
+            icon: 'information'
         }
     ];
     usuario: Usuario;
