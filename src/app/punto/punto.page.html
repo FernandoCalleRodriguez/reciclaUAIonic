@@ -24,11 +24,13 @@
 
         <ion-item lines="full">
           <ion-label position="floating">Estancias</ion-label>
+          <ion-input [disabled]="true" value="{{Estancia_oid.value}}"></ion-input>
+<!-- 
           <ion-select placeholder="Select One" formControlName="Estancia_oid">
 
             <ion-select-option *ngFor="let estancia of estancias" value="{{estancia.Id}}">{{estancia.Id}}
             </ion-select-option>
-          </ion-select>
+          </ion-select> -->
         </ion-item>
         <ion-row>
 

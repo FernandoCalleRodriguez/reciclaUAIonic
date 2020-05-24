@@ -18,7 +18,8 @@ export class ReciclajePage implements OnInit {
   materialSelected = false;
   selectedItem: Item = null
   selectedMaterial: Material = null
-  puntosCercanos: Punto[]=null;
+  puntosCercanos: Punto[] = null;
+  limit: number = -1;
   constructor(
     private puntoService: PuntoService,
     private geolocation: Geolocation,
@@ -54,7 +55,8 @@ export class ReciclajePage implements OnInit {
   getPuntosCercanos() {
     this.geolocation.getCurrentPosition().then((res) => {
       //console.log(res)
-      this.puntoService.BuscarPuntosCercanos(res.coords.latitude, res.coords.longitude, 2).subscribe(r => {
+      if (this.limit < 0) this.limit = 2
+      this.puntoService.BuscarPuntosCercanos(res.coords.latitude, res.coords.longitude, this.limit).subscribe(r => {
         console.log(r);
       })
     }).catch((error) => {
@@ -65,14 +67,17 @@ export class ReciclajePage implements OnInit {
     if (this.selectedMaterial == null) return;
     this.geolocation.getCurrentPosition().then((res) => {
       console.log(res.coords.latitude, res.coords.longitude)
-      this.puntoService.BuscarPuntosCercanosPorContenedor(res.coords.latitude, res.coords.longitude, 2, this.selectedMaterial.Contenedor).subscribe(r => {
+      if (this.limit < 0) this.limit = 2
+      this.puntoService.BuscarPuntosCercanosPorContenedor(res.coords.latitude, res.coords.longitude,  this.limit, this.selectedMaterial.Contenedor).subscribe(r => {
         this.puntosCercanos = r;
       })
     }).catch((error) => {
       console.log('Error getting location', error);
     });
   }
-
+  changeRange(valor){
+    this.limit=valor.detail.value;
+  }
   ionViewWillEnter() {
     this.ngOnInit();
   }

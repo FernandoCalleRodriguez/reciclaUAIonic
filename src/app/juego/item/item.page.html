@@ -43,12 +43,14 @@
         </ion-item>
         <ion-item lines="full">
           <ion-label position="floating">Material</ion-label>
-        
-          <ion-text *ngIf="isEdit">
+          <ion-input [disabled]="true" value="{{selectedMaterial}}"></ion-input>
+
+
+          <!-- <ion-text *ngIf="isEdit">
             <h2>{{selectedMaterial}}</h2>
-          </ion-text>
+          </ion-text> -->
           <ion-select  *ngIf="!isEdit" 
-            formControlName="Material_oid" interface="action-sheet">
+            formControlName="Material_oid" interface="action-sheet" >
             <ion-select-option *ngFor="let material of materiales" value="{{material.Id}}">{{material.Nombre}}
             </ion-select-option>
           </ion-select>
