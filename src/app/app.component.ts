@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
             icon: 'trophy'
         },
         {
-            title: 'Notas informativas',
+            title: 'Notas infor.',
             url: '/notainfo',
             icon: 'reader',
             count: 0
