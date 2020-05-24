@@ -12,6 +12,8 @@ import {Planta} from '../shared/models/planta';
 import {Estancia} from '../shared/models/estancia';
 import {MapaPickerComponent} from '../shared/components/mapa-picker/mapa-picker.component';
 import {UsuarioService} from '../shared/services/usuario.service';
+import {Nota} from '../shared/models/nota';
+import {NotaService} from '../shared/services/nota.service';
 
 class Puntos {
 }
@@ -27,6 +29,7 @@ export class HomePage implements OnInit {
     public idx = -1;
     public idxPlanta = -1;
     public selectedEstancia: Estancia = null;
+    public notaInfo: Nota;
 
     @ViewChild(MapaEstanciasComponent)
     public mapa: MapaEstanciasComponent;
@@ -44,7 +47,8 @@ export class HomePage implements OnInit {
                 private  autenticacionService: AutenticacionService,
                 protected puntoService: PuntoService,
                 protected edificioService: EdificioService,
-                private usuarioService: UsuarioService) {
+                private usuarioService: UsuarioService,
+                protected notaService: NotaService) {
         this.autenticacionService.estaAutenticado();
         // this.menu.open();
         this.puntoService.getPunto().subscribe(p => {
@@ -56,6 +60,10 @@ export class HomePage implements OnInit {
 
         this.usuarioService.getLoggedUser().subscribe(usuario => {
             this.autenticacionService.subject.next(usuario);
+        });
+        
+        this.notaService.obtenerTodasNotas().subscribe(nota => {
+            this.notaInfo = nota[0];
         });
     }
 

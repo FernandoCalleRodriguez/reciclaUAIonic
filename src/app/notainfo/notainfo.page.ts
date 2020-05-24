@@ -6,6 +6,7 @@ import {ToastController} from '@ionic/angular';
 import {AutenticacionService} from '../shared/services/autenticacion.service';
 import {Storage} from '@ionic/storage';
 import { Pipe, PipeTransform } from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 
 @Component({
   selector: 'app-notainfo',
@@ -72,6 +73,7 @@ export class NotainfoPage {
               this.nNoLeidas  = this.notasNoLeidas.length;
               this.nLeidas  = 0;
               console.log('No hay notas en storage');
+              this.notaService.actualizarNotificacionesNotas(this.nNoLeidas);
             }
           });
         } else {
@@ -79,6 +81,7 @@ export class NotainfoPage {
           this.notasLeidas = [];
           this.nLeidas  = 0;
           this.nNoLeidas  = 0;
+          this.notaService.actualizarNotificacionesNotas(this.nNoLeidas);
         }
       });
     } else {
@@ -105,11 +108,13 @@ export class NotainfoPage {
               this.nLeidas = this.notasLeidas.length;
               console.log('Leidas ' + this.notasLeidas.length);
               console.log('No leidas ' + this.notasNoLeidas.length);
+              this.notaService.actualizarNotificacionesNotas(this.nNoLeidas);
             } else {
               this.notasNoLeidas = this.notas;
               this.nLeidas  = 0;
               this.nNoLeidas  = this.notasNoLeidas.length;
               console.log('No hay notas en storage');
+              this.notaService.actualizarNotificacionesNotas(this.nNoLeidas);
             }
           });
         }

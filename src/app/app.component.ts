@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-
 import {Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
@@ -8,6 +7,7 @@ import {UsuarioService} from './shared/services/usuario.service';
 import {Usuario} from './shared/models/usuario';
 import {NotaService} from './shared/services/nota.service';
 import {Nota} from './shared/models/nota';
+import {from, Observable} from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -28,16 +28,17 @@ export class AppComponent implements OnInit {
             icon: 'trophy'
         },
         {
-            title: 'Notas informativas',
+            title: 'Notas infor.',
             url: '/notainfo',
             icon: 'reader',
             count: 0
         },
     ];
     usuario: Usuario;
-    notificacionesNotas = 0;
+    nNotificacionesNotas$: Observable<number>;
     notas: Nota[];
     notasS: Nota[];
+    nNotificacionesNotas: number;
 
     constructor(
         private platform: Platform,
@@ -45,7 +46,7 @@ export class AppComponent implements OnInit {
         private statusBar: StatusBar,
         public autenticacionService: AutenticacionService,
         private usuarioService: UsuarioService,
-        private notaService: NotaService
+        private notaService: NotaService,
     ) {
         this.initializeApp();
         this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(u => {
@@ -67,11 +68,14 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.notaService.actualizarNotificacionesNotas(0);
         const path = window.location.pathname.split('folder/')[1];
         if (path !== undefined) {
             this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
         }
         this.notify();
+        this.nNotificacionesNotas$ = this.notaService.obtenerCantidadNotasNoLeidas();
+        this.nNotificacionesNotas$.subscribe( n => this.appPages[2].count = n);
     }
 
     notify() {
@@ -81,11 +85,13 @@ export class AppComponent implements OnInit {
                     this.notas = res;
                     this.notasS = res2;
                     if (this.notasS != null && this.notas != null) {
-                        this.notificacionesNotas = this.notas.length - this.notasS.length;
-                        this.appPages[2].count = this.notificacionesNotas;
+                        this.nNotificacionesNotas = this.notas.length - this.notasS.length;
+                        this.appPages[2].count = this.nNotificacionesNotas;
+                        this.notaService.actualizarNotificacionesNotas(this.nNotificacionesNotas);
                     } else {
-                        this.notificacionesNotas = this.notas.length;
-                        this.appPages[2].count = this.notificacionesNotas;
+                        this.nNotificacionesNotas = this.notas.length;
+                        this.appPages[2].count = this.nNotificacionesNotas;
+                        this.notaService.actualizarNotificacionesNotas(this.nNotificacionesNotas);
                     }
                 });
             });
@@ -93,15 +99,12 @@ export class AppComponent implements OnInit {
     }
 
     ionViewWillEnter() {
-        this.notify();
-        if (this.autenticacionService.isLogged()) {
-
-            this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(u => {
-                console.log('prueba');
-                this.usuario = u;
-            }, error => {
-                this.autenticacionService.Logout();
-            });
-        }
+        // this.notify();
+        this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(u => {
+            console.log('prueba');
+            this.usuario = u;
+        }, error => {
+            this.autenticacionService.Logout();
+        });
     }
 }

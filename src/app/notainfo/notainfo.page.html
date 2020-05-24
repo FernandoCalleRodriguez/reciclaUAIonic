@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Nota Informativa</ion-title>
+    <ion-title>Nota informativa</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
@@ -13,13 +13,15 @@
 
     <mat-expansion-panel [disabled]=" nNoLeidas > 0 ? false : true">
       <mat-expansion-panel-header>
-        Notas no leidas
-        <ion-chip [color]="nNoLeidas > 0 ? 'danger' : 'dark'"  >
-          <ion-label>{{ nNoLeidas}}</ion-label>
-        </ion-chip>
-      </mat-expansion-panel-header>
-      <ion-item *ngFor="let nota of notasNoLeidas" (click)="verNotaDetalle(nota?.Id)" detail>
         <ion-label>
+          Notas no leidas
+          <ion-chip [color]="nNoLeidas > 0 ? 'danger' : 'dark'"  >
+            <ion-label>{{ nNoLeidas}}</ion-label>
+          </ion-chip>
+        </ion-label>
+      </mat-expansion-panel-header>
+      <ion-item *ngFor="let nota of notasNoLeidas" (click)="verNotaDetalle(nota?.Id)">
+        <ion-label  >
           <h2 >{{nota?.Titulo}}</h2>
         </ion-label>
       </ion-item>
@@ -27,10 +29,12 @@
 
     <mat-expansion-panel [disabled]=" nLeidas > 0 ? false : true">
       <mat-expansion-panel-header>
-        Notas leidas
-        <ion-chip color="dark"  >
-          <ion-label>{{ nLeidas}}</ion-label>
-        </ion-chip>
+        <ion-label>
+          Notas leidas
+          <ion-chip color="dark"  >
+            <ion-label>{{ nLeidas}}</ion-label>
+          </ion-chip>
+        </ion-label>
       </mat-expansion-panel-header>
       <ion-item *ngFor="let nota of notasLeidas" (click)="verNotaDetalle(nota?.Id)" detail>
         <ion-label>
