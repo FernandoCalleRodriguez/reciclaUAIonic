@@ -26,41 +26,6 @@
         <ion-card-header>
             <ion-card-title>¿Dónde puedo reciclar?</ion-card-title>
         </ion-card-header>
-        <ion-grid>
-            <ion-row>
-                <ion-col>
-                    <!-- app-mapa-puntos *ngIf="puntos" [puntos]="[puntos[0]]"></app-mapa-puntos -->
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-select placeholder="Selecciona el edificio" interface="alert" [interfaceOptions]="alertOpts"
-                                [(ngModel)]="idx" (ngModelChange)="changeEdificio($event)">
-                        <ion-select-option *ngFor="let edificio of edificios; index as i;"
-                                           value="{{i}}">{{edificio.Nombre}}</ion-select-option>
-                    </ion-select>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-select *ngIf="idx" placeholder="Selecciona la planta" interface="alert"
-                                [(ngModel)]="idxPlanta" (ngModelChange)="changePlanta($event)">
-                        <ion-select-option *ngFor="let planta of sortedPlantas(edificios[idx].PlantasEdificio)"
-                                           value="{{planta.Planta}}">{{planta.Planta | planta}}</ion-select-option>
-                    </ion-select>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <app-mapa-estancias (selectedEstanciaChange)="printSelected($event)"></app-mapa-estancias>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <app-mapa-picker [hidden]="!this.selectedEstancia" (coordinatesChange)="printCoord($event)"></app-mapa-picker>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
         <ion-item>
             <ion-icon name="map"></ion-icon>
             <ion-button fill="clear" [routerLink]="['/punto']" style="color:black">Crear punto de reciclaje</ion-button>
