@@ -8,7 +8,7 @@ import { ValidacionService } from '../../shared/services/validacion.service';
 import { Estado } from '../../shared/models/estado';
 import { UsuarioService } from '../../shared/services/usuario.service';
 import { Usuario } from '../../shared/models/usuario';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
     selector: 'app-propuestas-usuario',
@@ -42,6 +42,7 @@ export class PropuestasUsuarioPage implements OnInit {
     ];
 
     constructor(
+        private toastController:ToastController,
         private alertController: AlertController,
         protected itemService: ItemService, protected materialService: MaterialService, protected puntoService: PuntoService,
         protected validacionService: ValidacionService, protected usuarioService: UsuarioService) {
@@ -74,9 +75,14 @@ export class PropuestasUsuarioPage implements OnInit {
         this.presentAlertMultipleButtons(item, obj)
     }
     async presentAlertMultipleButtons(item, obj) {
+       var msg=""
+        if(obj==2)
+            msg="este punto"
+            else
+            msg=item?.Nombre
         const alert = await this.alertController.create({
-            header: 'Borrar ' + item.Nombre,
-            message: 'Estas seguro que quieres borrar'+item.Nombre,
+            header: 'Eliminar ' + msg,
+            message: 'Estas seguro de que deseas eliminar '+msg,
             buttons: ['Cancel', {
                 text: 'Borrar',
                 cssClass: 'danger',
@@ -87,14 +93,27 @@ export class PropuestasUsuarioPage implements OnInit {
 
                             var index = this.propuestas[0].elementos.indexOf(item);
                             if (index > -1)
-                                this.propuestas[0].elementos.splice(index, 1)
+                               { this.propuestas[0].elementos.splice(index, 1)
+                                this.presentToast("Item borrado","danger")}
                         })
                     } else if (obj == 1) {
                         this.materialService.removeMaterial(item.Id).subscribe(res => {
 
                             var index = this.propuestas[1].elementos.indexOf(item);
                             if (index > -1)
-                                this.propuestas[1].elementos.splice(index, 1)
+                              {  this.propuestas[1].elementos.splice(index, 1)
+                                this.presentToast("Material borrado","danger")}
+
+                        })
+                    }
+                    else if (obj == 2) {
+                        this.puntoService.removePunto(item.Id).subscribe(res => {
+
+                            var index = this.propuestas[2].elementos.indexOf(item);
+                            if (index > -1)
+                              {  this.propuestas[2].elementos.splice(index, 1)
+                                this.presentToast("Punto de reciclaje borrado","danger")}
+
                         })
                     }
                 }
@@ -115,4 +134,16 @@ export class PropuestasUsuarioPage implements OnInit {
 
 
     }
+    async presentToast(messagetext, color) {
+        const toast = await this.toastController.create({
+          message: messagetext,
+          duration: 2000,
+          color: color
+    
+        });
+        toast.present();
+      }
+    ionViewWillEnter(){
+        this.ngOnInit();
+     }
 }

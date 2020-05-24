@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>material</ion-title>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text=""  defaultHref="usuario/propuestas"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -27,7 +30,7 @@
 
         <ion-item lines="full">
           <ion-label position="floating">Contenedor</ion-label>
-          <ion-select value="{{Contenedor.value}}" placeholder="Elije un tipo de contenedor"
+          <ion-select placeholder="Elije un tipo de contenedor"
             formControlName="contenedor">
 
             <ion-select-option *ngFor="let contenedor of contenedores" value="{{contenedor.Id}}">{{contenedor.Tipo}}

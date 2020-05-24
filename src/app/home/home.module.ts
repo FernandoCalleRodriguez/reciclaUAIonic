@@ -19,7 +19,8 @@ import {MapaPickerComponent} from '../shared/components/mapa-picker/mapa-picker.
         CommonModule,
         FormsModule,
         IonicModule,
-        HomePageRoutingModule
+        HomePageRoutingModule,
+        LeafletModule
     ],
     declarations: [HomePage],
     providers: []

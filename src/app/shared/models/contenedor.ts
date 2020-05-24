@@ -9,4 +9,5 @@ export class TipoContenedor {
   Id?: number;
   Tipo?: string;
   RGB?: string;
+  Color:String
 }

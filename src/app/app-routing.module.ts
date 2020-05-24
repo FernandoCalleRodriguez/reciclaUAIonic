@@ -101,6 +101,10 @@ const routes: Routes = [
     loadChildren: () => import('./punto/punto.module').then( m => m.PuntoPageModule)
   },
   {
+    path: 'punto/edit/:id',
+    loadChildren: () => import('./punto/punto.module').then( m => m.PuntoPageModule)
+  },
+  {
     path: 'notainfodetalle/:id',
     loadChildren: () => import('./notainfodetalle/notainfodetalle.module').then( m => m.NotainfodetallePageModule)
   },
@@ -131,6 +135,10 @@ const routes: Routes = [
   {
     path: 'reciclar',
     loadChildren: () => import('./accion-reciclar/accion-reciclar.module').then( m => m.AccionReciclarPageModule)
+  },
+  {
+    path: 'donde-reciclar',
+    loadChildren: () => import('./reciclaje/reciclaje.module').then( m => m.ReciclajePageModule)
   }
 ];
 

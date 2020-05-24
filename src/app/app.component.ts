@@ -33,6 +33,12 @@ export class AppComponent implements OnInit {
             icon: 'reader',
             count: 0
         },
+        {
+            title: 'Propuestas',
+            url: '/usuario/propuestas',
+            icon: 'hourglass',
+            count: 0
+        }
     ];
     usuario: Usuario;
     nNotificacionesNotas$: Observable<number>;

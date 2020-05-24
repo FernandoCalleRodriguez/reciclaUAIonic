@@ -19,6 +19,7 @@ import {IonicStorageModule} from '@ionic/storage';
 import {MapaPuntosComponent} from './shared/components/mapa-puntos/mapa-puntos.component';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {PopoverComponent} from './shared/components/popover/popover.component';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @NgModule({
   declarations: [AppComponent,
@@ -38,7 +39,9 @@ import {PopoverComponent} from './shared/components/popover/popover.component';
     StatusBar,
     SplashScreen,
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
-    Camera
+    Camera,    
+    Geolocation
+
   ],
   exports: [
   ],

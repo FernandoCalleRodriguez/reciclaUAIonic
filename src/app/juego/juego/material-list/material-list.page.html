@@ -1,31 +1,39 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>material-list</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text=""  defaultHref="usuario/propuestas"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar debounce="500" (ionChange)="buscarMaterial($event)"></ion-searchbar>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="11">
+        <ion-searchbar debounce="500" (ionChange)="buscarMaterial($event)"></ion-searchbar>
+      </ion-col>
+      <ion-col size="1" style="padding-top:10px;">
+        <ion-button expand="full" [routerLink]="['/material']">
+          <h1>
+            <ion-icon name="add-outline"></ion-icon>
+          </h1>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <div *ngIf="materiales != null  && materiales.length>0;else noMaterials">
     <ion-list>
-      <ion-item-sliding *ngFor="let material of materiales">
-        <ion-item>
+      
+        <ion-item *ngFor="let material of materiales" (click)="setMaterialTorecycle(material)">
           <ion-label>{{material.Nombre}}
-            <h3>Estado: {{getEstado(material.EsValido)}}</h3>
-            <p>Tipo contenedor: {{getTipo(material.Contenedor)}}</p>
+             <p>Tipo contenedor: {{getTipo(material.Contenedor)}}</p>
           </ion-label>
 
         </ion-item>
 
-        <ion-item-options side="start">
-          <ion-item-option [routerLink]="['/material/edit',material.Id]" routerLinkActive="router-link-active"  color="success">Modificar</ion-item-option>
-        </ion-item-options>
-
-        <ion-item-options side="end">
-          <ion-item-option color="danger" (click)="delete(material)">Borrar</ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
+      
       <!-- <ion-item *ngFor="let material of materiales">
         <ion-label>
           <h2>{{material.Nombre}}</h2>
@@ -36,6 +44,8 @@
     </ion-list>
   </div>
   <ng-template #noMaterials>
-    <p>no hay items</p>
+    <p>no hay material</p>
+    <!-- <ion-button [routerLink]="['/material']">Crear nuevo material</ion-button> -->
+
   </ng-template>
 </ion-content>
