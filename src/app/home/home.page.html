@@ -3,45 +3,121 @@
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>home</ion-title>
+        <ion-title>Home</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <!-- app-mapa-puntos *ngIf="puntos" [puntos]="[puntos[0]]"></app-mapa-puntos -->
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>
-                <ion-select placeholder="Selecciona el edificio" interface="alert" [interfaceOptions]="alertOpts"
-                            [(ngModel)]="idx" (ngModelChange)="changeEdificio($event)">
-                    <ion-select-option *ngFor="let edificio of edificios; index as i;"
-                                       value="{{i}}">{{edificio.Nombre}}</ion-select-option>
-                </ion-select>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>
-                <ion-select *ngIf="idx" placeholder="Selecciona la planta" interface="alert"
-                            [(ngModel)]="idxPlanta" (ngModelChange)="changePlanta($event)">
-                    <ion-select-option *ngFor="let planta of sortedPlantas(edificios[idx].PlantasEdificio)"
-                                       value="{{planta.Planta}}">{{planta.Planta | planta}}</ion-select-option>
-                </ion-select>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>
-                <app-mapa-estancias (selectedEstanciaChange)="printSelected($event)"></app-mapa-estancias>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>
-                <app-mapa-picker [hidden]="!this.selectedEstancia" (coordinatesChange)="printCoord($event)"></app-mapa-picker>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
 
+    <ion-card>
+        <ion-card-header>
+            <img src="https://i.ibb.co/BNp6vWM/Logo-Recicla.png" alt="Logo-Recicla" border="0" align="center">
+            <ion-card-subtitle>Bienvenido a</ion-card-subtitle>
+            <ion-card-title>¡ReciclaUA!</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            ReciclaUA es una aplicación dirigida a la comunidad universitaria con el
+            objetivo de facilitar y promover las gestión del reciclaje en el campus.
+        </ion-card-content>
+    </ion-card>
+
+
+    <ion-card color="primary">
+        <ion-card-header>
+            <ion-card-title>¿Dónde puedo reciclar?</ion-card-title>
+        </ion-card-header>
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <!-- app-mapa-puntos *ngIf="puntos" [puntos]="[puntos[0]]"></app-mapa-puntos -->
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-select placeholder="Selecciona el edificio" interface="alert" [interfaceOptions]="alertOpts"
+                                [(ngModel)]="idx" (ngModelChange)="changeEdificio($event)">
+                        <ion-select-option *ngFor="let edificio of edificios; index as i;"
+                                           value="{{i}}">{{edificio.Nombre}}</ion-select-option>
+                    </ion-select>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-select *ngIf="idx" placeholder="Selecciona la planta" interface="alert"
+                                [(ngModel)]="idxPlanta" (ngModelChange)="changePlanta($event)">
+                        <ion-select-option *ngFor="let planta of sortedPlantas(edificios[idx].PlantasEdificio)"
+                                           value="{{planta.Planta}}">{{planta.Planta | planta}}</ion-select-option>
+                    </ion-select>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <app-mapa-estancias (selectedEstanciaChange)="printSelected($event)"></app-mapa-estancias>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <app-mapa-picker [hidden]="!this.selectedEstancia" (coordinatesChange)="printCoord($event)"></app-mapa-picker>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-item>
+            <ion-icon name="map"></ion-icon>
+            <ion-button fill="clear" [routerLink]="['/punto']" style="color:black">Crear punto de reciclaje</ion-button>
+        </ion-item>
+    </ion-card>
+
+
+    <ion-card color="primary">
+        <ion-card-header>
+            <ion-card-title>Ganar mas puntos:</ion-card-title>
+        </ion-card-header>
+        <ion-item>
+            <ion-icon name="trash"></ion-icon>
+            <ion-button fill="clear" [routerLink]="['/videoclub']" style="color:black">Reciclar material</ion-button>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="trophy" ></ion-icon>
+            <ion-button fill="clear" [routerLink]="['/juego']" style="color:black">Ir al juego</ion-button>
+        </ion-item>
+    </ion-card>
+
+    <ion-card color="primary">
+        <ion-card-header>
+            <ion-card-title>Tus estadísticas:</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+        </ion-card-content>
+        <ion-item>
+            <ion-icon name="person" ></ion-icon>
+            <ion-button fill="clear" [routerLink]="['/perfil']" style="color:black">Ir a mi perfil</ion-button>
+        </ion-item>
+        <ion-item>
+            <ion-icon name="grid"></ion-icon>
+            <ion-button fill="clear" [routerLink]="['/usuario/ranking']" style="color:black">Ir al ranking</ion-button>
+        </ion-item>
+    </ion-card>
+
+    <ion-card color="primary">
+        <ion-card-header>
+            <ion-card-title>Foro:</ion-card-title>
+        </ion-card-header>
+        <ion-item>
+            <ion-icon name="list"></ion-icon>
+            <ion-button fill="clear" [routerLink]="['/foro']" style="color:black">Ir al foro</ion-button>
+        </ion-item>
+    </ion-card>
+
+    <ion-card color="primary">
+        <ion-card-header>
+            <ion-card-subtitle>{{notaInfo?.Titulo}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            {{notaInfo?.Cuerpo.substring(0,50)}}
+        </ion-card-content>
+        <ion-item>
+            <ion-icon name="reader" ></ion-icon>
+            <ion-button fill="clear" [routerLink]="['/notainfo']" style="color:black">Ir a notas informativas</ion-button>
+        </ion-item>
+    </ion-card>
 </ion-content>
