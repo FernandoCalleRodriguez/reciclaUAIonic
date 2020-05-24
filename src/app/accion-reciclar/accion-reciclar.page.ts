@@ -142,6 +142,10 @@ export class AccionReciclarPage implements OnInit {
     }
 
     changePlanta(planta: number) {
+        this.selectedContenedor = null;
+        this.contenedores = null;
+        this.idContenedor = -1;
+        this.selectedContenedor = null;
         this.puntoService.getPuntoByPlanta(planta, this.edificios[this.idxEdificio].Id).subscribe(p => {
             this.puntos = p;
             this.mapaPuntosComponent.setUpMap(this.puntos);
@@ -149,7 +153,7 @@ export class AccionReciclarPage implements OnInit {
     }
 
     cantidadPrompt() {
-        let alert = this.alertCtrl.create({
+        const alert = this.alertCtrl.create({
             header: 'Cantidad',
             message: '',
             inputs: [
