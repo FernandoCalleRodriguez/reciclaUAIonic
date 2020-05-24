@@ -1,39 +1,49 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>item-list</ion-title>
-
+    <ion-title>Items disponible</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text=""  defaultHref="usuario/propuestas"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar debounce="500" (ionChange)="buscarItem($event)"></ion-searchbar>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col size="11">
+        <ion-searchbar debounce="500" (ionChange)="buscarItem($event)"></ion-searchbar>
+      </ion-col>
+      <ion-col size="1" style="padding-top:10px;">
+        <ion-button expand="full" [routerLink]="['/item']">
+          <h1>
+            <ion-icon name="add-outline"></ion-icon>
+          </h1>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <div *ngIf="items != null && items.length>0;else noItems">
-    <ion-card *ngFor="let item of items;let i = index">
+    <ion-list>
+      <ion-list-header>
+        Recent Conversations
+      </ion-list-header>
 
-      <ion-card-header>
-        <ion-card-title>{{item.Nombre}}</ion-card-title>
+      <ion-item *ngFor="let item of items;let i = index" (click)="setItemTorecycle(item)">
+        <ion-avatar slot="start">
+          <img *ngIf="getItemImage(i)!=null" [src]="getItemImage(i)">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{item.Nombre}}</h2>
+          <h3>{{item.MaterialItem.Nombre}}</h3>
+          <p>{{item.Descripcion}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
 
-        <ion-item class="ion-no-padding" *ngIf="item.EsValido==2">
-          <ion-button routerLink="/item/edit/{{item.Id}}">
-            <ion-icon name="pencil"></ion-icon>
-          </ion-button>
-          <ion-button  (click)="delete(item)">
-            <ion-icon name="trash"></ion-icon>
-          </ion-button>
-        </ion-item>
-        <ion-card-subtitle>Estado: {{getEstado(item.EsValido)}}</ion-card-subtitle>
-        <ion-card-subtitle>Material: {{item?.MaterialItem?.Nombre}}, Contenedor: {{getTipo(item?.MaterialItem?.Contenedor)}}
-        </ion-card-subtitle>
-        <ion-card-subtitle></ion-card-subtitle>
-      </ion-card-header>
-      <img *ngIf="getItemImage(i)!=null" [src]="getItemImage(i)" />
-      <ion-card-content>
-        {{item.Descripcion}}
-      </ion-card-content>
-    </ion-card>
+
   </div>
   <ng-template #noItems>
     <p>no hay items</p>
+    <!-- <ion-button [routerLink]="['/item']">Crear nuevo item</ion-button> -->
   </ng-template>
 </ion-content>

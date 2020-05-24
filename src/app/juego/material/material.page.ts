@@ -64,12 +64,12 @@ export class MaterialPage implements OnInit {
 
       this.material.Id = id;
       this.materialService.updateMaterial(this.material).subscribe(res => {
-        this.presentToast('Material Modificado Correctamente', 'success');
+        this.presentToast('Material editado', 'success');
         this.materialForm.reset();
       })
     } else {
       this.materialService.setMaterial(this.material).subscribe(res => {
-        this.presentToast(' Material Creado Correctamente', 'success');
+        this.presentToast('Material creado', 'success');
         this.materialForm.reset();
       })
     }

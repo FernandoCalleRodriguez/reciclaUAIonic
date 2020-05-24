@@ -1,11 +1,11 @@
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { AutenticacionService } from 'src/app/shared/services/autenticacion.service';
 import { TipoContenedorService } from './../../shared/services/tipo-contenedor.service';
 import { Material } from './../../shared/models/material';
 import { MaterialService } from 'src/app/shared/services/materiel.service';
 import { Component, OnInit } from '@angular/core';
 import { ValidacionService } from 'src/app/shared/services/validacion.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { Route } from '@angular/compiler/src/core';
 
 @Component({
@@ -16,17 +16,24 @@ import { Route } from '@angular/compiler/src/core';
 export class MaterialListPage implements OnInit {
 
   constructor(
-    private route:Router,
+    private route: Router,
     private alertController: AlertController,
     private materialService: MaterialService,
     private autenticacionService: AutenticacionService,
     private tipoContenedorService: TipoContenedorService,
-    private validacionService: ValidacionService) { }
-  materiales: Material[];
-  materialesCopy: Material[];
+    private validacionService: ValidacionService,
+    private navCtrl: NavController) { }
+  materiales: Material[]=[];
+  materialesCopy: Material[]=[];
   ngOnInit() {
-    let userId = (parseInt(this.autenticacionService.getID()) != -1) ? this.autenticacionService.getID() : 65539;
-    this.materialService.BuscarMaterialesPorUsuario(userId).subscribe(res => { this.materiales = res; this.materialesCopy = res })
+    this.materialService.getMaterial().subscribe(res => {
+      res.forEach(item => {
+        if (item.EsValido == 1) {
+          this.materiales.push(item)
+          this.materialesCopy.push(item)
+        }
+      })
+    })
   }
   getTipo(id) {
     return this.tipoContenedorService.getTipoById(id).Tipo;
@@ -40,17 +47,17 @@ export class MaterialListPage implements OnInit {
     this.materiales = this.materialesCopy;
     this.materiales = this.materiales.filter(i => i.Nombre.trim().toLowerCase().includes(value.trim()))
   }
-  edit(material){
+  edit(material) {
     this.route.navigate(['/material'], {
-      queryParams: { id: material.Id}
-   })
+      queryParams: { id: material.Id }
+    })
   }
-  delete(material){
+  delete(material) {
     this.presentAlertMultipleButtons(material)
   }
   async presentAlertMultipleButtons(material) {
     const alert = await this.alertController.create({
-      header: 'Borrar material '+material.Nombre,
+      header: 'Borrar material ' + material.Nombre,
       message: 'Estas seguro que quieres borrar este material',
       buttons: ['Cancelar', {
         text: 'Borrar',
@@ -68,5 +75,12 @@ export class MaterialListPage implements OnInit {
 
     await alert.present();
   }
-
+  setMaterialTorecycle(material) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        materialId: material.Id
+      }
+    };
+    this.navCtrl.navigateForward(['reciclaje'], navigationExtras);
+  }
 }

@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>reciclaje</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="border:1px solid black;padding:5px;">
+    <ion-text>
+      <h1 style="text-align: center;">Que quieres reciclar?</h1>
+    </ion-text>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="full" [routerLink]="['/item-list']">
+            Item
+          </ion-button>
+        </ion-col>
+         <ion-col>
+          <ion-button expand="full" [routerLink]="['/material-list']">
+            Material
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-row>
+     <ion-col style="text-align: center;">
+      <div *ngIf="itemSelected && selectedItem!==null">
+        <h2>Item a reciclar: {{selectedItem.Nombre}}</h2>
+      </div>
+      <div *ngIf="materialSelected && selectedMaterial!=null">
+        <h2>Material a reciclar: {{selectedMaterial.Nombre}}</h2>
+      </div>
+    </ion-col>
+
+    
+  </ion-row>
+  <ion-button expand="full" [disabled]="!materialSelected" (click)="getPuntosCercanos()">Obtener los puntos cercanos</ion-button>
+
+
+</ion-content>

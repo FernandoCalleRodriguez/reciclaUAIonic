@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Punto</ion-title>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="usuario/propuestas"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -23,7 +26,7 @@
           <ion-label position="floating">Estancias</ion-label>
           <ion-select placeholder="Select One" formControlName="Estancia_oid">
 
-            <ion-select-option *ngFor="let estancia of estancias" value="{{estancia.Id}}">{{estancia.Nombre}}
+            <ion-select-option *ngFor="let estancia of estancias" value="{{estancia.Id}}">{{estancia.Id}}
             </ion-select-option>
           </ion-select>
         </ion-item>
@@ -32,22 +35,22 @@
           <ion-item>
             <ion-label>Contenedores</ion-label>
           </ion-item>
-
-
-          <ion-row *ngIf="contenedores!=null">
-            <ion-item *ngFor="let c of contenedores">
-
-              <ion-checkbox color="dark" slot="start" value="{{c.Id}}" (ionChange)="onCheckboxChange($event)">
+        </ion-row>
+        <ion-row *ngIf="contenedores!=null">
+          <ion-col size="6" *ngFor="let c of contenedores">
+            <ion-item>
+              <ion-checkbox [checked]="checkIfOk(check)" #check color="dark" slot="start" value="{{c.Id}}"
+                (ionChange)="onCheckboxChange($event)">
               </ion-checkbox>
               <ion-label>{{c.Tipo}}</ion-label>
-
             </ion-item>
-          </ion-row>
-
-          <ion-col>
-            <ion-button type="submit" color="primary" expand="block">Crear punto</ion-button>
           </ion-col>
+
+
         </ion-row>
+        <ion-col>
+          <ion-button type="submit" color="primary" expand="block">{{title}}</ion-button>
+        </ion-col>
       </form>
     </ion-col>
   </ion-row>

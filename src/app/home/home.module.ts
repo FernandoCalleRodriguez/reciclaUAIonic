@@ -20,7 +20,7 @@ import {MapaPickerComponent} from '../shared/components/mapa-picker/mapa-picker.
         FormsModule,
         IonicModule,
         HomePageRoutingModule,
-        LeafletModule,
+        LeafletModule
     ],
     declarations: [HomePage, MapaPuntosComponent, MapaEstanciasComponent, PlantaPipe, MapaPickerComponent],
     providers: [PlantaPipe]

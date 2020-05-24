@@ -1,10 +1,11 @@
+import { Router, NavigationExtras } from '@angular/router';
 import { TipoContenedorService } from './../../shared/services/tipo-contenedor.service';
 import { ValidacionService } from './../../shared/services/validacion.service';
 import { Item } from './../../shared/models/item';
 import { AutenticacionService } from 'src/app/shared/services/autenticacion.service';
 import { ItemService } from './../../shared/services/item.service';
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-item-list',
@@ -13,27 +14,33 @@ import { AlertController } from '@ionic/angular';
 })
 export class ItemListPage implements OnInit {
   imgs: string[];
-  items: Item[];
-  itemsCopy: Item[];
+  items: Item[]=[];
+  itemsCopy: Item[]=[];
   userId: number;
-  constructor(private alertController: AlertController, private tipoContenedorService: TipoContenedorService, private validacionService: ValidacionService, private itemService: ItemService, private autenticacionService: AutenticacionService) { }
+  constructor(private alertController: AlertController,
+    private tipoContenedorService: TipoContenedorService,
+    private validacionService: ValidacionService,
+    private itemService: ItemService,
+    private autenticacionService: AutenticacionService,
+    private router: Router,
+    private navCtrl: NavController) { }
 
   ngOnInit() {
     this.imgs = [];
-    this.userId = parseInt(this.autenticacionService.getID())
-    this.itemService.getByUserId(this.userId).subscribe(res => {
-      this.items = res;
-      this.itemsCopy = res;
-      this.items.forEach(item => {
-        this.itemService.GetImage(item.Id, item.Imagen).subscribe(res => {
-          if (res != null) {
-            this.imgs.push('data:image/bmp;base64,' + res);
-          } else {
-            this.imgs.push("");
-
-          }
+    this.itemService.getItems().subscribe(res => {
+      res.forEach(item => {
+        if(item.EsValido==1){
+          this.items.push(item)
+          this.itemsCopy.push(item)
+          this.itemService.GetImage(item.Id, item.Imagen).subscribe(res => {
+            if (res != null) {
+              this.imgs.push('data:image/bmp;base64,' + res);
+            } else {
+              this.imgs.push("");
+            }
+          })
         }
-        )
+
       });
     })
 
@@ -62,7 +69,7 @@ export class ItemListPage implements OnInit {
 
   async presentAlertMultipleButtons(item) {
     const alert = await this.alertController.create({
-      header: 'Borrar item '+item.Nombre,
+      header: 'Borrar item ' + item.Nombre,
       message: 'Estas seguro que quieres borrar este item',
       buttons: ['Cancel', {
         text: 'Borrar',
@@ -80,5 +87,13 @@ export class ItemListPage implements OnInit {
 
     await alert.present();
   }
+  setItemTorecycle(item) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          itemId:  item.Id
+      }
+  };
+  this.navCtrl.navigateForward(['reciclaje'], navigationExtras);
 
+  }
 }

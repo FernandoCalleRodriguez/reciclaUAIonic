@@ -58,7 +58,6 @@ export class ItemPage implements OnInit {
                 this.Material_oid.setValue(""+res.MaterialItem.Id);
                 this.selectedMaterial=this.materiales.find(m=>m.Id==res.MaterialItem.Id).Nombre
             });
-
         }
         this.item = new Item();
         this.materialService.getMaterial().subscribe(res => {
@@ -90,7 +89,7 @@ export class ItemPage implements OnInit {
                 if (res != null) {
                     this.uploadImage(res.Id);
                 }
-                this.presentToast(' Item modificado Correctamente', 'success');
+                this.presentToast('Item editado', 'success');
                 this.itemForm.reset();
             });
         } else {
@@ -98,7 +97,7 @@ export class ItemPage implements OnInit {
                 if (res != null) {
                     this.uploadImage(res.Id);
                 }
-                this.presentToast(' Item Creado Correctamente', 'success');
+                this.presentToast(' Item creado', 'success');
                 this.itemForm.reset();
             });
         }
