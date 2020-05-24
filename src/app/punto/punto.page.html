@@ -41,7 +41,7 @@
         <ion-row *ngIf="contenedores!=null">
           <ion-col size="6" *ngFor="let c of contenedores">
             <ion-item>
-              <ion-checkbox [checked]="checkIfOk(check)" #check color="dark" slot="start" value="{{c.Id}}"
+              <ion-checkbox [checked]="checkIfOk(check)" #check color="{{c.Color}}" slot="start" value="{{c.Id}}"
                 (ionChange)="onCheckboxChange($event)">
               </ion-checkbox>
               <ion-label>{{c.Tipo}}</ion-label>
