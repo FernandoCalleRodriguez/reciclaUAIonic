@@ -1,3 +1,5 @@
+import {Juego} from './juego';
+
 export class Usuario {
     Id?: number;
     Nombre?: string;
@@ -9,3 +11,5 @@ export class Usuario {
     Borrado?: boolean;
     Puntuacion?: boolean;
 }
+
+

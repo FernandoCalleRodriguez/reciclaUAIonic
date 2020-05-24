@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Usuario} from '../models/usuario';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Injectable({
@@ -18,10 +18,16 @@ export class AutenticacionService {
                 private router: Router) {
     }
 
+    const;
+    subject = new Subject<Usuario>();
+
     Login(usuario: Usuario): Observable<string> {
         return this.http.post<string>(this.SERVER + 'UsuarioWebNoAutenticado/Login', usuario).pipe(map(
             res => {
                 this.saveToken(res);
+                if (res != null) {
+                    this.subject.next(usuario);
+                }
                 return res;
             }));
     }
@@ -29,9 +35,11 @@ export class AutenticacionService {
     Logout(): void {
         // localStorage.setItem('ACCESS_TOKEN', null);
         // localStorage.setItem('ID_USER', null);
+
         localStorage.removeItem('ACCESS_TOKEN');
         localStorage.removeItem('ID_USER');
         this.router.navigate(['/login']);
+
     }
 
     private saveToken(token: string): void {
@@ -41,7 +49,7 @@ export class AutenticacionService {
     }
 
     private parseJwt(token) {
-        if (token != "null") {
+        if (token != 'null') {
 
             const base64Url = token.split('.')[1];
             const base64 = base64Url.replace('-', '+').replace('_', '/');

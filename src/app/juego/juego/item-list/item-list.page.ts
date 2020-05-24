@@ -1,8 +1,8 @@
-import { TipoContenedorService } from './../../shared/services/tipo-contenedor.service';
-import { ValidacionService } from './../../shared/services/validacion.service';
-import { Item } from './../../shared/models/item';
+import { TipoContenedorService } from '../../../shared/services/tipo-contenedor.service';
+import { ValidacionService } from '../../../shared/services/validacion.service';
+import { Item } from '../../../shared/models/item';
 import { AutenticacionService } from 'src/app/shared/services/autenticacion.service';
-import { ItemService } from './../../shared/services/item.service';
+import { ItemService } from '../../../shared/services/item.service';
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 

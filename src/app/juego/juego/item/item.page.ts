@@ -1,6 +1,6 @@
-import { CameraService } from './../../shared/services/camera.service';
-import { Material } from './../../shared/models/material';
-import { Item } from './../../shared/models/item';
+import { CameraService } from '../../../shared/services/camera.service';
+import { Material } from '../../../shared/models/material';
+import { Item } from '../../../shared/models/item';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MaterialService } from 'src/app/shared/services/materiel.service';
