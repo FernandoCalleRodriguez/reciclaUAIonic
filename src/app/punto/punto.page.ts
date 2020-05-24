@@ -43,8 +43,8 @@ export class PuntoPage implements OnInit {
 
     ngOnInit() {
         this.puntoForm = new FormGroup({
-            Latitud: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(20)]),
-            Longitud: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(20)]),
+            Latitud: new FormControl(null, [Validators.required, Validators.min(-90), Validators.max(90)]),
+            Longitud: new FormControl(null, [Validators.required, Validators.min(-90), Validators.max(90)]),
             Estancia_oid: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(20)]),
             TipoContenedores: new FormArray([])
         });

@@ -32,6 +32,8 @@
       </div>
       <div *ngIf="materialSelected && selectedMaterial!=null">
         <h2>Material a reciclar: {{selectedMaterial.Nombre}}</h2>
+        <h2>Se recicla en el contenedor de tipo: {{getType(selectedMaterial.Contenedor)}} </h2>
+       
       </div>
     </ion-col>
 
@@ -43,7 +45,7 @@
       <ion-icon size="small" slot="start" ></ion-icon>
     </ion-range>
   </ion-item>
-  <ion-button expand="full" [disabled]="!materialSelected" (click)="getPuntosCercanos()">Obtener los puntos cercanos</ion-button>
+  <ion-button expand="full" [disabled]="!materialSelected" (click)="getPuntosCercanosPorContenedor()">Obtener los puntos cercanos</ion-button>
 
 
 </ion-content>

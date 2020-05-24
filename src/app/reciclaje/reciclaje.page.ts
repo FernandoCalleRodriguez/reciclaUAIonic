@@ -1,3 +1,4 @@
+import { TipoContenedorService } from './../shared/services/tipo-contenedor.service';
 import { PuntoService } from 'src/app/shared/services/punto.service';
 import { MaterialService } from 'src/app/shared/services/materiel.service';
 import { Material } from './../shared/models/material';
@@ -21,6 +22,7 @@ export class ReciclajePage implements OnInit {
   puntosCercanos: Punto[] = null;
   limit: number = -1;
   constructor(
+    private tipoContenedorService:TipoContenedorService,
     private puntoService: PuntoService,
     private geolocation: Geolocation,
     private router: ActivatedRoute,
@@ -77,6 +79,9 @@ export class ReciclajePage implements OnInit {
   }
   changeRange(valor){
     this.limit=valor.detail.value;
+  }
+  getType(id){
+    return this.tipoContenedorService.getTipoById(id).Tipo
   }
   ionViewWillEnter() {
     this.ngOnInit();
