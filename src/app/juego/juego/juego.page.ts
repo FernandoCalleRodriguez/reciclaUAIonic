@@ -1,18 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {AutenticacionService} from '../../../shared/services/autenticacion.service';
-import {UsuarioService} from '../../../shared/services/usuario.service';
-import {Usuario} from '../../../shared/models/usuario';
-import {JuegoService} from '../../../shared/services/juego.service';
-import {Juego} from '../../../shared/models/juego';
-import {NivelService} from '../../../shared/services/nivel.service';
-import {ItemService} from '../../../shared/services/item.service';
-import {Nivel} from '../../../shared/models/nivel';
-import {Item} from '../../../shared/models/item';
-import {TipoContenedor} from '../../../shared/models/contenedor';
+import {AutenticacionService} from '../../shared/services/autenticacion.service';
+import {UsuarioService} from '../../shared/services/usuario.service';
+import {Usuario} from '../../shared/models/usuario';
+import {JuegoService} from '../../shared/services/juego.service';
+import {Juego} from '../../shared/models/juego';
+import {NivelService} from '../../shared/services/nivel.service';
+import {ItemService} from '../../shared/services/item.service';
+import {Nivel} from '../../shared/models/nivel';
+import {Item} from '../../shared/models/item';
+import {TipoContenedor} from '../../shared/models/contenedor';
 import {Router} from '@angular/router';
-import {ConfiguracionService} from '../../../shared/services/configuracion.service';
+import {ConfiguracionService} from '../../shared/services/configuracion.service';
 import {AlertController, ModalController, NavController} from '@ionic/angular';
-import {IniciojuegoPage} from '../../iniciojuego/iniciojuego.page';
+import {IniciojuegoPage} from '../iniciojuego/iniciojuego.page';
 
 @Component({
     selector: 'app-juego',

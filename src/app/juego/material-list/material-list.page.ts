@@ -1,7 +1,7 @@
 import { Router, NavigationExtras } from '@angular/router';
 import { AutenticacionService } from 'src/app/shared/services/autenticacion.service';
-import { TipoContenedorService } from '../../../shared/services/tipo-contenedor.service';
-import { Material } from '../../../shared/models/material';
+import { TipoContenedorService } from '../../shared/services/tipo-contenedor.service';
+import { Material } from '../../shared/models/material';
 import { MaterialService } from 'src/app/shared/services/materiel.service';
 import { Component, OnInit } from '@angular/core';
 import { ValidacionService } from 'src/app/shared/services/validacion.service';

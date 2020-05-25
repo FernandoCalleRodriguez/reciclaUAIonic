@@ -1,7 +1,7 @@
-import { Material } from '../../../shared/models/material';
-import { TipoContenedor } from '../../../shared/models/contenedor';
-import { TipoContenedorService } from '../../../shared/services/tipo-contenedor.service';
-import { MaterialService } from '../../../shared/services/materiel.service';
+import { Material } from '../../shared/models/material';
+import { TipoContenedor } from '../../shared/models/contenedor';
+import { TipoContenedorService } from '../../shared/services/tipo-contenedor.service';
+import { MaterialService } from '../../shared/services/materiel.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Component, OnInit } from '@angular/core';
