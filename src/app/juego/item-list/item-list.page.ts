@@ -105,7 +105,7 @@ export class ItemListPage implements OnInit {
                 itemId: item.Id
             }
         };
-        this.navCtrl.navigateForward(['reciclaje'], navigationExtras);
+        this.navCtrl.navigateForward(['donde-reciclar'], navigationExtras);
 
     }
 }

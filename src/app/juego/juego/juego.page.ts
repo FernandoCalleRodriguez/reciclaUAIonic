@@ -63,13 +63,6 @@ export class JuegoPage implements OnInit {
     }
 
     obtenerNivel() {
-        if (this.juego.Finalizado) {
-            this.isInvalidA = true;
-            this.isInvalidV = true;
-            this.isInvalidAz = true;
-            this.isInvalidG = true;
-        }
-
 
         this.nivelService.getNiveles().subscribe(niveles => {
             this.niveles = niveles;
@@ -77,12 +70,15 @@ export class JuegoPage implements OnInit {
                 this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual + 1);
                 if (this.nivelActual != null) {
                     this.juego.NivelActual = this.nivelActual.Numero;
+                    this.juego.Finalizado = false;
+                    //TODO: modficar juego
+                } else {
+                    this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
                 }
+                this.obtenerItem(this.nivelActual.Id);
+
             } else {
                 this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
-            }
-            console.log(this.nivelActual);
-            if (this.nivelActual != null) {
                 this.obtenerItem(this.nivelActual.Id);
 
             }
@@ -92,12 +88,20 @@ export class JuegoPage implements OnInit {
     }
 
     obtenerItem(nivel) {
+        console.log(nivel);
 
         this.itemService.BuscarItemsPorNivel(nivel).subscribe(items => {
             this.items = items;
             console.log(items);
             this.itemActual = items[this.juego.ItemActual];
-            console.log(this.itemActual);
+            this.itemService.GetImage(this.itemActual.Id, this.itemActual.Imagen).subscribe(res => {
+                if (res != null) {
+                    this.itemActual.Imagen = 'data:image/bmp;base64,' + res;
+                } else {
+                    this.itemActual.Imagen = '';
+                }
+            });
+            console.log( this.itemActual);
             this.presentModal();
 
         });

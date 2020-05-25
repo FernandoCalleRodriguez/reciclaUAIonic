@@ -91,7 +91,7 @@ export class AppComponent implements OnInit {
         }
         this.notify();
         this.nNotificacionesNotas$ = this.notaService.obtenerCantidadNotasNoLeidas();
-        this.nNotificacionesNotas$.subscribe( n => this.appPages[2].count = n);
+        this.nNotificacionesNotas$.subscribe( n => this.appPages[3].count = n);
     }
 
     notify() {
@@ -102,11 +102,11 @@ export class AppComponent implements OnInit {
                     this.notasS = res2;
                     if (this.notasS != null && this.notas != null) {
                         this.nNotificacionesNotas = this.notas.length - this.notasS.length;
-                        this.appPages[2].count = this.nNotificacionesNotas;
+                        this.appPages[3].count = this.nNotificacionesNotas;
                         this.notaService.actualizarNotificacionesNotas(this.nNotificacionesNotas);
                     } else {
                         this.nNotificacionesNotas = this.notas.length;
-                        this.appPages[2].count = this.nNotificacionesNotas;
+                        this.appPages[3].count = this.nNotificacionesNotas;
                         this.notaService.actualizarNotificacionesNotas(this.nNotificacionesNotas);
                     }
                 });
