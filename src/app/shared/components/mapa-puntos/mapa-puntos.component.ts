@@ -10,6 +10,7 @@ import 'leaflet/dist/images/marker-icon-2x.png';
 import 'leaflet/dist/images/marker-icon.png';
 import 'leaflet/dist/images/layers.png';
 import 'leaflet/dist/images/layers-2x.png';
+import {PlantaPipe} from '../../pipes/planta.pipe';
 
 @Component({
     selector: 'app-mapa-puntos',
@@ -41,7 +42,7 @@ export class MapaPuntosComponent implements OnInit {
     @Output()
     public mapReadyChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    constructor(protected tipoContenedorService: TipoContenedorService) {
+    constructor(protected tipoContenedorService: TipoContenedorService, protected plantaPipe: PlantaPipe) {
     }
 
     ngOnInit(): void {
@@ -215,6 +216,12 @@ export class MapaPuntosComponent implements OnInit {
 
     private getPopup(punto: Punto): L.Popup {
         let content = `<h4>Punto ${punto.Id}</h4><hr>`;
+        content += `<h6>Edificio:</h6>`;
+        content += '<ul>';
+        content += `<li>${punto.EstanciaPunto.EdificioEstancia.Nombre}</li>`;
+        content += `<li>Planta: ${this.plantaPipe.transform(punto.EstanciaPunto.PlantaEstancia.Planta)}</li>`;
+        content += `<li>Estancia: ${punto.EstanciaPunto.Id}</li>`;
+        content += '</ul>';
         if (punto.Contenedores && punto.Contenedores.length > 0) {
             const atipos = Array(this.tipoContenedorService.getTipos().length).fill(0);
             punto.Contenedores.forEach(c => {
