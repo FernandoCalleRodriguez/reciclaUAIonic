@@ -15,14 +15,14 @@
 
 <ion-content>
     <ion-card>
-        <ion-item>
+        <ion-item lines="none">
             <ion-avatar slot="start">
                 <ion-img style=" width: 45px; height: 45px; padding: 0; margin: 0" src="https://picsum.photos/seed/{{usuario?.Id}}/1000"></ion-img>
             </ion-avatar>
             <ion-label>
                 <h2>{{usuario?.Nombre}}</h2>
-                <p><strong>Apellidos:</strong>{{usuario?.Apellidos}}</p>
-                <p><strong>Email:</strong>{{usuario?.Email}}</p>
+                <p><strong>Apellidos: </strong>{{usuario?.Apellidos}}</p>
+                <p><strong>Email: </strong>{{usuario?.Email}}</p>
             </ion-label>
         </ion-item>
     </ion-card>
@@ -34,7 +34,7 @@
             <ion-item [routerLink]="['/usuario/acciones']" detail>
                 <ion-label>Tu número de acciones es: {{acciones}}</ion-label>
             </ion-item>
-            <ion-item [routerLink]="['/']" detail>
+            <ion-item [routerLink]="['/usuario/dudas']" detail>
                 <ion-label>Tu número de dudas es: {{acciones}}</ion-label>
             </ion-item>
             <ion-item [routerLink]="['/usuario/propuestas']" detail>

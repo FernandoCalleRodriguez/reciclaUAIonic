@@ -143,7 +143,12 @@ const routes: Routes = [
   {
     path: 'punto/:id',
     loadChildren: () => import('./punto-detalle/punto-detalle.module').then( m => m.PuntoDetallePageModule)
+  },
+  {
+    path: 'usuario/dudas',
+    loadChildren: () => import('./usuario/dudas-usuario/dudas-usuario.module').then( m => m.DudasUsuarioPageModule)
   }
+
 
 ];
 
