@@ -147,7 +147,11 @@ const routes: Routes = [
   {
     path: 'usuario/dudas',
     loadChildren: () => import('./usuario/dudas-usuario/dudas-usuario.module').then( m => m.DudasUsuarioPageModule)
+  },  {
+    path: 'puntos-cercanos',
+    loadChildren: () => import('./puntos-cercanos/puntos-cercanos.module').then( m => m.PuntosCercanosPageModule)
   }
+
 
 
 ];
