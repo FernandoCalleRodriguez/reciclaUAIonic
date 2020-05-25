@@ -39,14 +39,16 @@ export class MapaPickerComponent implements OnInit {
         this.setMarker(e.latlng);
     }
 
-    public setMarker(latlng: L.LatLng) {
+    public setMarker(latlng: L.LatLng, emit: boolean = true) {
         if (this.marker) {
             this.map.removeLayer(this.marker);
         }
         this.marker = L.marker([latlng.lat, latlng.lng]);
         this.marker.addTo(this.map);
-        this.coordinatesChange.emit(latlng);
-        this.map.flyTo(latlng);
+        if (emit) {
+            this.coordinatesChange.emit(latlng);
+        }
+        this.map.setView(latlng, this.map.getZoom());
     }
 
     public deleteMarker() {

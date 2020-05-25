@@ -1,7 +1,7 @@
 import {Estancia} from './../shared/models/estancia';
 import {ContenedorService} from './../shared/services/contenedor.service';
 import {TipoContenedor, Contenedor} from './../shared/models/contenedor';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
 import {TipoContenedorService} from 'src/app/shared/services/tipo-contenedor.service';
 import {Router, ActivatedRoute} from '@angular/router';
@@ -12,6 +12,8 @@ import {Punto} from '../shared/models/punto';
 import {EstanciaService} from '../shared/services/estancia.service';
 import {UsuarioService} from '../shared/services/usuario.service';
 import {Usuario} from '../shared/models/usuario';
+import {MapaPickerComponent} from '../shared/components/mapa-picker/mapa-picker.component';
+import {LatLng} from 'leaflet';
 
 @Component({
     selector: 'app-punto',
@@ -29,6 +31,9 @@ export class PuntoPage implements OnInit {
     isEdit = false;
     editecContenedores: number[] = [];
     title = 'Crear punto';
+
+    @ViewChild(MapaPickerComponent, {static: true})
+    mapa: MapaPickerComponent;
 
     constructor(
         private activeRouter: ActivatedRoute,
@@ -63,6 +68,7 @@ export class PuntoPage implements OnInit {
                 res.Contenedores.forEach((c: Contenedor) => {
                     checkArray.controls.push(new FormControl(c.Tipo));
                 });
+                this.mapa.setZone(this.estancia.Latitud, this.estancia.Longitud);
             });
             this.usuarioService.getLoggedUser().subscribe(u => {
                 this.usuario = u;
@@ -75,6 +81,7 @@ export class PuntoPage implements OnInit {
             this.isEdit = false;
             this.estanciaService.getEstanciaById(estanciaId).subscribe(e => {
                 this.estancia = e;
+                this.mapa.setZone(this.estancia.Latitud, this.estancia.Longitud);
             }, error => {
                 this.presentToast('Estancia no encontrada', 'danger');
                 this.router.navigate(['/punto/crear']);
@@ -190,5 +197,14 @@ export class PuntoPage implements OnInit {
 
     ionViewWillEnter() {
         this.ngOnInit();
+    }
+
+    coordinatesChange(coordenadas: LatLng) {
+        this.Latitud.setValue(coordenadas.lat);
+        this.Longitud.setValue(coordenadas.lng);
+    }
+
+    latlngChange() {
+        this.mapa.setMarker(new LatLng(this.Latitud.value, this.Longitud.value), false);
     }
 }

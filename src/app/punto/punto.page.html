@@ -14,18 +14,32 @@
 
                 <ion-item lines="full">
                     <ion-label position="floating">Latitud</ion-label>
-                    <ion-input type="number" formControlName="Latitud"></ion-input>
+                    <ion-input type="number" formControlName="Latitud" (ionChange)="latlngChange()"></ion-input>
                 </ion-item>
 
                 <ion-item lines="full">
                     <ion-label position="floating">Longitud</ion-label>
-                    <ion-input type="number" formControlName="Longitud"></ion-input>
+                    <ion-input type="number" formControlName="Longitud" (ionChange)="latlngChange()"></ion-input>
                 </ion-item>
 
-                <ion-item lines="full">
+                <ion-item lines="full" hidden="true">
                     <ion-label position="floating">Estancia</ion-label>
-                    <ion-input [disabled]="true" value="{{Estancia_oid.value}}"></ion-input>
+                    <ion-input color="danger" [disabled]="true" value="{{Estancia_oid.value}}"></ion-input>
                 </ion-item>
+
+                <ion-row>
+                    <ion-col>
+                        <ion-item lines="none" class="ion-no-padding ion-no-margin ion-margin-start">
+                            <ion-label class="ion-text-wrap ion-text-justify ion-no-margin" color="medium">
+                                <small>
+                                    Clica en el mapa para seleccionar las coordenadas del punto de reciclaje.
+                                    Ten en cuenta que la estancia del mismo ({{ estancia?.Id }}) se encuentra marcada en rojo.
+                                </small>
+                            </ion-label>
+                        </ion-item>
+                        <app-mapa-picker (coordinatesChange)="coordinatesChange($event)"></app-mapa-picker>
+                    </ion-col>
+                </ion-row>
 
                 <ion-item lines="none">
                     <ion-label>Contenedores</ion-label>
