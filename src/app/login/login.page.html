@@ -15,7 +15,7 @@
                 </ion-item>
                 <ion-item class="label-row"
                           *ngIf="formularioLogin.get('email').invalid && formularioLogin.get('email').touched">
-                    <ion-label class="label-error" color="danger">Campo requerido
+                    <ion-label class="label-error" color="danger">Correo electrónico no valido
                     </ion-label>
                 </ion-item>
 
@@ -26,8 +26,7 @@
                 </ion-item>
                 <ion-item class="label-row"
                           *ngIf="formularioLogin.get('pwd').invalid && formularioLogin.get('pwd').touched">
-                    <ion-label class="label-error" color="danger">Contraseña demasiado sencilla debe contener :
-                        mayúscula, minúscula, número, caracter especial (@$!%*?&-_) y 8 caracteres
+                    <ion-label class="label-error" color="danger">Contraseña no valida
                     </ion-label>
                 </ion-item>
                 <ion-row>
