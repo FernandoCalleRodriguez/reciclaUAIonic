@@ -8,17 +8,17 @@ import {Tema} from '../models/tema';
 export class TemaService {
   private temas: Tema[] = [
     {
+      Id: 3,
+      Tema: 'Cuestión'
+    },
+    {
       Id: 1,
       Tema: 'Consejo'
     },
     {
       Id: 2,
       Tema: 'Anécdota'
-    },
-    {
-      Id: 3,
-      Tema: 'Cuestión'
-    },
+    }
   ];
 
   constructor() {
