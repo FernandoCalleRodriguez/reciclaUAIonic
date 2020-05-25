@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content>
-    <ion-row *ngIf="!this.juego?.Finalizado">
+    <div *ngIf="!this.juego?.Finalizado">
         <ion-card >
             <ion-row>
                 <ion-card-title>¿En que tipo de contenedor se recicla el siguiente objeto?</ion-card-title>
@@ -51,7 +51,7 @@
                 </ion-button>
             </ion-col>
         </ion-row>
-    </ion-row>
+    </div>
     <ion-card *ngIf="this.juego?.Finalizado">
         <ion-card-header>
             <ion-card-title> Has finalizado el juego</ion-card-title>

@@ -73,9 +73,19 @@ export class JuegoPage implements OnInit {
 
         this.nivelService.getNiveles().subscribe(niveles => {
             this.niveles = niveles;
-            this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
+            if (this.juego.Finalizado) {
+                this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual + 1);
+                if (this.nivelActual != null) {
+                    this.juego.NivelActual = this.nivelActual.Numero;
+                }
+            } else {
+                this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
+            }
             console.log(this.nivelActual);
-            this.obtenerItem(this.nivelActual.Id);
+            if (this.nivelActual != null) {
+                this.obtenerItem(this.nivelActual.Id);
+
+            }
         });
 
 

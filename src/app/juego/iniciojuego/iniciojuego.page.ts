@@ -40,7 +40,7 @@ export class IniciojuegoPage implements OnInit {
         this.modalCtrl.dismiss({
             'dismissed': true
         });
-        this.route.navigate(['/rankingjuego']);
+        this.route.navigate(['/juego/ranking']);
     }
 
 }

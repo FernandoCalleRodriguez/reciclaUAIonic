@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
         },
         {
             title: 'Juego',
-            url: '/juego2',
+            url: '/juego',
             icon: 'trophy'
         },
         {

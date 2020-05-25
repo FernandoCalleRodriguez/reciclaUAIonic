@@ -61,7 +61,7 @@ export class HomePage implements OnInit {
         this.usuarioService.getLoggedUser().subscribe(usuario => {
             this.autenticacionService.subject.next(usuario);
         });
-        
+
         this.notaService.obtenerTodasNotas().subscribe(nota => {
             this.notaInfo = nota[nota.length - 1];
         });
@@ -98,7 +98,4 @@ export class HomePage implements OnInit {
         console.log(coord);
     }
 
-    ionViewWillEnter() {
-        this.autenticacionService.estaAutenticado();
-    }
 }
