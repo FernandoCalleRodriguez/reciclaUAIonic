@@ -71,13 +71,16 @@ export class JuegoPage implements OnInit {
                 if (this.nivelActual != null) {
                     this.juego.NivelActual = this.nivelActual.Numero;
                     this.juego.Finalizado = false;
-                    //TODO: modficar juego
+                    this.juegoService.ModificarJuego(this.juego).subscribe( result => {
+                        console.log(result);
+                    });
                 } else {
                     this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
                 }
                 this.obtenerItem(this.nivelActual.Id);
 
             } else {
+
                 this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
                 this.obtenerItem(this.nivelActual.Id);
 
@@ -88,7 +91,6 @@ export class JuegoPage implements OnInit {
     }
 
     obtenerItem(nivel) {
-        console.log(nivel);
 
         this.itemService.BuscarItemsPorNivel(nivel).subscribe(items => {
             this.items = items;
@@ -101,7 +103,6 @@ export class JuegoPage implements OnInit {
                     this.itemActual.Imagen = '';
                 }
             });
-            console.log( this.itemActual);
             this.presentModal();
 
         });
@@ -112,7 +113,6 @@ export class JuegoPage implements OnInit {
         this.usuarioService.getLoggedUser().subscribe(usuario => {
             this.usuario = usuario;
 
-            console.log(this.usuario.Id);
             this.juegoService.obtenerJuegoPorUsuario(this.usuario.Id).subscribe(result => {
                 if (result == null) {
                     this.juego = {
@@ -121,7 +121,6 @@ export class JuegoPage implements OnInit {
                     };
                     this.juegoService.CrearJuego(this.juego).subscribe(juego => {
                         this.juego = juego;
-                        console.log(this.juego);
                         this.obtenerNivel();
 
                     });
@@ -136,10 +135,8 @@ export class JuegoPage implements OnInit {
     enviarRespuesta(tipo: number) {
 
         this.juegoService.SiguienteNivel(tipo, this.juego).subscribe(result => {
-            console.log(result);
             this.juego = result;
             if (this.juego.IntentosItemActual > 1) {
-                console.log('fallo');
                 this.config.presentToast('Respuesta incorrecta', 'danger');
 
                 if (tipo === 1) {
@@ -174,10 +171,8 @@ export class JuegoPage implements OnInit {
 
 
     doRefresh(event) {
-        console.log('Begin async operation');
 
         setTimeout(() => {
-            console.log('Async operation has ended');
             event.target.complete();
         }, 2000);
     }

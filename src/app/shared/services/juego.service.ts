@@ -40,6 +40,11 @@ export class JuegoService {
             this.getHeaderToken());
     }
 
+    ModificarJuego( juego: Juego): Observable<Juego> {
+        return this.http.put<Juego>(this.SERVER + 'Juego/Modificar?idJuego=' + juego.Id, juego,
+            this.getHeaderToken());
+    }
+
     private getHeaderToken() {
 
         const header = {
