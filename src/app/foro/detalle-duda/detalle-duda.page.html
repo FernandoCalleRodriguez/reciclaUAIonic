@@ -20,6 +20,11 @@
             </ion-item>
         </ion-card-header>
         <ion-card-content>
+            <ion-item class="ion-no-padding ion-margin-end img-item-wrap" lines="none">
+                <ion-thumbnail>
+                    <img src="https://picsum.photos/seed/{{duda?.UsuarioDuda.Id}}/200">
+                </ion-thumbnail>
+            </ion-item>
             <p class="ion-text-wrap ion-text-justify">
                 {{ duda?.Cuerpo }}
             </p>
@@ -38,11 +43,11 @@
         </ion-label>
     </ion-card>
     <ion-card *ngIf="respuestas && respuestas.length">
-        <ion-card-header>
-            <ion-item lines="none" class="ion-no-padding">
-                <ion-card-title>
+        <ion-card-header class="ion-no-padding ion-padding-top ion-padding-start ion-padding-end">
+            <ion-item class="ion-no-padding">
+                <ion-label class="duda-title">
                     Respuestas
-                </ion-card-title>
+                </ion-label>
                 <ion-toggle *ngIf="esCuestion && duda.ObtenerSiRespuestaValida" slot="end" color="success"
                             [(ngModel)]="correctas"></ion-toggle>
             </ion-item>
@@ -84,11 +89,11 @@
                             </ion-row>
                             <ion-row>
                                 <ion-col class="pr-0 pt-0">
-                                    <!--ion-item class="ion-no-padding" lines="none">
+                                    <ion-item class="ion-no-padding ion-margin-end img-item-wrap" lines="none">
                                         <ion-thumbnail>
                                             <img src="https://picsum.photos/seed/{{respuesta.UsuarioRespuesta.Id}}/200">
                                         </ion-thumbnail>
-                                    </ion-item-->
+                                    </ion-item>
                                     <p class="ion-text-wrap ion-text-justify">{{ respuesta.Cuerpo }}</p>
                                 </ion-col>
                             </ion-row>
