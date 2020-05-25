@@ -40,7 +40,7 @@
         </ion-row>
         <ion-row>
             <ion-col size="12" offset-md="10" size-md="2">
-                <ion-button *ngIf="selectedEstancia" expand="block">Siguiente</ion-button>
+                <ion-button *ngIf="selectedEstancia" expand="block" routerLink="/punto/crear/estancia/{{selectedEstanciaId}}">Siguiente</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>

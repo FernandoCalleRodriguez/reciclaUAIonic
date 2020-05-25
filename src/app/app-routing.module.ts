@@ -97,7 +97,7 @@ const routes: Routes = [
     loadChildren: () => import('./juego/juego/material-list/material-list.module').then(m => m.MaterialListPageModule)
   },
   {
-    path: 'punto',
+    path: 'punto/crear/estancia/:idEstancia',
     loadChildren: () => import('./punto/punto.module').then( m => m.PuntoPageModule)
   },
   {

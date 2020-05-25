@@ -24,7 +24,7 @@ export class EstanciaService {
         return this.http.post<Estancia>(this.SERVER + 'Crear', estancia, {headers: this.headers});
     }
 
-    public getEstanciaById(id: number): Observable<Estancia> {
+    public getEstanciaById(id: string): Observable<Estancia> {
         return this.http.get<Estancia>(this.SERVER + id, {headers: this.headers});
     }
 

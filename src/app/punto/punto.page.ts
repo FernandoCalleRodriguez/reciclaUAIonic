@@ -1,17 +1,17 @@
-import { Estancia } from './../shared/models/estancia';
-import { ContenedorService } from './../shared/services/contenedor.service';
-import { TipoContenedor, Contenedor } from './../shared/models/contenedor';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { TipoContenedorService } from 'src/app/shared/services/tipo-contenedor.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ToastController } from '@ionic/angular';
-import { AutenticacionService } from 'src/app/shared/services/autenticacion.service';
-import { PuntoService } from 'src/app/shared/services/punto.service';
-import { Punto } from '../shared/models/punto';
-import { EstanciaService } from '../shared/services/estancia.service';
-import { UsuarioService } from '../shared/services/usuario.service';
-import { Usuario } from '../shared/models/usuario';
+import {Estancia} from './../shared/models/estancia';
+import {ContenedorService} from './../shared/services/contenedor.service';
+import {TipoContenedor, Contenedor} from './../shared/models/contenedor';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormControl, Validators, FormArray} from '@angular/forms';
+import {TipoContenedorService} from 'src/app/shared/services/tipo-contenedor.service';
+import {Router, ActivatedRoute} from '@angular/router';
+import {ToastController} from '@ionic/angular';
+import {AutenticacionService} from 'src/app/shared/services/autenticacion.service';
+import {PuntoService} from 'src/app/shared/services/punto.service';
+import {Punto} from '../shared/models/punto';
+import {EstanciaService} from '../shared/services/estancia.service';
+import {UsuarioService} from '../shared/services/usuario.service';
+import {Usuario} from '../shared/models/usuario';
 
 @Component({
     selector: 'app-punto',
@@ -24,11 +24,12 @@ export class PuntoPage implements OnInit {
     selectedContenedores: TipoContenedor[];
     contenedores: TipoContenedor[];
     contenedor: Contenedor;
-    estancias: Estancia[];
+    estancia: Estancia;
     usuario: Usuario = null;
     isEdit = false;
-    editecContenedores: number[] = []
-    title = "Crear punto"
+    editecContenedores: number[] = [];
+    title = 'Crear punto';
+
     constructor(
         private activeRouter: ActivatedRoute,
         private contenedorService: ContenedorService,
@@ -50,55 +51,60 @@ export class PuntoPage implements OnInit {
         });
         const id = this.activeRouter.snapshot.paramMap.get('id');
         if (id) {
-            this.title = "Modificar punto"
+            this.title = 'Modificar punto';
             const checkArray: FormArray = this.puntoForm.get('TipoContenedores') as FormArray;
 
-            this.puntoService.getPuntoById(parseInt(id)).subscribe(res => {
-
+            this.puntoService.getPuntoById(parseInt(id, 10)).subscribe(res => {
                 this.punto = res;
-                this.Latitud.setValue(res.Latitud)
-                this.Longitud.setValue(res.Longitud)
-                this.Estancia_oid.setValue(res.EstanciaPunto.Id)
+                this.Latitud.setValue(res.Latitud);
+                this.Longitud.setValue(res.Longitud);
+                this.Estancia_oid.setValue(res.EstanciaPunto.Id);
+                this.estancia = res.EstanciaPunto;
                 res.Contenedores.forEach((c: Contenedor) => {
-                    checkArray.controls.push(new FormControl(c.Tipo))
-                })
-            })
+                    checkArray.controls.push(new FormControl(c.Tipo));
+                });
+            });
             this.usuarioService.getLoggedUser().subscribe(u => {
                 this.usuario = u;
                 this.contenedores = this.tipoContenedores.getTipos();
-
                 this.contenedor = new Contenedor();
-                this.estanciaService.getEstancia().subscribe(res => {
-                    this.estancias = res;
-                });
             });
             this.isEdit = true;
         } else {
+            const estanciaId = this.activeRouter.snapshot.paramMap.get('idEstancia');
             this.isEdit = false;
+            this.estanciaService.getEstanciaById(estanciaId).subscribe(e => {
+                this.estancia = e;
+            }, error => {
+                this.presentToast('Estancia no encontrada', 'danger');
+                this.router.navigate(['/punto/crear']);
+            });
             this.usuarioService.getLoggedUser().subscribe(u => {
                 this.usuario = u;
                 this.contenedores = this.tipoContenedores.getTipos();
                 this.punto = new Punto();
                 this.contenedor = new Contenedor();
-                this.estanciaService.getEstancia().subscribe(res => {
-                    this.estancias = res;
-                });
+                this.Estancia_oid.setValue(estanciaId);
             });
         }
     }
 
     get Latitud() {
-        return this.puntoForm.get('Latitud')
+        return this.puntoForm.get('Latitud');
     }
+
     get Longitud() {
-        return this.puntoForm.get('Longitud')
+        return this.puntoForm.get('Longitud');
     }
+
     get Estancia_oid() {
-        return this.puntoForm.get('Estancia_oid')
+        return this.puntoForm.get('Estancia_oid');
     }
+
     get TipoContenedores() {
-        return this.puntoForm.get('TipoContenedores')
+        return this.puntoForm.get('TipoContenedores');
     }
+
     createPunto() {
         const id = parseInt(this.activeRouter.snapshot.paramMap.get('id'), 10);
 
@@ -111,7 +117,7 @@ export class PuntoPage implements OnInit {
             this.puntoService.updatePunto(this.punto).subscribe(res => {
                 res.Contenedores.forEach(c => {
                     this.contenedorService.removeContenedor(c.Id).subscribe();
-                })
+                });
                 const checkArray: FormArray = this.puntoForm.get('TipoContenedores') as FormArray;
 
                 checkArray.controls.forEach((c: any) => {
@@ -120,7 +126,7 @@ export class PuntoPage implements OnInit {
                     this.contenedorService.setContenedor(this.contenedor).subscribe(result => {
                     });
                 });
-            })
+            });
             this.presentToast('Punto editado', 'success');
         } else {
             this.punto.Latitud = this.puntoForm.value.Latitud;
@@ -141,8 +147,8 @@ export class PuntoPage implements OnInit {
             });
             this.presentToast('Punto creado', 'success');
         }
-        this.isEdit = false
-        this.router.navigate(['/usuario/propuestas'])
+        this.isEdit = false;
+        this.router.navigate(['/usuario/propuestas']);
 
     }
 
@@ -162,13 +168,13 @@ export class PuntoPage implements OnInit {
         if (e.target.checked) {
             if (!checkArray.controls.some(c => c.value == e.target.value)) {
                 checkArray.push(new FormControl(e.target.value));
-                this.editecContenedores.push(e.target.value)
+                this.editecContenedores.push(e.target.value);
             }
         } else {
             let i: number = 0;
             checkArray.controls.forEach((item: FormControl) => {
                 if (item.value == e.target.value) {
-                    var index = checkArray.controls.indexOf(item)
+                    var index = checkArray.controls.indexOf(item);
                     checkArray.removeAt(index);
                     return;
                 }
@@ -177,8 +183,9 @@ export class PuntoPage implements OnInit {
         }
 
     }
+
     checkIfOk(checkbox) {
-        return this.punto?.Contenedores?.some(c => c.Tipo == checkbox.value)
+        return this.punto?.Contenedores?.some(c => c.Tipo == checkbox.value);
     }
 
     ionViewWillEnter() {

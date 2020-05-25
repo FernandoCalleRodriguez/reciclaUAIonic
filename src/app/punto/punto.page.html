@@ -1,64 +1,54 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>{{title}}</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="usuario/propuestas"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>{{title}}</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="usuario/propuestas"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-row>
-    <ion-col size="12" size-sm="10" offset-sm="1" size-md="8" offset-md="2" size-lg="6" offset-lg="3">
-      <form (ngSubmit)="createPunto()" [formGroup]="puntoForm">
+    <ion-row>
+        <ion-col size="12" size-sm="10" offset-sm="1" size-md="8" offset-md="2" size-lg="6" offset-lg="3">
+            <form (ngSubmit)="createPunto()" [formGroup]="puntoForm">
 
-        <ion-item lines="full">
-          <ion-label position="floating">Latitud</ion-label>
-          <ion-input type="number" formControlName="Latitud"></ion-input>
-        </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Latitud</ion-label>
+                    <ion-input type="number" formControlName="Latitud"></ion-input>
+                </ion-item>
 
-        <ion-item lines="full">
-          <ion-label position="floating">Longitud</ion-label>
-          <ion-input type="number" formControlName="Longitud"></ion-input>
-        </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Longitud</ion-label>
+                    <ion-input type="number" formControlName="Longitud"></ion-input>
+                </ion-item>
 
-        <ion-item lines="full">
-          <ion-label position="floating">Estancias</ion-label>
-          <ion-input [disabled]="true" value="{{Estancia_oid.value}}"></ion-input>
-<!-- 
-          <ion-select placeholder="Select One" formControlName="Estancia_oid">
+                <ion-item lines="full">
+                    <ion-label position="floating">Estancia</ion-label>
+                    <ion-input [disabled]="true" value="{{Estancia_oid.value}}"></ion-input>
+                </ion-item>
 
-            <ion-select-option *ngFor="let estancia of estancias" value="{{estancia.Id}}">{{estancia.Id}}
-            </ion-select-option>
-          </ion-select> -->
-        </ion-item>
-        <ion-row>
+                <ion-item lines="none">
+                    <ion-label>Contenedores</ion-label>
+                </ion-item>
+                <ion-row *ngIf="contenedores!=null">
+                    <ion-col size="6" *ngFor="let c of contenedores">
+                        <ion-item>
+                            <ion-checkbox [checked]="checkIfOk(check)" #check color="{{c.Color}}" slot="start"
+                                          value="{{c.Id}}" (ionChange)="onCheckboxChange($event)">
+                            </ion-checkbox>
+                            <ion-label>{{c.Tipo}}</ion-label>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
 
-          <ion-item>
-            <ion-label>Contenedores</ion-label>
-          </ion-item>
-        </ion-row>
-        <ion-row *ngIf="contenedores!=null">
-          <ion-col size="6" *ngFor="let c of contenedores">
-            <ion-item>
-              <ion-checkbox [checked]="checkIfOk(check)" #check color="{{c.Color}}" slot="start" value="{{c.Id}}"
-                (ionChange)="onCheckboxChange($event)">
-              </ion-checkbox>
-              <ion-label>{{c.Tipo}}</ion-label>
-            </ion-item>
-          </ion-col>
-
-
-        </ion-row>
-        <ion-col>
-          <ion-button type="submit" color="primary" expand="block">{{title}}</ion-button>
+                <ion-row>
+                    <ion-col>
+                        <ion-button type="submit" color="primary" expand="block">{{title}}</ion-button>
+                    </ion-col>
+                </ion-row>
+            </form>
         </ion-col>
-      </form>
-    </ion-col>
-  </ion-row>
-
-
-
+    </ion-row>
 
 
 </ion-content>
