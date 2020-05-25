@@ -16,6 +16,7 @@ import {from, Observable} from 'rxjs';
 })
 export class AppComponent implements OnInit {
     public selectedIndex = 0;
+    public notificationIndex = 0;
     public appPages = [
         {
           title: 'Inicio',
@@ -41,8 +42,7 @@ export class AppComponent implements OnInit {
         {
             title: 'Propuestas',
             url: '/usuario/propuestas',
-            icon: 'hourglass',
-            count: 0
+            icon: 'hourglass'
         },
         {
             title: 'Sobre nosotros',
@@ -89,9 +89,10 @@ export class AppComponent implements OnInit {
         if (path !== undefined) {
             this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
         }
+        this.notificationIndex = this.appPages.findIndex(page => page.title.toLowerCase().includes('notas'));
         this.notify();
         this.nNotificacionesNotas$ = this.notaService.obtenerCantidadNotasNoLeidas();
-        this.nNotificacionesNotas$.subscribe( n => this.appPages[2].count = n);
+        this.nNotificacionesNotas$.subscribe( n => this.appPages[this.notificationIndex].count = n);
     }
 
     notify() {
@@ -102,11 +103,11 @@ export class AppComponent implements OnInit {
                     this.notasS = res2;
                     if (this.notasS != null && this.notas != null) {
                         this.nNotificacionesNotas = this.notas.length - this.notasS.length;
-                        this.appPages[2].count = this.nNotificacionesNotas;
+                        this.appPages[this.notificationIndex].count = this.nNotificacionesNotas;
                         this.notaService.actualizarNotificacionesNotas(this.nNotificacionesNotas);
                     } else {
                         this.nNotificacionesNotas = this.notas.length;
-                        this.appPages[2].count = this.nNotificacionesNotas;
+                        this.appPages[this.notificationIndex].count = this.nNotificacionesNotas;
                         this.notaService.actualizarNotificacionesNotas(this.nNotificacionesNotas);
                     }
                 });
