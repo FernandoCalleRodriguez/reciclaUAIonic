@@ -23,6 +23,9 @@ import {SeleccionEstanciaPuntoPageModule} from '../seleccion-estancia-punto/sele
         LeafletModule,
         SeleccionEstanciaPuntoPageModule
     ],
+    exports: [
+        MapaPuntosComponent
+    ],
     declarations: [
         AccionReciclarPage,
         MapaPuntosComponent,
