@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Detalle del punto</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row *ngIf="punto">
+            <ion-col>
+                <ion-item lines="none">
+                    <ion-label>
+                        <h1>Ubicación</h1>
+                        <p>Edificio: {{ punto?.EstanciaPunto.EdificioEstancia.Nombre }}</p>
+                        <p>Planta: {{ punto?.EstanciaPunto.PlantaEstancia.Planta | planta}}</p>
+                        <p>Estancia: {{ punto?.EstanciaPunto.Id }}</p>
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="punto">
+            <ion-col>
+                <ion-item lines="none">
+                    <ion-label>
+                        <h1>Contenedores</h1>
+                        <ng-container *ngIf="punto.Contenedores.length">
+                            <p *ngFor="let contenedor of punto.Contenedores">{{contenedor.Tipo | tipoContenedor}}</p>
+                        </ng-container>
+                        <p *ngIf="!punto.Contenedores.length"><i>No hay contenedores</i></p>
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <app-mapa-puntos (mapReadyChange)="onMapReadyChange($event)"></app-mapa-puntos>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

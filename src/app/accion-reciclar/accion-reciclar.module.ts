@@ -24,7 +24,8 @@ import {SeleccionEstanciaPuntoPageModule} from '../seleccion-estancia-punto/sele
         SeleccionEstanciaPuntoPageModule
     ],
     exports: [
-        MapaPuntosComponent
+        MapaPuntosComponent,
+        TipoContenedorPipe
     ],
     declarations: [
         AccionReciclarPage,

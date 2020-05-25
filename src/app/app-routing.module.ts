@@ -139,7 +139,12 @@ const routes: Routes = [
   {
     path: 'donde-reciclar',
     loadChildren: () => import('./reciclaje/reciclaje.module').then( m => m.ReciclajePageModule)
+  },
+  {
+    path: 'punto/:id',
+    loadChildren: () => import('./punto-detalle/punto-detalle.module').then( m => m.PuntoDetallePageModule)
   }
+
 ];
 
 @NgModule({

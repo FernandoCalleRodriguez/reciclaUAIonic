@@ -26,13 +26,16 @@
             <ng-container *ngIf="propuestas[0].elementos !=null && propuestas[0].elementos.length>0; else noItem">
                 <ng-container *ngFor="let item of propuestas[0].elementos">
                     <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
-                        *ngIf="propuestas[0].controles[item.EsValido - 1]">
-                        <ion-label>{{ item.Nombre }}</ion-label>
-                        <ion-button *ngIf="item.EsValido ==2" slot="end" color="success"
-                            [routerLink]="['/item/edit',item.Id]">Editar</ion-button>
-                        <ion-button *ngIf="item.EsValido ==2" slot="end" color="danger" (click)="delete(item,0)">
-                            Borrar</ion-button>
-
+                              *ngIf="propuestas[0].controles[item.EsValido - 1]">
+                        <ion-label class="ion-text-wrap">{{ item.Nombre }}</ion-label>
+                        <ion-item-group>
+                            <ion-button *ngIf="item.EsValido ==2" slot="end" color="success"
+                                        [routerLink]="['/item/edit',item.Id]">Editar
+                            </ion-button>
+                            <ion-button *ngIf="item.EsValido ==2" slot="end" color="danger" (click)="delete(item,0)">
+                                Borrar
+                            </ion-button>
+                        </ion-item-group>
                     </ion-item>
                 </ng-container>
 
@@ -62,12 +65,16 @@
             <ng-container *ngIf="propuestas[1].elementos !=null && propuestas[1].elementos.length!=0; else noMaterial">
                 <ng-container *ngFor="let item of propuestas[1].elementos">
                     <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
-                        *ngIf="propuestas[1].controles[item.EsValido - 1]">
-                        <ion-label>{{ item.Nombre }}</ion-label>
-                        <ion-button *ngIf="item.EsValido ==2" slot="end" color="success"
-                            [routerLink]="['/material/edit',item.Id]">Editar</ion-button>
-                        <ion-button *ngIf="item.EsValido ==2" slot="end" color="danger" (click)="delete(item,1)">
-                            Borrar</ion-button>
+                              *ngIf="propuestas[1].controles[item.EsValido - 1]">
+                        <ion-label class="ion-text-wrap">{{ item.Nombre }}</ion-label>
+                        <ion-item-group>
+                            <ion-button *ngIf="item.EsValido ==2" slot="end" color="success"
+                                        [routerLink]="['/material/edit',item.Id]">Editar
+                            </ion-button>
+                            <ion-button *ngIf="item.EsValido ==2" slot="end" color="danger" (click)="delete(item,1)">
+                                Borrar
+                            </ion-button>
+                        </ion-item-group>
                     </ion-item>
                 </ng-container>
             </ng-container>
@@ -93,13 +100,16 @@
 
             <ng-container *ngFor="let item of propuestas[2].elementos">
                 <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
-                    *ngIf="propuestas[2].controles[item.EsValido - 1]">
-                    <ion-label>Id: {{ item.Id }} - ({{ item.Latitud }},{{ item.Longitud }})</ion-label>
-
-                    <ion-button *ngIf="item.EsValido ==2" slot="end" color="success"
-                        [routerLink]="['/punto/edit',item.Id]">Editar</ion-button>
-                    <ion-button *ngIf="item.EsValido ==2" slot="end" color="danger" (click)="delete(item,2)">
-                        Borrar</ion-button>
+                          *ngIf="propuestas[2].controles[item.EsValido - 1]" routerLink="/punto/{{item.Id}}" detail>
+                    <ion-label class="ion-text-wrap">ID: {{ item.Id }}. Estancia: {{ item.EstanciaPunto.Id }}</ion-label>
+                    <ion-item-group>
+                        <ion-button *ngIf="item.EsValido ==2" slot="end" color="success"
+                                    [routerLink]="['/punto/edit',item.Id]">Editar
+                        </ion-button>
+                        <ion-button *ngIf="item.EsValido ==2" slot="end" color="danger" (click)="delete(item,2)">
+                            Borrar
+                        </ion-button>
+                    </ion-item-group>
                 </ion-item>
             </ng-container>
 
