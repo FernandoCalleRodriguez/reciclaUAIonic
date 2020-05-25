@@ -80,7 +80,7 @@ export class MapaPuntosComponent implements OnInit {
             });
 
             if (this.single) {
-                this.map.setView(this.markers[0].getLatLng(), 12);
+                this.map.setView(this.markers[0].getLatLng(), 19);
                 this.actualMarker = this.markers[0];
             } else {
                 this.map.setView(new L.LatLng(this.puntos[0].Latitud, this.puntos[0].Longitud), 19);
