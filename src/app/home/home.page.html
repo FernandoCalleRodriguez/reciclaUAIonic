@@ -10,12 +10,12 @@
 <ion-content>
 
     <ion-card>
-        <ion-card-header>
-            <img src="https://i.ibb.co/BNp6vWM/Logo-Recicla.png" alt="Logo-Recicla" border="0" align="center">
+        <ion-card-header class="ion-text-center">
+            <img src="https://i.ibb.co/BNp6vWM/Logo-Recicla.png" alt="Logo-Recicla">
             <ion-card-subtitle>Bienvenido a</ion-card-subtitle>
             <ion-card-title>¡ReciclaUA!</ion-card-title>
         </ion-card-header>
-        <ion-card-content>
+        <ion-card-content class="ion-text-justify">
             ReciclaUA es una aplicación dirigida a la comunidad universitaria con el
             objetivo de facilitar y promover las gestión del reciclaje en el campus.
         </ion-card-content>
@@ -24,64 +24,81 @@
 
     <ion-card color="primary">
         <ion-card-header>
-            <ion-card-title>¿Dónde puedo reciclar?</ion-card-title>
+            <ion-card-title>Reciclaje</ion-card-title>
         </ion-card-header>
-        <ion-item>
-            <ion-icon name="map"></ion-icon>
-            <ion-button fill="clear" [routerLink]="['/punto']" style="color:black">Crear punto de reciclaje</ion-button>
+        <ion-item [routerLink]="['/donde-reciclar']">
+            <ion-icon name="search"></ion-icon>
+            <ion-button fill="clear" style="color:black">
+                ¿Dónde reciclo?
+            </ion-button>
         </ion-item>
-    </ion-card>
-
-
-    <ion-card color="primary">
-        <ion-card-header>
-            <ion-card-title>Ganar mas puntos:</ion-card-title>
-        </ion-card-header>
-        <ion-item>
+        <ion-item [routerLink]="['/reciclar']">
             <ion-icon name="trash"></ion-icon>
-            <ion-button fill="clear" [routerLink]="['/videoclub']" style="color:black">Reciclar material</ion-button>
+            <ion-button fill="clear" style="color:black">
+                He reciclado...
+            </ion-button>
         </ion-item>
-        <ion-item>
-            <ion-icon name="trophy" ></ion-icon>
-            <ion-button fill="clear" [routerLink]="['/juego2']" style="color:black">Ir al juego</ion-button>
-        </ion-item>
-    </ion-card>
-
-    <ion-card color="primary">
-        <ion-card-header>
-            <ion-card-title>Estadísticas:</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-        </ion-card-content>
-        <ion-item>
-            <ion-icon name="person" ></ion-icon>
-            <ion-button fill="clear" [routerLink]="['/perfil']" style="color:black">Ir a mi perfil</ion-button>
-        </ion-item>
-        <ion-item>
-            <ion-icon name="grid"></ion-icon>
-            <ion-button fill="clear" [routerLink]="['/usuario/ranking']" style="color:black">Ir al ranking</ion-button>
+        <ion-item [routerLink]="['/punto/crear']" lines="none">
+            <ion-icon name="map"></ion-icon>
+            <ion-button fill="clear" style="color:black">
+                Proponer punto de reciclaje
+            </ion-button>
         </ion-item>
     </ion-card>
 
+
     <ion-card color="primary">
         <ion-card-header>
-            <ion-card-title>Foro:</ion-card-title>
+            <ion-card-title>Conseguir puntos</ion-card-title>
         </ion-card-header>
-        <ion-item>
+        <ion-item [routerLink]="['/foro']">
             <ion-icon name="list"></ion-icon>
-            <ion-button fill="clear" [routerLink]="['/foro']" style="color:black">Ir al foro</ion-button>
+            <ion-button fill="clear" style="color:black">
+                Participar en el foro
+            </ion-button>
+        </ion-item>
+        <ion-item [routerLink]="['/item']">
+            <ion-icon name="cube"></ion-icon>
+            <ion-button fill="clear" style="color:black">
+                Proponer ítem
+            </ion-button>
+        </ion-item>
+        <ion-item [routerLink]="['/material']" lines="none">
+            <ion-icon name="layers"></ion-icon>
+            <ion-button fill="clear" style="color:black">
+                Proponer material
+            </ion-button>
         </ion-item>
     </ion-card>
 
     <ion-card color="primary">
         <ion-card-header>
+            <ion-card-title>Estadísticas</ion-card-title>
+        </ion-card-header>
+        <ion-item [routerLink]="['/usuario/ranking']">
+            <ion-icon name="grid"></ion-icon>
+            <ion-button fill="clear" style="color:black">
+                Ir al ranking
+            </ion-button>
+        </ion-item>
+        <ion-item [routerLink]="['/rankingjuego']" lines="none">
+            <ion-icon name="trophy"></ion-icon>
+            <ion-button fill="clear" style="color:black">
+                Ir al ranking del juego
+            </ion-button>
+        </ion-item>
+    </ion-card>
+
+    <ion-card color="primary">
+        <ion-card-header>
+            <ion-card-title>Última nota informativa</ion-card-title>
             <ion-card-subtitle>{{notaInfo?.Titulo}}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-            {{notaInfo?.Cuerpo.substring(0,50)}}
+            {{notaInfo?.Cuerpo.substring(0,50)}}... <a style="color:white; font-weight: bold" routerLink="/notainfodetalle/{{notaInfo?.Id}}">[Leer más]</a>
         </ion-card-content>
-        <ion-item>
-            <ion-icon name="reader" ></ion-icon>
+        <ion-item lines="none">
+            <ion-icon name="reader"></ion-icon>
             <ion-button fill="clear" [routerLink]="['/notainfo']" style="color:black">Ir a notas informativas</ion-button>
         </ion-item>
     </ion-card>

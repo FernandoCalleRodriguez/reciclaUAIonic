@@ -63,7 +63,7 @@ export class HomePage implements OnInit {
         });
         
         this.notaService.obtenerTodasNotas().subscribe(nota => {
-            this.notaInfo = nota[0];
+            this.notaInfo = nota[nota.length - 1];
         });
     }
 
