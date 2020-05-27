@@ -32,7 +32,7 @@ export class MaterialPage implements OnInit {
     this.contenedores = this.tipoContenedores.getTipos();
     this.material = new Material();
     this.materialForm = new FormGroup({
-      nombre: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
+      nombre: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
       contenedor: new FormControl(null, [Validators.required])
     })
 

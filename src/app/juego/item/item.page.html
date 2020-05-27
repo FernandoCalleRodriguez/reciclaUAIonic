@@ -17,13 +17,13 @@
         </ion-item>
         <ion-item *ngIf=" Nombre.touched && Nombre.invalid " lines="none">
           <ion-label color="danger" *ngIf="Nombre.errors.required">
-            Error <strong>Campo requirido</strong>
+            Error <strong>campo requirido</strong>
           </ion-label>
           <ion-label color="danger" *ngIf="Nombre.errors.minlength">
-            Error <strong>valor minimo es {{Nombre.errors.minlength.requiredLength}}</strong>
+            Error <strong>la longitud mínima es {{Nombre.errors.minlength.requiredLength}}</strong>
           </ion-label>
           <ion-label color="danger" *ngIf="Nombre.errors.maxlength">
-            Error <strong>valor minimo es {{Nombre.errors.maxlength.requiredLength}}</strong>
+            Error <strong>la longitud mínima es {{Nombre.errors.maxlength.requiredLength}}</strong>
           </ion-label>
         </ion-item>
         <ion-item lines="full">
@@ -32,36 +32,29 @@
         </ion-item>
         <ion-item *ngIf=" Descripcion.touched && Descripcion.invalid " lines="none">
           <ion-label color="danger" *ngIf="Descripcion.errors.required">
-            Error <strong>Campo requirido</strong>
+            Error <strong>campo requirido</strong>
           </ion-label>
           <ion-label color="danger" *ngIf="Descripcion.errors.minlength">
-            Error <strong>valor minimo es {{Descripcion.errors.minlength.requiredLength}}</strong>
+            Error <strong>la longitud mínima es {{Descripcion.errors.minlength.requiredLength}}</strong>
           </ion-label>
           <ion-label color="danger" *ngIf="Descripcion.errors.maxlength">
-            Error <strong>valor minimo es {{Descripcion.errors.maxlength.requiredLength}}</strong>
+            Error <strong>la longitud mínima es {{Descripcion.errors.maxlength.requiredLength}}</strong>
           </ion-label>
         </ion-item>
         <ion-item lines="full">
           <ion-label position="floating">Material</ion-label>
-          <ion-input [disabled]="true" value="{{selectedMaterial}}"></ion-input>
-
-
-          <!-- <ion-text *ngIf="isEdit">
-            <h2>{{selectedMaterial}}</h2>
-          </ion-text> -->
-          <ion-select  *ngIf="!isEdit" 
-            formControlName="Material_oid" interface="action-sheet" >
+          <ion-input *ngIf="isEdit" [disabled]="true" value="{{selectedMaterial}}"></ion-input>
+          <ion-select *ngIf="!isEdit" formControlName="Material_oid" interface="action-sheet">
             <ion-select-option *ngFor="let material of materiales" value="{{material.Id}}">{{material.Nombre}}
             </ion-select-option>
           </ion-select>
-
-          <ion-item *ngIf=" Material_oid.touched && Material_oid.invalid " lines="none">
-            <ion-label color="danger" *ngIf="Material_oid.errors.required">
-              Error <strong>Campo requirido</strong>
-            </ion-label>
-          </ion-item>
         </ion-item>
-        <ion-item lines="full" (click)="presentActionSheet()">
+        <ion-item *ngIf="Material_oid.touched && Material_oid.invalid " lines="none">
+          <ion-label color="danger" *ngIf="Material_oid.errors.required">
+            Error <strong>campo requirido</strong>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="full" class="ion-margin-top" (click)="presentActionSheet()">
           <ion-label>
             Imagen
           </ion-label>

@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastController, ActionSheetController } from '@ionic/angular';
 import { AutenticacionService } from 'src/app/shared/services/autenticacion.service';
 import { ItemService } from 'src/app/shared/services/item.service';
+import {EstadoEnum} from '../../shared/models/estado';
 
 @Component({
     selector: 'app-item',
@@ -38,7 +39,7 @@ export class ItemPage implements OnInit {
 
     ngOnInit() {
         this.itemForm = new FormGroup({
-            Nombre: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
+            Nombre: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
             Descripcion: new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(250)]),
             Material_oid: new FormControl(null, [Validators.required]),
         });
@@ -61,7 +62,9 @@ export class ItemPage implements OnInit {
         }
         this.item = new Item();
         this.materialService.getMaterial().subscribe(res => {
-            this.materiales = res;
+            this.materiales = res.filter(e => {
+                return e.EsValido == EstadoEnum.Validado;
+            });
         });
 
     }
