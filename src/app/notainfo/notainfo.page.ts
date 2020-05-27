@@ -39,7 +39,7 @@ export class NotainfoPage {
 
 
   verNotaDetalle(id): void {
-    this.router.navigate(['/notainfodetalle', id]);
+    this.router.navigate(['/nota', id]);
   }
 
   identificarNotasLeidas(texto: string) {

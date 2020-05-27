@@ -55,12 +55,6 @@ export class MaterialListPage implements OnInit {
         this.materiales = this.materiales.filter(i => i.Nombre.trim().toLowerCase().includes(value.trim()));
     }
 
-    edit(material) {
-        this.route.navigate(['/material'], {
-            queryParams: {id: material.Id}
-        });
-    }
-
     delete(material) {
         this.presentAlertMultipleButtons(material);
     }

@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
         },
         {
             title: 'Notas infor.',
-            url: '/notainfo',
+            url: '/notas',
             icon: 'reader',
             count: 0
         },

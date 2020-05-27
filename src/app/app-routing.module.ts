@@ -22,11 +22,11 @@ const routes: Routes = [
     loadChildren: () => import('./usuario/registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
-    path: 'usuario/modificar',
+    path: 'usuario/editar',
     loadChildren: () => import('./usuario/modificarusuario/modificarusuario.module').then( m => m.ModificarusuarioPageModule)
   },
   {
-    path: 'usuario/cambiarcontrasena',
+    path: 'usuario/editar/contrasena',
     loadChildren: () => import('./usuario/cambiarcontrasena/cambiarcontrasena.module').then( m => m.CambiarcontrasenaPageModule)
   },
   {
@@ -42,7 +42,7 @@ const routes: Routes = [
     loadChildren: () => import('./usuario/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
   {
-    path: 'notainfo',
+    path: 'notas',
     loadChildren: () => import('./notainfo/notainfo.module').then( m => m.NotainfoPageModule)
   },
   {
@@ -73,39 +73,39 @@ const routes: Routes = [
     loadChildren: () => import('./validacion/propuestas-usuario/propuestas-usuario.module').then( m => m.PropuestasUsuarioPageModule)
   },
   {
-    path: 'material',
+    path: 'material/crear',
     loadChildren: () => import('./juego/material/material.module').then(m => m.MaterialPageModule)
   },
   {
-    path: 'item',
+    path: 'item/crear',
     loadChildren: () => import('./juego/item/item.module').then(m => m.ItemPageModule)
   },
   {
-    path: 'item/edit/:id',
+    path: 'item/:id/editar',
     loadChildren: () => import('./juego/item/item.module').then(m => m.ItemPageModule)
   },
   {
-    path: 'material/edit/:id',
+    path: 'material/:id/editar',
     loadChildren: () => import('./juego/material/material.module').then(m => m.MaterialPageModule)
   },
   {
-    path: 'item-list',
+    path: 'items',
     loadChildren: () => import('./juego/item-list/item-list.module').then(m => m.ItemListPageModule)
   },
   {
-    path: 'material-list',
+    path: 'materiales',
     loadChildren: () => import('./juego/material-list/material-list.module').then(m => m.MaterialListPageModule)
   },
   {
-    path: 'punto',
+    path: 'punto/crear/estancia/:idEstancia',
     loadChildren: () => import('./punto/punto.module').then( m => m.PuntoPageModule)
   },
   {
-    path: 'punto/edit/:id',
+    path: 'punto/:id/editar',
     loadChildren: () => import('./punto/punto.module').then( m => m.PuntoPageModule)
   },
   {
-    path: 'notainfodetalle/:id',
+    path: 'nota/:id',
     loadChildren: () => import('./notainfodetalle/notainfodetalle.module').then( m => m.NotainfodetallePageModule)
   },
   {
@@ -121,8 +121,9 @@ const routes: Routes = [
     loadChildren: () => import('./juego/juego/juego.module').then(m => m.JuegoPageModule)
   },
   {
-    path: 'iniciojuego',
-    loadChildren: () => import('./juego/iniciojuego/iniciojuego.module').then(m => m.IniciojuegoPageModule)
+    path: 'juego/inicio',
+    loadChildren: () => import('./juego/iniciojuego/iniciojuego.module').then(m => m.IniciojuegoPageModule),
+    canActivate: [false]
   },
   {
     path: 'juego/ranking',

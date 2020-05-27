@@ -30,7 +30,7 @@
                         <ion-label class="ion-text-wrap">{{ item.Nombre }}</ion-label>
                         <ion-item-group>
                             <ion-button *ngIf="item.EsValido ==2" slot="end" color="success"
-                                        [routerLink]="['/item/edit',item.Id]">Editar
+                                        [routerLink]="['/item', item.Id, 'editar']">Editar
                             </ion-button>
                             <ion-button *ngIf="item.EsValido ==2" slot="end" color="danger" (click)="delete(item,0)">
                                 Borrar
@@ -43,7 +43,7 @@
             <ng-template #noItem>
                 <ion-item class="ion-no-padding">
                     <ion-label>No hay item,Quieres crear un nuevo item?</ion-label>
-                    <ion-button [routerLink]="['/item']">Crear nuevo item</ion-button>
+                    <ion-button [routerLink]="['/item/crear']">Crear nuevo item</ion-button>
                 </ion-item>
             </ng-template>
         </mat-expansion-panel>
@@ -69,7 +69,7 @@
                         <ion-label class="ion-text-wrap">{{ item.Nombre }}</ion-label>
                         <ion-item-group>
                             <ion-button *ngIf="item.EsValido ==2" slot="end" color="success"
-                                        [routerLink]="['/material/edit',item.Id]">Editar
+                                        [routerLink]="['/material', item.Id, 'editar']">Editar
                             </ion-button>
                             <ion-button *ngIf="item.EsValido ==2" slot="end" color="danger" (click)="delete(item,1)">
                                 Borrar
@@ -81,7 +81,7 @@
             <ng-template #noMaterial>
                 <ion-item class="ion-no-padding">
                     <ion-label>No hay material, Quieres crear un nuevo material?</ion-label>
-                    <ion-button [routerLink]="['/material']">Crear nuevo material</ion-button>
+                    <ion-button [routerLink]="['/material/crear']">Crear nuevo material</ion-button>
                 </ion-item>
             </ng-template>
         </mat-expansion-panel>
@@ -104,7 +104,7 @@
                     <ion-label class="ion-text-wrap">ID: {{ item.Id }}. Estancia: {{ item.EstanciaPunto.Id }}</ion-label>
                     <ion-item-group>
                         <ion-button *ngIf="item.EsValido ==2" slot="end" color="success"
-                                    [routerLink]="['/punto/edit',item.Id]">Editar
+                                    [routerLink]="['/punto', item.Id, 'editar']">Editar
                         </ion-button>
                         <ion-button *ngIf="item.EsValido ==2" slot="end" color="danger" (click)="delete(item,2)">
                             Borrar

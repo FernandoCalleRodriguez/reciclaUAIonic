@@ -58,13 +58,13 @@
                 Participar en el foro
             </ion-button>
         </ion-item>
-        <ion-item [routerLink]="['/item']">
+        <ion-item [routerLink]="['/item/crear']">
             <ion-icon name="cube"></ion-icon>
             <ion-button fill="clear" style="color:black">
                 Proponer ítem
             </ion-button>
         </ion-item>
-        <ion-item [routerLink]="['/material']" lines="none">
+        <ion-item [routerLink]="['/material/crear']" lines="none">
             <ion-icon name="layers"></ion-icon>
             <ion-button fill="clear" style="color:black">
                 Proponer material
@@ -97,11 +97,11 @@
         </ion-card-header>
         <ion-card-content>
             {{notaInfo?.Cuerpo.substring(0, 50)}}... <a style="color:white; font-weight: bold"
-                                                        routerLink="/notainfodetalle/{{notaInfo?.Id}}">[Leer más]</a>
+                                                        routerLink="/nota/{{notaInfo?.Id}}">[Leer más]</a>
         </ion-card-content>
         <ion-item lines="none">
             <ion-icon name="reader"></ion-icon>
-            <ion-button fill="clear" [routerLink]="['/notainfo']" style="color:black">Ir a notas informativas
+            <ion-button fill="clear" [routerLink]="['/notas']" style="color:black">Ir a notas informativas
             </ion-button>
         </ion-item>
     </ion-card>
