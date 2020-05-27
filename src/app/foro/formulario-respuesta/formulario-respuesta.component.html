@@ -15,7 +15,8 @@
         <ion-label class="ion-text-wrap" color="{{ cuerpo.invalid && cuerpo.value? 'danger' : '' }}">
           Caracteres restantes: {{ maxlen - cuerpo.value?.length }}
         </ion-label>
-        <ion-button size="6" slot="end" type="submit">
+        <ion-button size="small" slot="end" type="submit">
+          {{ (respuestaId? 'Editar' : 'Responder') }} &nbsp;
           <ion-icon name="send"></ion-icon>
         </ion-button>
       </ion-item>

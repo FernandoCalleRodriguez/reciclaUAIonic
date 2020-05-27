@@ -17,7 +17,7 @@
                         </ion-card-header>
                         <ion-card-content>
                             <ion-item class="ion-no-padding">
-                                <ion-label><strong>Título:</strong></ion-label>
+                                <ion-label position="floating"><strong>Título</strong></ion-label>
                                 <ion-input type="text" formControlName="titulo"></ion-input>
                             </ion-item>
                             <ion-item *ngIf="titulo.errors && titulo.value" class="ion-no-padding" lines="none">
@@ -26,20 +26,19 @@
                                 </ion-label>
                             </ion-item>
                             <ion-item class="ion-no-padding">
-                                <ion-label><strong>Cuerpo:</strong></ion-label>
+                                <ion-label position="floating"><strong>Cuerpo</strong></ion-label>
                                 <ion-textarea rows="8" formControlName="cuerpo"></ion-textarea>
                             </ion-item>
-                            <ion-item *ngIf="cuerpo.errors && cuerpo.value" class="ion-no-padding" lines="none">
-                                <ion-label color="danger">
-                                    Caracteres excedidos <strong>{{ bmax - cuerpo.value.length }}</strong>
+                            <ion-item class="ion-no-padding" lines="none">
+                                <ion-label class="ion-text-wrap" color="{{ cuerpo.invalid && cuerpo.value? 'danger' : '' }}">
+                                    Caracteres restantes: {{ bmax - cuerpo.value?.length }}
                                 </ion-label>
-                            </ion-item>
-                            <ion-item lines="none">
                                 <ion-button type="submit" slot="end" [disabled]="formulario.invalid" *ngIf="edit">
                                     Editar
                                 </ion-button>
                                 <ion-button type="submit" slot="end" [disabled]="formulario.invalid" *ngIf="!edit">
-                                    Enviar {{ tema?.Tema.toLowerCase() }}
+                                    Enviar {{ tema?.Tema.toLowerCase() }} &nbsp;
+                                    <ion-icon name="send"></ion-icon>
                                 </ion-button>
                             </ion-item>
                         </ion-card-content>
