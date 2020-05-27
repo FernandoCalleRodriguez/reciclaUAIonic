@@ -48,9 +48,9 @@ export class MaterialListPage implements OnInit {
         return this.validacionService.getEstadoById(id).Estado;
     }
 
-    buscarMaterial(e) {
-        var value = e.detail.value.toLowerCase();
-        this.term = value;
+    buscarMaterial(e: any) {
+        this.term = e.target.value;
+        const value = e.target.value.toLowerCase();
         this.materiales = this.materialesCopy;
         this.materiales = this.materiales.filter(i => i.Nombre.trim().toLowerCase().includes(value.trim()));
     }

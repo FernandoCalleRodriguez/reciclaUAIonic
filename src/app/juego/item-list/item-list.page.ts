@@ -66,13 +66,28 @@ export class ItemListPage implements OnInit {
         return this.tipoContenedorService.getTipoById(id).Tipo;
     }
 
-    buscarItem(e) {
-        var value = e.detail.value.toLowerCase();
-        this.term = value;
+    buscarItem(e: any) {
+        this.term = e.target.value;
         this.items = this.itemsCopy;
-        this.items = this.items.filter(i => i.Nombre.toLowerCase().includes(value) || i.Descripcion.toLowerCase().includes(value) || i.MaterialItem.Nombre.toLowerCase().includes(value));
-
-
+        const t = this.term.toLowerCase();
+        if (t != '') {
+            const tparts = t.split(' ').filter(e => {
+                return e != '';
+            });
+            this.items = this.items.filter(item => {
+                let exists = true;
+                const name = item.Nombre.toLowerCase();
+                const description = item.Descripcion.toLowerCase();
+                for (const part of tparts) {
+                    if (!name.includes(part) && !description.includes(part)) {
+                        exists = false;
+                    }
+                }
+                return exists;
+            });
+        } else {
+            this.term = null;
+        }
     }
 
     delete(item) {

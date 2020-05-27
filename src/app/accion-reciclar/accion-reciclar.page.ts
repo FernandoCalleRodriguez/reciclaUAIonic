@@ -113,7 +113,7 @@ export class AccionReciclarPage implements OnInit {
                 const name = item.Nombre.toLowerCase();
                 const description = item.Descripcion.toLowerCase();
                 for (const part of tparts) {
-                    if (!(name.includes(part) || description.includes(t))) {
+                    if (!name.includes(part) && !description.includes(part)) {
                         exists = false;
                     }
                 }
