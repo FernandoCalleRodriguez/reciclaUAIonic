@@ -52,7 +52,7 @@ export class PuntoPage implements OnInit {
             Latitud: new FormControl(null, [Validators.required, Validators.min(-90), Validators.max(90)]),
             Longitud: new FormControl(null, [Validators.required, Validators.min(-90), Validators.max(90)]),
             Estancia_oid: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(20)]),
-            TipoContenedores: new FormArray([])
+            TipoContenedores: new FormArray([], [Validators.required])
         });
         const id = this.activeRouter.snapshot.paramMap.get('id');
         if (id) {
@@ -82,6 +82,8 @@ export class PuntoPage implements OnInit {
             this.estanciaService.getEstanciaById(estanciaId).subscribe(e => {
                 this.estancia = e;
                 this.mapa.setZone(this.estancia.Latitud, this.estancia.Longitud);
+                this.Latitud.setValue(this.estancia.Latitud);
+                this.Longitud.setValue(this.estancia.Longitud);
             }, error => {
                 this.presentToast('Estancia no encontrada', 'danger');
                 this.router.navigate(['/punto/crear']);
@@ -125,9 +127,9 @@ export class PuntoPage implements OnInit {
                 res.Contenedores.forEach(c => {
                     this.contenedorService.removeContenedor(c.Id).subscribe();
                 });
-                const checkArray: FormArray = this.puntoForm.get('TipoContenedores') as FormArray;
+                const checkArray = (this.puntoForm.get('TipoContenedores') as FormArray).getRawValue();
 
-                checkArray.controls.forEach((c: any) => {
+                checkArray.forEach((c: any) => {
                     this.contenedor.Punto_oid = res.Id;
                     this.contenedor.Tipo = c.value;
                     this.contenedorService.setContenedor(this.contenedor).subscribe(result => {
@@ -142,12 +144,12 @@ export class PuntoPage implements OnInit {
             this.punto.Estancia_oid = this.puntoForm.value.Estancia_oid;
 
             this.puntoService.setPunto(this.punto).subscribe(res => {
-                const checkArray: FormArray = this.puntoForm.get('TipoContenedores') as FormArray;
-                checkArray.controls.forEach((c: any) => {
+                const checkArray = (this.puntoForm.get('TipoContenedores') as FormArray).getRawValue();
+                checkArray.forEach((c: any) => {
                     this.contenedor.Punto_oid = res.Id;
                     this.contenedor.Tipo = c;
                     this.contenedorService.setContenedor(this.contenedor).subscribe(result => {
-                        this.presentToast('creados', 'success');
+                        // this.presentToast('creados', 'success');
                     });
                 });
 
