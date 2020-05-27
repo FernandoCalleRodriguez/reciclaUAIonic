@@ -1,14 +1,14 @@
-import { Material } from './../../shared/models/material';
-import { Component, OnInit } from '@angular/core';
-import { Item } from '../../shared/models/item';
-import { ItemService } from '../../shared/services/item.service';
-import { MaterialService } from '../../shared/services/materiel.service';
-import { PuntoService } from '../../shared/services/punto.service';
-import { ValidacionService } from '../../shared/services/validacion.service';
-import { Estado } from '../../shared/models/estado';
-import { UsuarioService } from '../../shared/services/usuario.service';
-import { Usuario } from '../../shared/models/usuario';
-import { AlertController, ToastController } from '@ionic/angular';
+import {Material} from './../../shared/models/material';
+import {Component, OnInit} from '@angular/core';
+import {Item} from '../../shared/models/item';
+import {ItemService} from '../../shared/services/item.service';
+import {MaterialService} from '../../shared/services/materiel.service';
+import {PuntoService} from '../../shared/services/punto.service';
+import {ValidacionService} from '../../shared/services/validacion.service';
+import {Estado} from '../../shared/models/estado';
+import {UsuarioService} from '../../shared/services/usuario.service';
+import {Usuario} from '../../shared/models/usuario';
+import {AlertController, ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-propuestas-usuario',
@@ -42,7 +42,7 @@ export class PropuestasUsuarioPage implements OnInit {
     ];
 
     constructor(
-        private toastController:ToastController,
+        private toastController: ToastController,
         private alertController: AlertController,
         protected itemService: ItemService, protected materialService: MaterialService, protected puntoService: PuntoService,
         protected validacionService: ValidacionService, protected usuarioService: UsuarioService) {
@@ -55,7 +55,7 @@ export class PropuestasUsuarioPage implements OnInit {
                 p.controles.push(true);
             });
         });
-   
+
         this.usuarioService.getLoggedUser().subscribe(u => {
             this.usuario = u;
             this.itemService.getByUserId(this.usuario.Id).subscribe(i => {
@@ -63,26 +63,29 @@ export class PropuestasUsuarioPage implements OnInit {
                 this.itemCopy = i;
             });
             this.materialService.BuscarMaterialesPorUsuario(this.usuario.Id).subscribe(m => {
-                    this.propuestas[1].elementos = m;
-                    this.materialCopy = m;
+                this.propuestas[1].elementos = m;
+                this.materialCopy = m;
             });
             this.puntoService.getPuntoByUsuario(this.usuario.Id).subscribe(p => {
                 this.propuestas[2].elementos = p;
             });
         });
     }
+
     delete(item, obj) {
-        this.presentAlertMultipleButtons(item, obj)
+        this.presentAlertMultipleButtons(item, obj);
     }
+
     async presentAlertMultipleButtons(item, obj) {
-       var msg=""
-        if(obj==2)
-            msg="este punto"
-            else
-            msg=item?.Nombre
+        let msg = '';
+        if (obj == 2) {
+            msg = 'este punto';
+        } else {
+            msg = item?.Nombre;
+        }
         const alert = await this.alertController.create({
             header: 'Eliminar ' + msg,
-            message: 'Estas seguro de que deseas eliminar '+msg,
+            message: 'Estas seguro de que deseas eliminar ' + msg,
             buttons: ['Cancel', {
                 text: 'Borrar',
                 cssClass: 'danger',
@@ -91,30 +94,32 @@ export class PropuestasUsuarioPage implements OnInit {
                     if (obj == 0) {
                         this.itemService.removeItem(item.Id).subscribe(res => {
 
-                            var index = this.propuestas[0].elementos.indexOf(item);
-                            if (index > -1)
-                               { this.propuestas[0].elementos.splice(index, 1)
-                                this.presentToast("Item borrado","danger")}
-                        })
+                            const index = this.propuestas[0].elementos.indexOf(item);
+                            if (index > -1) {
+                                this.propuestas[0].elementos.splice(index, 1);
+                                this.presentToast('Item borrado', 'danger');
+                            }
+                        });
                     } else if (obj == 1) {
                         this.materialService.removeMaterial(item.Id).subscribe(res => {
 
-                            var index = this.propuestas[1].elementos.indexOf(item);
-                            if (index > -1)
-                              {  this.propuestas[1].elementos.splice(index, 1)
-                                this.presentToast("Material borrado","danger")}
+                            const index = this.propuestas[1].elementos.indexOf(item);
+                            if (index > -1) {
+                                this.propuestas[1].elementos.splice(index, 1);
+                                this.presentToast('Material borrado', 'danger');
+                            }
 
-                        })
-                    }
-                    else if (obj == 2) {
+                        });
+                    } else if (obj == 2) {
                         this.puntoService.removePunto(item.Id).subscribe(res => {
 
-                            var index = this.propuestas[2].elementos.indexOf(item);
-                            if (index > -1)
-                              {  this.propuestas[2].elementos.splice(index, 1)
-                                this.presentToast("Punto de reciclaje borrado","danger")}
+                            const index = this.propuestas[2].elementos.indexOf(item);
+                            if (index > -1) {
+                                this.propuestas[2].elementos.splice(index, 1);
+                                this.presentToast('Punto de reciclaje borrado', 'danger');
+                            }
 
-                        })
+                        });
                     }
                 }
             }]
@@ -122,28 +127,18 @@ export class PropuestasUsuarioPage implements OnInit {
 
         await alert.present();
     }
-    buscar(e, obj) {
-        var value = e.detail.value.toLowerCase();
-        if (obj == 0) {
-            this.propuestas[obj].elementos = this.itemCopy;
-            this.propuestas[obj].elementos = this.propuestas[obj].elementos.filter(i => i.Nombre.trim().toLowerCase().includes(value.trim()))
-        } else if (obj == 1) {
-            this.propuestas[1].elementos = this.materialCopy;
-            this.propuestas[obj].elementos = this.propuestas[obj].elementos.filter(i => i.Nombre.trim().toLowerCase().includes(value.trim()))
-        }
 
-
-    }
     async presentToast(messagetext, color) {
         const toast = await this.toastController.create({
-          message: messagetext,
-          duration: 2000,
-          color: color
-    
+            message: messagetext,
+            duration: 2000,
+            color: color
+
         });
         toast.present();
-      }
-    ionViewWillEnter(){
+    }
+
+    ionViewWillEnter() {
         this.ngOnInit();
-     }
+    }
 }

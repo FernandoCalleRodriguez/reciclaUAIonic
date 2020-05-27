@@ -15,7 +15,6 @@
             <mat-expansion-panel-header>
                 <h4>{{ propuestas[0].categoria }}</h4>
             </mat-expansion-panel-header>
-            <ion-searchbar debounce="500" (ionChange)="buscar($event,0)"></ion-searchbar>
 
             <ion-item class="ion-no-padding" lines="none" *ngFor="let estado of estados">
                 <ion-label>{{ estado.Estado }}</ion-label>
@@ -23,7 +22,7 @@
                 </ion-checkbox>
             </ion-item>
 
-            <ng-container *ngIf="propuestas[0].elementos !=null && propuestas[0].elementos.length>0; else noItem">
+            <ng-container *ngIf="propuestas[0].elementos !=null && propuestas[0].elementos.length>0">
                 <ng-container *ngFor="let item of propuestas[0].elementos">
                     <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
                               *ngIf="propuestas[0].controles[item.EsValido - 1]">
@@ -40,12 +39,6 @@
                 </ng-container>
 
             </ng-container>
-            <ng-template #noItem>
-                <ion-item class="ion-no-padding">
-                    <ion-label>No hay item,Quieres crear un nuevo item?</ion-label>
-                    <ion-button [routerLink]="['/item/crear']">Crear nuevo item</ion-button>
-                </ion-item>
-            </ng-template>
         </mat-expansion-panel>
 
         <!-- MATERIALES -->
@@ -54,7 +47,6 @@
             <mat-expansion-panel-header>
                 <h4>{{ propuestas[1].categoria }}</h4>
             </mat-expansion-panel-header>
-            <ion-searchbar debounce="500" (ionChange)="buscar($event,1)"></ion-searchbar>
 
             <ion-item class="ion-no-padding" lines="none" *ngFor="let estado of estados">
                 <ion-label>{{ estado.Estado }}</ion-label>
@@ -62,7 +54,7 @@
                 </ion-checkbox>
             </ion-item>
 
-            <ng-container *ngIf="propuestas[1].elementos !=null && propuestas[1].elementos.length!=0; else noMaterial">
+            <ng-container *ngIf="propuestas[1].elementos !=null && propuestas[1].elementos.length!=0">
                 <ng-container *ngFor="let item of propuestas[1].elementos">
                     <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
                               *ngIf="propuestas[1].controles[item.EsValido - 1]">
@@ -78,12 +70,6 @@
                     </ion-item>
                 </ng-container>
             </ng-container>
-            <ng-template #noMaterial>
-                <ion-item class="ion-no-padding">
-                    <ion-label>No hay material, Quieres crear un nuevo material?</ion-label>
-                    <ion-button [routerLink]="['/material/crear']">Crear nuevo material</ion-button>
-                </ion-item>
-            </ng-template>
         </mat-expansion-panel>
 
         <!-- PUNTOS -->
