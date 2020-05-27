@@ -15,17 +15,12 @@ import {UsuarioService} from '../shared/services/usuario.service';
 import {Nota} from '../shared/models/nota';
 import {NotaService} from '../shared/services/nota.service';
 
-class Puntos {
-}
-
 @Component({
     selector: 'app-home',
     templateUrl: './home.page.html',
     styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-    public puntos: Puntos[] = null;
-    public edificios: Edificio[] = null;
     public idx = -1;
     public idxPlanta = -1;
     public selectedEstancia: Estancia = null;
@@ -37,12 +32,6 @@ export class HomePage implements OnInit {
     @ViewChild(MapaPickerComponent)
     public picker: MapaPickerComponent;
 
-    alertOpts: any = {
-        header: 'Listado de edificios',
-        cssClass: 'larger-alert'
-    };
-
-
     constructor(private menu: MenuController,
                 private  autenticacionService: AutenticacionService,
                 protected puntoService: PuntoService,
@@ -51,17 +40,10 @@ export class HomePage implements OnInit {
                 protected notaService: NotaService) {
         this.autenticacionService.estaAutenticado();
         // this.menu.open();
-        this.puntoService.getPunto().subscribe(p => {
-            this.puntos = p;
-        });
-        this.edificioService.getEdificio().subscribe(e => {
-            this.edificios = e;
-        });
-
         this.usuarioService.getLoggedUser().subscribe(usuario => {
             this.autenticacionService.subject.next(usuario);
         });
-        
+
         this.notaService.obtenerTodasNotas().subscribe(nota => {
             this.notaInfo = nota[nota.length - 1];
         });
@@ -71,31 +53,6 @@ export class HomePage implements OnInit {
         this.idx = null;
         this.idxPlanta = null;
         this.selectedEstancia = null;
-    }
-
-    changeEdificio(idx: number) {
-        this.idxPlanta = null;
-        this.mapa.setUpMap(this.edificios[idx], this.idxPlanta);
-    }
-
-    changePlanta(idxPlanta: any) {
-        this.mapa.setUpMap(this.edificios[this.idx], idxPlanta);
-    }
-
-    sortedPlantas(plantas: Planta[]) {
-        return plantas.sort((a, b) => {
-            return a.Planta - b.Planta;
-        });
-    }
-
-    printSelected(estancia: Estancia) {
-        console.log(estancia);
-        this.selectedEstancia = estancia;
-        this.picker.setZone(estancia.Latitud, estancia.Longitud);
-    }
-
-    printCoord(coord: L.LatLng) {
-        console.log(coord);
     }
 
     ionViewWillEnter() {
