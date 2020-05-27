@@ -15,16 +15,13 @@ import {UsuarioService} from '../shared/services/usuario.service';
 import {Nota} from '../shared/models/nota';
 import {NotaService} from '../shared/services/nota.service';
 
-class Puntos {
-}
-
 @Component({
     selector: 'app-home',
     templateUrl: './home.page.html',
     styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-    public puntos: Puntos[] = null;
+    public puntos = [];
     public edificios: Edificio[] = null;
     public idx = -1;
     public idxPlanta = -1;
