@@ -30,7 +30,7 @@ export class IniciojuegoPage implements OnInit {
         // using the injected ModalController this page
         // can "dismiss" itself and optionally pass back data
         this.modalCtrl.dismiss({
-            'dismissed': true
+            dismissed: true
         });
     }
 
@@ -38,9 +38,9 @@ export class IniciojuegoPage implements OnInit {
         // using the injected ModalController this page
         // can "dismiss" itself and optionally pass back data
         this.modalCtrl.dismiss({
-            'dismissed': true
+            dismissed: true
         });
-        this.route.navigate(['/rankingjuego']);
+        this.route.navigate(['/juego/ranking']);
     }
 
 }

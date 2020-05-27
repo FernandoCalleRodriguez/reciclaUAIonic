@@ -1,18 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {AutenticacionService} from '../../../shared/services/autenticacion.service';
-import {UsuarioService} from '../../../shared/services/usuario.service';
-import {Usuario} from '../../../shared/models/usuario';
-import {JuegoService} from '../../../shared/services/juego.service';
-import {Juego} from '../../../shared/models/juego';
-import {NivelService} from '../../../shared/services/nivel.service';
-import {ItemService} from '../../../shared/services/item.service';
-import {Nivel} from '../../../shared/models/nivel';
-import {Item} from '../../../shared/models/item';
-import {TipoContenedor} from '../../../shared/models/contenedor';
+import {AutenticacionService} from '../../shared/services/autenticacion.service';
+import {UsuarioService} from '../../shared/services/usuario.service';
+import {Usuario} from '../../shared/models/usuario';
+import {JuegoService} from '../../shared/services/juego.service';
+import {Juego} from '../../shared/models/juego';
+import {NivelService} from '../../shared/services/nivel.service';
+import {ItemService} from '../../shared/services/item.service';
+import {Nivel} from '../../shared/models/nivel';
+import {Item} from '../../shared/models/item';
+import {TipoContenedor} from '../../shared/models/contenedor';
 import {Router} from '@angular/router';
-import {ConfiguracionService} from '../../../shared/services/configuracion.service';
+import {ConfiguracionService} from '../../shared/services/configuracion.service';
 import {AlertController, ModalController, NavController} from '@ionic/angular';
-import {IniciojuegoPage} from '../../iniciojuego/iniciojuego.page';
+import {IniciojuegoPage} from '../iniciojuego/iniciojuego.page';
 
 @Component({
     selector: 'app-juego',
@@ -63,19 +63,28 @@ export class JuegoPage implements OnInit {
     }
 
     obtenerNivel() {
-        if (this.juego.Finalizado) {
-            this.isInvalidA = true;
-            this.isInvalidV = true;
-            this.isInvalidAz = true;
-            this.isInvalidG = true;
-        }
-
 
         this.nivelService.getNiveles().subscribe(niveles => {
             this.niveles = niveles;
-            this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
-            console.log(this.nivelActual);
-            this.obtenerItem(this.nivelActual.Id);
+            if (this.juego.Finalizado) {
+                this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual + 1);
+                if (this.nivelActual != null) {
+                    this.juego.NivelActual = this.nivelActual.Numero;
+                    this.juego.Finalizado = false;
+                    this.juegoService.ModificarJuego(this.juego).subscribe( result => {
+                        console.log(result);
+                    });
+                } else {
+                    this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
+                }
+                this.obtenerItem(this.nivelActual.Id);
+
+            } else {
+
+                this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
+                this.obtenerItem(this.nivelActual.Id);
+
+            }
         });
 
 
@@ -87,7 +96,13 @@ export class JuegoPage implements OnInit {
             this.items = items;
             console.log(items);
             this.itemActual = items[this.juego.ItemActual];
-            console.log(this.itemActual);
+            this.itemService.GetImage(this.itemActual.Id, this.itemActual.Imagen).subscribe(res => {
+                if (res != null) {
+                    this.itemActual.Imagen = 'data:image/bmp;base64,' + res;
+                } else {
+                    this.itemActual.Imagen = '';
+                }
+            });
             this.presentModal();
 
         });
@@ -98,7 +113,6 @@ export class JuegoPage implements OnInit {
         this.usuarioService.getLoggedUser().subscribe(usuario => {
             this.usuario = usuario;
 
-            console.log(this.usuario.Id);
             this.juegoService.obtenerJuegoPorUsuario(this.usuario.Id).subscribe(result => {
                 if (result == null) {
                     this.juego = {
@@ -107,7 +121,6 @@ export class JuegoPage implements OnInit {
                     };
                     this.juegoService.CrearJuego(this.juego).subscribe(juego => {
                         this.juego = juego;
-                        console.log(this.juego);
                         this.obtenerNivel();
 
                     });
@@ -122,10 +135,8 @@ export class JuegoPage implements OnInit {
     enviarRespuesta(tipo: number) {
 
         this.juegoService.SiguienteNivel(tipo, this.juego).subscribe(result => {
-            console.log(result);
             this.juego = result;
             if (this.juego.IntentosItemActual > 1) {
-                console.log('fallo');
                 this.config.presentToast('Respuesta incorrecta', 'danger');
 
                 if (tipo === 1) {
@@ -160,10 +171,8 @@ export class JuegoPage implements OnInit {
 
 
     doRefresh(event) {
-        console.log('Begin async operation');
 
         setTimeout(() => {
-            console.log('Async operation has ended');
             event.target.complete();
         }, 2000);
     }

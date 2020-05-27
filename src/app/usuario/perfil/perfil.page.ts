@@ -80,7 +80,8 @@ export class PerfilPage implements OnInit {
         const popover = await this.popoverController.create({
             component: PopoverComponent,
             event: ev,
-            translucent: true
+            translucent: true,
+            cssClass: 'larger-alert'
         });
 
         return await popover.present();

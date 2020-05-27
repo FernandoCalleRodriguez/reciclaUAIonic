@@ -82,7 +82,7 @@
                 Ir al ranking
             </ion-button>
         </ion-item>
-        <ion-item [routerLink]="['/rankingjuego']" lines="none">
+        <ion-item [routerLink]="['/juego/ranking']" lines="none">
             <ion-icon name="trophy"></ion-icon>
             <ion-button fill="clear" style="color:black">
                 Ir al ranking del juego
@@ -96,11 +96,13 @@
             <ion-card-subtitle>{{notaInfo?.Titulo}}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-            {{notaInfo?.Cuerpo.substring(0,50)}}... <a style="color:white; font-weight: bold" routerLink="/notainfodetalle/{{notaInfo?.Id}}">[Leer más]</a>
+            {{notaInfo?.Cuerpo.substring(0, 50)}}... <a style="color:white; font-weight: bold"
+                                                        routerLink="/notainfodetalle/{{notaInfo?.Id}}">[Leer más]</a>
         </ion-card-content>
         <ion-item lines="none">
             <ion-icon name="reader"></ion-icon>
-            <ion-button fill="clear" [routerLink]="['/notainfo']" style="color:black">Ir a notas informativas</ion-button>
+            <ion-button fill="clear" [routerLink]="['/notainfo']" style="color:black">Ir a notas informativas
+            </ion-button>
         </ion-item>
     </ion-card>
 </ion-content>
