@@ -27,6 +27,7 @@ export class MaterialListPage implements OnInit {
 
     materiales: Material[] = [];
     materialesCopy: Material[] = [];
+    public term: string = null;
 
     ngOnInit() {
         this.materialService.getMaterial().subscribe(res => {
@@ -49,6 +50,7 @@ export class MaterialListPage implements OnInit {
 
     buscarMaterial(e) {
         var value = e.detail.value.toLowerCase();
+        this.term = value;
         this.materiales = this.materialesCopy;
         this.materiales = this.materiales.filter(i => i.Nombre.trim().toLowerCase().includes(value.trim()));
     }

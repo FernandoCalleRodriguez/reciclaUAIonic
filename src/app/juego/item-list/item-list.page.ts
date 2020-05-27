@@ -17,6 +17,7 @@ export class ItemListPage implements OnInit {
     items: Item[] = [];
     itemsCopy: Item[] = [];
     userId: number;
+    public term = null;
 
     constructor(private alertController: AlertController,
                 private tipoContenedorService: TipoContenedorService,
@@ -67,6 +68,7 @@ export class ItemListPage implements OnInit {
 
     buscarItem(e) {
         var value = e.detail.value.toLowerCase();
+        this.term = value;
         this.items = this.itemsCopy;
         this.items = this.items.filter(i => i.Nombre.toLowerCase().includes(value) || i.Descripcion.toLowerCase().includes(value) || i.MaterialItem.Nombre.toLowerCase().includes(value));
 
