@@ -11,6 +11,7 @@ import {Material} from '../../shared/models/material';
 import {MaterialService} from '../../shared/services/materiel.service';
 import {ItemService} from '../../shared/services/item.service';
 import {PuntoService} from '../../shared/services/punto.service';
+import {DudaService} from '../../shared/services/duda.service';
 
 @Component({
     selector: 'app-perfil',
@@ -24,6 +25,7 @@ export class PerfilPage implements OnInit {
     posicion: number;
     propuestas = 0;
     acciones = 0;
+    dudas = 0;
 
     constructor(private autenticacionService: AutenticacionService,
                 private usuarioService: UsuarioService,
@@ -33,7 +35,8 @@ export class PerfilPage implements OnInit {
                 private accionwebService: AccionwebService,
                 private materialService: MaterialService,
                 private itemService: ItemService,
-                private puntoService: PuntoService) {
+                private puntoService: PuntoService,
+                private dudaService: DudaService) {
         if (this.autenticacionService.isLogged()) {
             this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(result => {
                 this.usuario = result;
@@ -60,6 +63,11 @@ export class PerfilPage implements OnInit {
                 this.puntoService.getPuntoByUsuario(result.Id).subscribe(puntos => {
                     if (puntos != null) {
                         this.propuestas = puntos.length;
+                    }
+                });
+                this.dudaService.getDudasByUsuario().subscribe(dudas => {
+                    if (dudas != null) {
+                        this.dudas = dudas.length;
                     }
                 });
 

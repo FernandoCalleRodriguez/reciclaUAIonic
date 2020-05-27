@@ -20,10 +20,8 @@ export class DudasUsuarioPage implements OnInit {
     ionViewWillEnter() {
         this.usuarioService.getLoggedUser().subscribe(u => {
             this.usuario = u;
-            this.dudaService.getAllDudas().subscribe(d => {
-                this.dudas = d.filter(duda => {
-                    return duda.UsuarioDuda.Id == this.usuario.Id;
-                });
+            this.dudaService.getDudasByUsuario().subscribe(d => {
+                this.dudas = d;
             });
         });
     }
