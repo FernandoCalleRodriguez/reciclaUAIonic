@@ -86,8 +86,8 @@
 
             <ng-container *ngFor="let item of propuestas[2].elementos">
                 <ion-item class="ion-no-padding" [ngClass]="estados[item.EsValido - 1].Color + '-border'"
-                          *ngIf="propuestas[2].controles[item.EsValido - 1]" routerLink="/punto/{{item.Id}}" detail>
-                    <ion-label class="ion-text-wrap">ID: {{ item.Id }}. Estancia: {{ item.EstanciaPunto.Id }}</ion-label>
+                          *ngIf="propuestas[2].controles[item.EsValido - 1]" detail>
+                    <ion-label class="ion-text-wrap" routerLink="/punto/{{item.Id}}">ID: {{ item.Id }}. Estancia: {{ item.EstanciaPunto.Id }}</ion-label>
                     <ion-item-group>
                         <ion-button *ngIf="item.EsValido ==2" slot="end" color="success"
                                     [routerLink]="['/punto', item.Id, 'editar']">Editar
