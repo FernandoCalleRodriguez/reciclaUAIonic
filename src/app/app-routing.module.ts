@@ -156,6 +156,11 @@ const routes: Routes = [
   {
     path: 'puntos-cercanos',
     loadChildren: () => import('./puntos-cercanos/puntos-cercanos.module').then( m => m.PuntosCercanosPageModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full'
   }
 
 ];
