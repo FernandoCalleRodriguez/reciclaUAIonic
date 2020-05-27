@@ -91,6 +91,6 @@ export class MaterialListPage implements OnInit {
                 materialId: material.Id
             }
         };
-        this.navCtrl.navigateForward(['donde-reciclar'], navigationExtras);
+        this.navCtrl.navigateForward(['/donde-reciclar'], navigationExtras);
     }
 }
