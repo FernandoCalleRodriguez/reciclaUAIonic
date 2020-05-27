@@ -9,14 +9,25 @@
 
 <ion-content>
 
-  <ion-card color="primary" >
-    <ion-card-header>
+  <ion-card>
+    <ion-card-header color="primary">
       <ion-card-title>{{nota?.Titulo}}</ion-card-title>
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content class="ion-text-justify ion-margin-top">
       {{nota?.Cuerpo}}
     </ion-card-content>
+
+    <ion-label>
+      <p class="ion-text-right ion-hide-sm-up mr-1 mb-1">
+        <small>
+           {{ nota?.Fecha | date: "HH:mm, dd/MM/yyyy"}}
+        </small>
+      </p>
+      <p class="ion-text-right ion-hide-sm-down mr-1 mb-1">
+        {{ nota?.Fecha | date: "HH:mm, dd/MM/yyyy"}}
+      </p>
+    </ion-label>
   </ion-card>
 
 </ion-content>
