@@ -118,7 +118,7 @@ export class AppComponent implements OnInit {
     ionViewWillEnter() {
         // this.notify();
         this.usuarioService.obtenerUsuarioPorId(this.autenticacionService.getID(), 'web').subscribe(u => {
-            console.log('prueba');
+            // console.log('prueba');
             this.usuario = u;
         }, error => {
             this.autenticacionService.Logout();

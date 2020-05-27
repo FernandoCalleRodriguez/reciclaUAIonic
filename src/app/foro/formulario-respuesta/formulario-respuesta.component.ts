@@ -71,7 +71,7 @@ export class FormularioRespuestaComponent implements OnInit {
             this.r.Cuerpo = this.cuerpo.value;
             this.r.Duda_oid = this.duda.Id;
             this.r.Usuario_oid = this.usuario.Id;
-            console.log(this.r);
+            // console.log(this.r);
             if (this.respuestaId) {
                 this.respuestaService.modificar(this.r).subscribe(data => {
                     this.output.emit(data);

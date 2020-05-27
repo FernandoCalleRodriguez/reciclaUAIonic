@@ -25,7 +25,7 @@ export class ListaDudasPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log('init');
+    // console.log('init');
     this.temas = this.temaService.getTemas();
     this.temas.forEach(tema => {
       this.dudas.push([]);

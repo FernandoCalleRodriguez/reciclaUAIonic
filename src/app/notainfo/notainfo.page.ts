@@ -43,7 +43,7 @@ export class NotainfoPage {
   }
 
   identificarNotasLeidas(texto: string) {
-    console.log('Valor de texto ' + texto);
+    // console.log('Valor de texto ' + texto);
     if ( texto != null ) {
       this.notaService.obtenerNotasPorTitulo(texto).subscribe( res => {
         this.notas = res;
@@ -51,14 +51,14 @@ export class NotainfoPage {
           this.notaService.obtenerNotasStorage().then( res2 => {
             this.notasS = res2;
             if (this.notasS != null) {
-              console.log('Hay notas en el localSotrage');
+              // console.log('Hay notas en el localSotrage');
               this.notasNoLeidas = [];
               this.notasLeidas = [];
               // Se identifican las notas leidas
               for (let i = 0; i < this.notas.length ; i++) {
                 for (let j = 0; j < this.notasS.length ; j++) {
                   if (this.notas[i].Id === this.notasS[j].Id) {
-                    console.log('Ya leido' + this.notas[i].Id);
+                    // console.log('Ya leido' + this.notas[i].Id);
                     this.notasLeidas.push(this.notas[i]);
                   }
                 }
@@ -66,13 +66,13 @@ export class NotainfoPage {
               this.notasNoLeidas = this.notas.filter(item => this.notasLeidas.indexOf(item) < 0);
               this.nNoLeidas  = this.notasNoLeidas.length;
               this.nLeidas = this.notasLeidas.length;
-              console.log('Leidas ' + this.notasLeidas.length);
-              console.log('No leidas ' + this.notasNoLeidas.length);
+              // console.log('Leidas ' + this.notasLeidas.length);
+              // console.log('No leidas ' + this.notasNoLeidas.length);
             } else {
               this.notasNoLeidas = this.notas;
               this.nNoLeidas  = this.notasNoLeidas.length;
               this.nLeidas  = 0;
-              console.log('No hay notas en storage');
+              // console.log('No hay notas en storage');
               this.notaService.actualizarNotificacionesNotas(this.nNoLeidas);
             }
           });
@@ -91,14 +91,14 @@ export class NotainfoPage {
           this.notaService.obtenerNotasStorage().then( res2 => {
             this.notasS = res2;
             if (this.notasS != null) {
-              console.log('Hay notas en el localSotrage');
+              // console.log('Hay notas en el localSotrage');
               this.notasNoLeidas = this.notas;
               this.notasLeidas = [];
               // Se identifican las notas leidas
               for (let i = 0; i < this.notas.length ; i++) {
                 for (let j = 0; j < this.notasS.length ; j++) {
                   if (this.notas[i].Id === this.notasS[j].Id) {
-                    console.log('Ya leido' + this.notas[i].Id);
+                    // console.log('Ya leido' + this.notas[i].Id);
                     this.notasLeidas.push(this.notas[i]);
                   }
                 }
@@ -106,14 +106,14 @@ export class NotainfoPage {
               this.notasNoLeidas = this.notas.filter(item => this.notasLeidas.indexOf(item) < 0);
               this.nNoLeidas  = this.notasNoLeidas.length;
               this.nLeidas = this.notasLeidas.length;
-              console.log('Leidas ' + this.notasLeidas.length);
-              console.log('No leidas ' + this.notasNoLeidas.length);
+              // console.log('Leidas ' + this.notasLeidas.length);
+              // console.log('No leidas ' + this.notasNoLeidas.length);
               this.notaService.actualizarNotificacionesNotas(this.nNoLeidas);
             } else {
               this.notasNoLeidas = this.notas;
               this.nLeidas  = 0;
               this.nNoLeidas  = this.notasNoLeidas.length;
-              console.log('No hay notas en storage');
+              // console.log('No hay notas en storage');
               this.notaService.actualizarNotificacionesNotas(this.nNoLeidas);
             }
           });
@@ -126,7 +126,7 @@ export class NotainfoPage {
     this.filtro = event.target.value;
     if (this.filtro !== '') {
       this.identificarNotasLeidas(this.filtro);
-      console.log('Se activa la barra' + event.target.value + '.');
+      // console.log('Se activa la barra' + event.target.value + '.');
     } else {
       this.identificarNotasLeidas(null);
     }

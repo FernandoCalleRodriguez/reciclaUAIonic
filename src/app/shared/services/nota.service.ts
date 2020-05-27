@@ -36,12 +36,12 @@ export class NotaService {
 
   public agregarNotaStorage(nota: Nota) {
     this.obtenerNotasStorage().then( val => {
-      console.log('Se obtienen las notas del Storage ' + val);
+      // console.log('Se obtienen las notas del Storage ' + val);
       if (val == null) {
-        console.log('Se entra al caso storage vacio');
+        // console.log('Se entra al caso storage vacio');
         const nuevanota: Nota[] = [nota];
         this.storage.set('notasLeidas', nuevanota);
-        console.log('Case NEW - Storage listo');
+        // console.log('Case NEW - Storage listo');
       } else {
         this.notas = val;
         let i;
@@ -54,9 +54,9 @@ export class NotaService {
         if (check === false) {
           this.notas.push(nota);
           this.storage.set('notasLeidas', this.notas);
-          console.log('If ADD -Storage listo' + this.notas.length);
+          // console.log('If ADD -Storage listo' + this.notas.length);
         } else {
-          console.log('La nota ya esta en el storage');
+          // console.log('La nota ya esta en el storage');
         }
       }
     });
@@ -64,11 +64,11 @@ export class NotaService {
 
   public obtenerNotasStorage(): Promise<Nota[]> {
     return this.storage.get('notasLeidas');
-    console.log('Se obtienen las notas del storage');
+    // console.log('Se obtienen las notas del storage');
   }
 
   public actualizarNotificacionesNotas(n: number ) {
-    console.log('Se entra a actualizar')
+    // console.log('Se entra a actualizar')
     // if (n === undefined) {
     //   this.nNotificacionesNotas$.next(0);
     //   console.log('Se actualiza con 0');

@@ -15,7 +15,7 @@ export class RankingPage implements OnInit {
         this.usuarioService.obtenerRanking().subscribe(result => {
             this.usuarios = result;
             this.usuariosAux = result;
-            console.log(this.usuarios);
+            // console.log(this.usuarios);
         });
     }
 
@@ -31,7 +31,7 @@ export class RankingPage implements OnInit {
                 }
             });
             this.usuariosAux = usuariosFilter;
-            console.log(this.usuariosAux);
+            // console.log(this.usuariosAux);
         } else {
             this.usuariosAux = this.usuarios;
         }

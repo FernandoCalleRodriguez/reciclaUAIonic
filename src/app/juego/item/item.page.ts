@@ -46,7 +46,7 @@ export class ItemPage implements OnInit {
             this.materiales = res;
         });
         const id = this.activeRouter.snapshot.paramMap.get('id');
-        console.log(id,"id")
+        // console.log(id,"id")
         if (id) {
             this.title = "Modificar item"
             this.isEdit = true;
@@ -112,7 +112,7 @@ export class ItemPage implements OnInit {
             this.item.Imagen = imageData;
         }, (err) => {
             // Handle error
-            console.log('Camera issue: ' + err);
+            // console.log('Camera issue: ' + err);
         });
         ;
     }
@@ -124,7 +124,7 @@ export class ItemPage implements OnInit {
             this.item.Imagen = imageData;
         }, (err) => {
             // Handle error
-            console.log('Camera issue: ' + err);
+            // console.log('Camera issue: ' + err);
         });
         ;
     }

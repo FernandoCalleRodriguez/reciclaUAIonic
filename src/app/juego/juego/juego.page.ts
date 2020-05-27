@@ -72,7 +72,7 @@ export class JuegoPage implements OnInit {
                     this.juego.NivelActual = this.nivelActual.Numero;
                     this.juego.Finalizado = false;
                     this.juegoService.ModificarJuego(this.juego).subscribe( result => {
-                        console.log(result);
+                        // console.log(result);
                     });
                 } else {
                     this.nivelActual = this.niveles.find(n => n.Numero == this.juego.NivelActual);
@@ -94,7 +94,7 @@ export class JuegoPage implements OnInit {
 
         this.itemService.BuscarItemsPorNivel(nivel).subscribe(items => {
             this.items = items;
-            console.log(items);
+            // console.log(items);
             this.itemActual = items[this.juego.ItemActual];
             this.itemService.GetImage(this.itemActual.Id, this.itemActual.Imagen).subscribe(res => {
                 if (res != null) {

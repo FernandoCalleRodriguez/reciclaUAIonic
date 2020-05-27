@@ -17,7 +17,7 @@ export class UsuarioService {
 
 
     CrearUsuario(usuario: Usuario, tipo: string): Observable<Usuario> {
-        console.log(usuario);
+        // console.log(usuario);
         return this.http.post<Usuario>(this.SERVER + 'UsuarioWebNoRegistrado/Crear', usuario);
 
     }

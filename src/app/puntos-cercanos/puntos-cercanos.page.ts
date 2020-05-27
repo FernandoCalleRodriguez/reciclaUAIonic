@@ -42,7 +42,7 @@ export class PuntosCercanosPage implements OnInit {
                 });
             }).catch((error) => {
                 this.puntos = null;
-                console.log('Error getting location', error);
+                // console.log('Error getting location', error);
             });
         }
     }

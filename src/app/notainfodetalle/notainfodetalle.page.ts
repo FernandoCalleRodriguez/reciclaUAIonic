@@ -26,10 +26,10 @@ export class NotainfodetallePage {
               ) {
     this.autenticationService.estaAutenticado();
     this.id = Number(this.activatedRouted.snapshot.paramMap.get('id'));
-    console.log('Se envia el siguiente id ' + this.id);
+    // console.log('Se envia el siguiente id ' + this.id);
     this.notaService.obtenerNotaPorId(this.id).subscribe((res) => {
       this.nota = res;
-      console.log('Se obtiene la siguiente nota ' + this.nota.Id);
+      // console.log('Se obtiene la siguiente nota ' + this.nota.Id);
       this.notaService.agregarNotaStorage(this.nota);
     });
   }

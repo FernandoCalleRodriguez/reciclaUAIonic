@@ -53,7 +53,7 @@ export class MapaPuntosComponent implements OnInit {
         this.puntos = puntos;
         this.cleanPoints();
         this.setUpPoints();
-        console.log('setup', this.puntos);
+        // console.log('setup', this.puntos);
     }
 
     cleanPoints() {
@@ -108,7 +108,7 @@ export class MapaPuntosComponent implements OnInit {
             this.setUpControls();
         }
         this.mapReadyChange.emit(true);
-        console.log('ready');
+        // console.log('ready');
     }
 
     readyMap() {

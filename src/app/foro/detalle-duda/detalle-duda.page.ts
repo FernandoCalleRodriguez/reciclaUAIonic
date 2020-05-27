@@ -72,7 +72,7 @@ export class DetalleDudaPage implements OnInit {
             r.Cuerpo = this.cuerpo.value;
             r.Duda_oid = this.duda.Id;
             r.Usuario_oid = this.usuario.Id;
-            console.log(r);
+            // console.log(r);
             this.respuestaService.crear(r).subscribe(data => {
                 if (!this.respuestas) {
                     this.respuestas = [];

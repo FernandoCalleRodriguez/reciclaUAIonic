@@ -38,8 +38,8 @@ export class LoginPage implements OnInit {
             Pass: this.formularioLogin.value.pwd,
 
         };
-        console.log(this.usuario.Email);
-        console.log(this.usuario.Pass);
+        // console.log(this.usuario.Email);
+        // console.log(this.usuario.Pass);
 
         this.autenticacionService.Login(this.usuario).subscribe(
             data => {

@@ -68,10 +68,10 @@ export class ReciclajePage implements OnInit {
                 this.limit = 2;
             }
             this.puntoService.BuscarPuntosCercanos(res.coords.latitude, res.coords.longitude, this.limit).subscribe(r => {
-                console.log(r);
+                // console.log(r);
             });
         }).catch((error) => {
-            console.log('Error getting location', error);
+            // console.log('Error getting location', error);
         });
     }
 
@@ -91,7 +91,7 @@ export class ReciclajePage implements OnInit {
                 // console.log(r);
             });
         }).catch((error) => {
-            console.log('Error getting location', error);
+            // console.log('Error getting location', error);
         });
     }
 
