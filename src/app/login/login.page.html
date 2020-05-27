@@ -11,6 +11,7 @@
                 <ion-item lines="full">
                     <ion-label position="floating">Correo Electrónico</ion-label>
                     <ion-input type="email"
+                               id="email"
                                formControlName="email"></ion-input>
                 </ion-item>
                 <ion-item class="label-row"
@@ -22,6 +23,7 @@
                 <ion-item lines="full">
                     <ion-label position="floating">Contraseña</ion-label>
                     <ion-input type="password"
+                               id="pass"
                                formControlName="pwd"></ion-input>
                 </ion-item>
                 <ion-item class="label-row"
@@ -45,7 +47,7 @@
                         </ion-row>
                     </ion-col>
                     <ion-col class="ion-hide-sm-down">
-                        <ion-button [disabled]="formularioLogin.invalid" type="submit" color="primary" expand="block">Inicia sesión</ion-button>
+                        <ion-button [disabled]="formularioLogin.invalid" type="submit" color="primary" expand="block" id="btnlogin">Inicia sesión</ion-button>
                     </ion-col>
                 </ion-row>
             </form>

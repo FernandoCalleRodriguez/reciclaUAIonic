@@ -4,11 +4,11 @@
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>Home</ion-title>
+        <title id="Inicio">Home</title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
 
 
     <ion-card color="primary">
@@ -84,11 +84,13 @@
             <ion-card-subtitle>{{notaInfo?.Titulo}}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-            {{notaInfo?.Cuerpo.substring(0,50)}}... <a style="color:white; font-weight: bold" routerLink="/notainfodetalle/{{notaInfo?.Id}}">[Leer más]</a>
+            {{notaInfo?.Cuerpo.substring(0, 50)}}... <a style="color:white; font-weight: bold"
+                                                        routerLink="/notainfodetalle/{{notaInfo?.Id}}">[Leer más]</a>
         </ion-card-content>
         <ion-item lines="none">
             <ion-icon name="reader"></ion-icon>
-            <ion-button fill="clear" [routerLink]="['/notainfo']" style="color:black">Ir a notas informativas</ion-button>
+            <ion-button fill="clear" [routerLink]="['/notainfo']" style="color:black">Ir a notas informativas
+            </ion-button>
         </ion-item>
     </ion-card>
 </ion-content>
