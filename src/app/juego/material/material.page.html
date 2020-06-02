@@ -30,7 +30,7 @@
 
         <ion-item lines="full">
           <ion-label position="floating">Contenedor</ion-label>
-          <ion-select formControlName="contenedor" interface="action-sheet">
+          <ion-select formControlName="contenedor" interface="action-sheet" mode="ios">
             <ion-select-option *ngFor="let contenedor of contenedores" value="{{contenedor.Id}}">
               {{contenedor.Tipo}}
             </ion-select-option>
