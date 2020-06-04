@@ -1,5 +1,8 @@
 <ion-header>
     <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="" defaultHref="home"></ion-back-button>
+        </ion-buttons>
         <ion-title>¿Dónde reciclar?</ion-title>
     </ion-toolbar>
 </ion-header>
@@ -39,7 +42,7 @@
 
     <ng-container *ngIf="materialSelected && selectedMaterial!=null">
         <ion-grid>
-            <ion-row  class="ion-align-items-center">
+            <ion-row class="ion-align-items-center">
                 <ion-col size="12" size-md="4">
                     <ion-label class="ion-text-wrap">Número de puntos de reciclaje ({{limit}})</ion-label>
                 </ion-col>
