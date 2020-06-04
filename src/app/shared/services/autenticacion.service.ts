@@ -10,7 +10,7 @@ import {map} from 'rxjs/operators';
 })
 export class AutenticacionService {
 
-    SERVER = 'http://localhost:16209/api/';
+    SERVER = 'http://reciclaua.azurewebsites.net/api/';
     private token: string;
     usuario: Usuario;
 
