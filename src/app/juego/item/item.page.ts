@@ -17,7 +17,7 @@ import {EstadoEnum} from '../../shared/models/estado';
     styleUrls: ['./item.page.scss'],
 })
 export class ItemPage implements OnInit {
-    title = "Crear item"
+    title = "Crear ítem"
     selectedImg: any;
     itemForm: FormGroup;
     item: Item;
@@ -49,7 +49,7 @@ export class ItemPage implements OnInit {
         const id = this.activeRouter.snapshot.paramMap.get('id');
         // console.log(id,"id")
         if (id) {
-            this.title = "Modificar item"
+            this.title = "Modificar ítem"
             this.isEdit = true;
             this.itemService.getById(parseInt(id, 10)).subscribe(res => {
                 if (res == null) return;
