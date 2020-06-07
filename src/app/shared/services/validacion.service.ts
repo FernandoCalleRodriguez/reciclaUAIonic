@@ -10,7 +10,7 @@ import {Estado, EstadoEnum} from '../models/estado';
   providedIn: 'root'
 })
 export class ValidacionService {
-  private SERVER = 'http://reciclaua.azurewebsites.net/api/';
+  private SERVER = 'https://reciclaua.azurewebsites.net/api/';
   private TOKEN = localStorage.getItem('ACCESS_TOKEN');
   private headers: HttpHeaders = new HttpHeaders({Authorization: this.TOKEN});
 

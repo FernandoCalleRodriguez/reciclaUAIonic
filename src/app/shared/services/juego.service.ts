@@ -11,7 +11,7 @@ import {AutenticacionService} from './autenticacion.service';
 })
 export class JuegoService {
 
-    SERVER = 'http://reciclaua.azurewebsites.net/api/';
+    SERVER = 'https://reciclaua.azurewebsites.net/api/';
 
     private TOKEN = localStorage.getItem('ACCESS_TOKEN');
     private headers: HttpHeaders = new HttpHeaders({Authorization: this.TOKEN});

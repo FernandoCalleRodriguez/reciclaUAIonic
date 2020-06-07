@@ -9,7 +9,7 @@ import {Punto} from '../models/punto';
   providedIn: 'root'
 })
 export class EdificioService {
-  SERVER = 'http://reciclaua.azurewebsites.net/api/Edificio/';
+  SERVER = 'https://reciclaua.azurewebsites.net/api/Edificio/';
   private token = localStorage.getItem('ACCESS_TOKEN');
   private headers: HttpHeaders = new HttpHeaders({Authorization: this.token});
 

@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
     providedIn: 'root'
 })
 export class UsuarioService {
-    SERVER = 'http://reciclaua.azurewebsites.net/api/';
+    SERVER = 'https://reciclaua.azurewebsites.net/api/';
 
     constructor(private http: HttpClient,
                 private autenticacionService: AutenticacionService,) {
